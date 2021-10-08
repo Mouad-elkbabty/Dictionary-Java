@@ -1,3 +1,13 @@
+# Les ZORACLES #
+
+* Maxime Potyelberg
+* Quentin Rotolo
+* Thomas Grégoire
+* Quentin Grange
+* Jasmine Brossard
+* Souleymen Ouchane
+* Lucas Bolbènes
+
 ## Bienvenue sur le projet logiciel INF353
 
 Cette page est une ébauche de fichier README pour présenter le projet logiciel INF3 du groupe.
