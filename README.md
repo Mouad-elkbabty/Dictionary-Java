@@ -1,12 +1,12 @@
-# Les ZORACLES #
+# Shrine #
 
-* Maxime Potyelberg
-* Quentin Rotolo
-* Thomas Grégoire
-* Quentin Grange
-* Jasmine Brossard
-* Souleymen Ouchane
-* Lucas Bolbènes
+* Mouad ElKbabty
+* Gaétan Combe
+* Fabien Vial
+* Cyril Pigeyre
+* Célia Segura
+* Higo Medeiros
+* Valentin Deffaugt
 
 ## Bienvenue sur le projet logiciel INF353
 
