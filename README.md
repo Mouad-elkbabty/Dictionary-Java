@@ -40,6 +40,8 @@ Vous pouvez utiliser :
 
 Le lien ci dessus donne accès à une "cheat sheet", une anti-sèche du format MarkDown.
 
+<<<<<<< HEAD
+=======
 -------
 
 Bon projet logiciel
@@ -50,7 +52,10 @@ on recommence
 we love Mouad
 
 D'accord alors disons VIVE LES SHRINES MGL sauf geatan combe
+nouvelle pdp
+
 
 Why u dont like me :(
+
 
 
