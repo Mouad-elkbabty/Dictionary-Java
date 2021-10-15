@@ -45,3 +45,11 @@ Le lien ci dessus donne accès à une "cheat sheet", une anti-sèche du format M
 Bon projet logiciel
 ////// fini
 
+<<<<<<< HEAD
+=======
+ICI ON EST LES MEILLEURS
+
+Bravo à tous
+
+g commit x3
+>>>>>>> ec62f56d2b68eca83e54544da9e18d78590db99e

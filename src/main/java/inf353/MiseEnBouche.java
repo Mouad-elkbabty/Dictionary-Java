@@ -58,7 +58,7 @@ public class MiseEnBouche {
                 System.out.println("Le triangle est dégénéré");
                 break;
             default:
-                System.out.println("réponse inattendue");
+                System.out.println("Réponse inattendue");
                 break;
         }
     }
