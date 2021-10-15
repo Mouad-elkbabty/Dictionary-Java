@@ -11,6 +11,10 @@ import java.util.Arrays;
 
 public class DictionnaireNaifTest {
 
+    @Before
+    public void beStrong{
+        System.out.println("etre fore");
+    }
     @Test
     public void constructeurTest() {
         DictionnaireNaif dico1 = new DictionnaireNaif(1);
