@@ -21,6 +21,8 @@ public class MiseEnBouche {
      */
     public static int typeDeTriangle(float a, float b, float c) {
         // à implémenter
+		if(a==b && b==c)
+			return 2;
         return ERREUR;
     }
 
