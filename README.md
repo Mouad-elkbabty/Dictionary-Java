@@ -44,13 +44,13 @@ Le lien ci dessus donne accès à une "cheat sheet", une anti-sèche du format M
 
 Bon projet logiciel
 
-<<<<<<< HEAD
-
-
-
-=======
+-------
 ICI ON EST LES MEILLEURS
+
+
+LES BANANES POUR LA VIE!
+
 stp marche 
-<<<<<<< HEAD
 
 Mouad a tout cassé
+
