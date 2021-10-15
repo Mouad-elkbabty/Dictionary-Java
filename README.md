@@ -10,6 +10,8 @@
 
 ## Bienvenue sur le projet logiciel INF353
 
+![Floppa](https://i.imgur.com/sW754gk.jpg)
+
 Cette page est une ébauche de fichier README pour présenter le projet logiciel INF3 du groupe.
 
 Vos enseignants vous demandent d'utiliser cette page pour tenir le journal de groupe de votre activité de développement logiciel. 
