@@ -47,7 +47,10 @@ Bon projet logiciel
 <<<<<<< HEAD
 
 
-je suis d accord avec fabien 2
+
 =======
 ICI ON EST LES MEILLEURS
->>>>>>> e695fc4047f5f45f4d8871544cc6f9c52172e2dc
+stp marche 
+<<<<<<< HEAD
+
+
