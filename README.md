@@ -2,7 +2,7 @@
 
 * Mouad ElKbabty
 * Gaétan Combe
-* Fabien Vial
+* Le dieu incontesté ( aka Fabien)
 * Cyril Pigeyre
 * Célia Segura
 * Higo Medeiros
@@ -40,8 +40,7 @@ Vous pouvez utiliser :
 
 Le lien ci dessus donne accès à une "cheat sheet", une anti-sèche du format MarkDown.
 
-<<<<<<< HEAD
-=======
+
 -------
 
 Bon projet logiciel
@@ -49,11 +48,11 @@ Bon projet logiciel
 on recommence
 
 
-we love Mouad
 
-D'accord alors disons VIVE LES SHRINES MGL sauf geatan ¶
+
+D'accord alors disons VIVE LES SHRINES MGL.
 
 Why u dont like me :(
 
 
->>>>>>> 5634052c5a93c1c5b90fc6c9a3d07a1a51e1de9b
+
