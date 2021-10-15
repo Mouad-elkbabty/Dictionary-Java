@@ -43,13 +43,22 @@ Le lien ci dessus donne accès à une "cheat sheet", une anti-sèche du format M
 -------
 
 Bon projet logiciel
-////// fini
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 3228f3a1c701080b3ec78079d16b36e8146c0d4f
 =======
 ICI ON EST LES MEILLEURS
+stp marche 
+<<<<<<< HEAD
 
-Bravo à tous
 
+<<<<<<< HEAD
 g commit x3
 >>>>>>> ec62f56d2b68eca83e54544da9e18d78590db99e
+=======
+>>>>>>> 3228f3a1c701080b3ec78079d16b36e8146c0d4f
