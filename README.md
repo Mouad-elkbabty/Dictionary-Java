@@ -46,7 +46,11 @@ Bon projet logiciel
 
 on recommence
 
-D'accord alors disons VIVE LES SHRINES MGL
+
+we love Mouad
+
+D'accord alors disons VIVE LES SHRINES MGL sauf geatan
 
 Why u dont like me :(
+
 
