@@ -48,9 +48,12 @@ Bon projet logiciel
 on recommence
 
 
-
-
 D'accord alors disons VIVE LES SHRINES MGL.
+
+D'accord alors disons VIVE LES SHRINES MGL
+nouvelle pdp
+
+
 
 Why u dont like me :(
 
