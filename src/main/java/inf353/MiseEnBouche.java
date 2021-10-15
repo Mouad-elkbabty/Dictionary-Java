@@ -25,6 +25,8 @@ public class MiseEnBouche {
 			return 2;
 		if((a==b && a!=c) || (a==c && a!=b) || (b==c && a!=b))
 			return 1;
+		if(a!=b && b!=c && a!=c)
+			return 0;
         return ERREUR;
     }
 
