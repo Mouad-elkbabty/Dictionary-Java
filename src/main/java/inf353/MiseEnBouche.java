@@ -23,6 +23,8 @@ public class MiseEnBouche {
         // à implémenter
 		if(a==b && b==c)
 			return 2;
+		if((a==b && a!=c) || (a==c && a!=b) || (b==c && a!=b))
+			return 1;
         return ERREUR;
     }
 
