@@ -44,8 +44,5 @@ Le lien ci dessus donne accès à une "cheat sheet", une anti-sèche du format M
 
 Bon projet logiciel
 
-ICI ON EST LES MEILLEURS
+on recommence
 
-Bravo à tous
-
-g commit x3
