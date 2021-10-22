@@ -45,20 +45,17 @@ Le lien ci dessus donne accès à une "cheat sheet", une anti-sèche du format M
 
 -------
 
-Bon projet logiciel
+CHANGELOG 22/10/2021:
 
-on recommence
+Répartition:
+Matrice : 
+- sauver(Valentin)
+- val, incremente, affecte(Cyril,Gaétan)
+
+Lecteur sequentiel:
+- demarrer, finDeSequence(Mouad, Higo)
+- avancer, ElementCourant(Celia, Fabien)
 
 
-D'accord alors disons VIVE LES SHRINES MGL.
-
-D'accord alors disons VIVE LES SHRINES MGL
-nouvelle pdp
-
-
-
-Why u dont like me :(
-
-<h5> ◄♦☺ </h5>
 
 
