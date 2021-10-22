@@ -43,7 +43,7 @@ public class MatriceIndexNaive implements MatriceIndex {
      * @return       le nombre d'occurences du terme dans le document
      */
     public int val(int ndoc, int nterm) {
-        return 0;
+        return this.matrice[ndoc][nterm];
     }
 
     /**
@@ -52,7 +52,7 @@ public class MatriceIndexNaive implements MatriceIndex {
      * @param  nterm le numéro du terme
      */
     public void incremente(int ndoc, int nterm) {
-
+		this.matrice[ndoc][nterm] = this.matrice[ndoc][nterm] + 1;
     }
 
     /**
@@ -62,7 +62,7 @@ public class MatriceIndexNaive implements MatriceIndex {
      * @param val    la nouvelle valeur du nombre d'occurence
      */
     public void affecte(int ndoc, int nterm, int val) {
-
+		this.matrice[ndoc][nterm] = val;
     }
 
     
