@@ -46,11 +46,11 @@ Vous pouvez utiliser :
 
 ### Objectifs de la semaine et répartition
 
-## MatriceIndexNaive :
+## MatriceIndexNaive
 
 # Répartition
 
-- constructeurs - Valentin, Gaétan : A TESTER
+- constructeurs - Valentin, Gaétan : EN COURS
 - sauver() - Valentin, Gaétan, Cyril : EN COURS
 - val() - Gaétan, Cyril : A TESTER
 - incremente() - Gaétan, Cyril : A TESTER
@@ -60,16 +60,16 @@ Vous pouvez utiliser :
 
 ...
 
-## LecteurDocumentNaif :
+## LecteurDocumentNaif
 
 # Répartition
 
 - constructeurs - ? : A TESTER
-- demarrer() - ? : A TESTER
-- avancer() - ? : A TESTER
-- finDeSequence() - ? : A TESTER
-- elementCourant() - ? : A TESTER
-- estSeparateur() - ? : A TESTER
+- demarrer() - Mouad, Higo : EN COURS
+- avancer() - Celia, Fabien : A TESTER
+- finDeSequence() - Mouad, Higo : EN COURS
+- elementCourant() - Celia, Fabien : A TESTER
+- estSeparateur() - Celia, Fabien : A TESTER
 
 # Améliorations possibles
 
