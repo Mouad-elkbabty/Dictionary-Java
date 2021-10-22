@@ -2,7 +2,7 @@
 
 * Mouad ElKbabty
 * Gaétan Combe
-* Le dieu incontesté ( aka Fabien)
+* Fabien (un Dieu d'après ses dires)
 * Cyril Pigeyre
 * Célia Segura
 * Higo Medeiros
@@ -26,7 +26,7 @@ Ne vous censurez pas, vous ne serez pas évalués sur vos difficultés, mais plu
 
 La suite est un exemple de mise en forme, pour vous donner des éléments pour rédiger votre journal en [langage MarkDown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet).
 
-## Semaine de la SHRINE!!!!!!!!!!!!!!!!!!!!!
+#### Semaine 0 - Découverte de Git
 
 ### Objectifs de la semaine et répartition
 
@@ -38,27 +38,43 @@ Vous pouvez utiliser :
 1. le numéro étant géré par MarkDown
 2. il suffit que ça commence par un chiffre...
 
-### faits marquants
+### Faits marquants
 
-Le lien ci dessus donne accès à une "cheat sheet", une anti-sèche du format MarkDown.
+...
 
+#### Semaine 1 - MatriceIndexNaive et LecteurDocumentNaif
 
--------
+### Objectifs de la semaine et répartition
 
-Bon projet logiciel
+## MatriceIndexNaive :
 
-on recommence
+# Répartition
 
+- constructeurs - Valentin, Gaétan : A TESTER
+- sauver() - Valentin, Gaétan, Cyril : EN COURS
+- val() - Gaétan, Cyril : A TESTER
+- incremente() - Gaétan, Cyril : A TESTER
+- affecte() - Gaétan, Cyril : A TESTER
 
-D'accord alors disons VIVE LES SHRINES MGL.
+# Améliorations possibles
 
-D'accord alors disons VIVE LES SHRINES MGL
-nouvelle pdp
+...
 
+## LecteurDocumentNaif :
 
+# Répartition
 
-Why u dont like me :(
+- constructeurs - ? : A TESTER
+- demarrer() - ? : A TESTER
+- avancer() - ? : A TESTER
+- finDeSequence() - ? : A TESTER
+- elementCourant() - ? : A TESTER
+- estSeparateur() - ? : A TESTER
 
-<h5> ◄♦☺ </h5>
+# Améliorations possibles
 
+- attributs : nbSep inutile car on a juste à retourner la propriété length du tableau
 
+### Faits marquants
+
+Bonne concertation en début de séance pour s'organiser et préparer les classes, bonne répartition des tâches et bonne participation de chacun dans ce qui lui a été confié.
