@@ -50,7 +50,7 @@ Vous pouvez utiliser :
 
 ##### Répartition
 
-- constructeurs - Valentin, Gaétan : EN COURS
+- constructeurs - Valentin, Gaétan : TESTÉS
 - sauver() - Valentin, Gaétan, Cyril : EN COURS
 - val() - Gaétan, Cyril : A TESTER
 - incremente() - Gaétan, Cyril : A TESTER
