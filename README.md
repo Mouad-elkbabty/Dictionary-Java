@@ -26,7 +26,7 @@ Ne vous censurez pas, vous ne serez pas évalués sur vos difficultés, mais plu
 
 La suite est un exemple de mise en forme, pour vous donner des éléments pour rédiger votre journal en [langage MarkDown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet).
 
-#### Semaine 0 - Découverte de Git
+## Semaine 0 - Découverte de Git
 
 ### Objectifs de la semaine et répartition
 
@@ -42,13 +42,13 @@ Vous pouvez utiliser :
 
 ...
 
-#### Semaine 1 - MatriceIndexNaive et LecteurDocumentNaif
+## Semaine 1 - MatriceIndexNaive et LecteurDocumentNaif
 
 ### Objectifs de la semaine et répartition
 
-## MatriceIndexNaive
+#### MatriceIndexNaive
 
-# Répartition
+##### Répartition
 
 - constructeurs - Valentin, Gaétan : EN COURS
 - sauver() - Valentin, Gaétan, Cyril : EN COURS
@@ -56,13 +56,13 @@ Vous pouvez utiliser :
 - incremente() - Gaétan, Cyril : A TESTER
 - affecte() - Gaétan, Cyril : A TESTER
 
-# Améliorations possibles
+##### Améliorations possibles
 
 ...
 
-## LecteurDocumentNaif
+#### LecteurDocumentNaif
 
-# Répartition
+##### Répartition
 
 - constructeurs - ? : A TESTER
 - demarrer() - Mouad, Higo : EN COURS
@@ -71,7 +71,7 @@ Vous pouvez utiliser :
 - elementCourant() - Celia, Fabien : A TESTER
 - estSeparateur() - Celia, Fabien : A TESTER
 
-# Améliorations possibles
+##### Améliorations possibles
 
 - attributs : nbSep inutile car on a juste à retourner la propriété length du tableau
 
