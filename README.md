@@ -26,7 +26,7 @@ Ne vous censurez pas, vous ne serez pas évalués sur vos difficultés, mais plu
 
 La suite est un exemple de mise en forme, pour vous donner des éléments pour rédiger votre journal en [langage MarkDown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet).
 
-## Semaine du ...
+## Semaine de la SHRINE!!!!!!!!!!!!!!!!!!!!!
 
 ### Objectifs de la semaine et répartition
 
