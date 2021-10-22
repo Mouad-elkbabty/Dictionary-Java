@@ -1,13 +1,20 @@
 package inf353;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.io.File;
 
 public class MatriceIndexNaive implements MatriceIndex {
 
     int[][] matrice;
 
-    MatriceIndexNaive(int documents, int mots) {
+    public MatriceIndexNaive(int documents, int mots) {
         this.matrice = new int[documents][mots];
+    }
+
+    public MatriceIndexNaive(File fichier) {
+
     }
     
     /**
@@ -16,8 +23,17 @@ public class MatriceIndexNaive implements MatriceIndex {
      *
      * @param nomDeFichier
      */
-    public void sauver(String nomDeFichier) throws FileNotFoundException {
-        
+    public void sauver(String nomDeFichier) throws FileNotFoundException, IOException {
+        String contenu = "";
+        for (int mots = 0; mots < this.matrice[0].length; mots++) {
+            for (int documents = 0; documents < this.matrice.length; documents++) {
+                contenu += this.matrice[mots][documents] + ",";
+            }
+            contenu += "\n";
+        }
+        RandomAccessFile fichier = new RandomAccessFile(nomDeFichier, "rwd");
+        fichier.writeChars(contenu);
+        fichier.close();
     }
 
     /**
