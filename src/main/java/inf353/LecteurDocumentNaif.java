@@ -1,37 +1,40 @@
 package inf353;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+
 public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
     
     /**
      * Initialisation du parcours.
      */
     public int nbSep = 17; // nombre de separateurs
-    public char[] separateur; // liste des separateurs
+    public char[] separateurs; // liste des separateurs
     public int i = 0; // indice du caractere dans le texte
     public String mot;
-    public BufferedReader br
+    public BufferedReader br;
 
-    public LecteurDocumentNaif(File file)
-    {
+    public LecteurDocumentNaif(File file) throws FileNotFoundException {
         br = new BufferedReader(new FileReader(file));
-        separateur = new char[nbSep];
-        separateur[0] = ',';
-        separateur[1] = '?';
-        separateur[2] = '.';
-        separateur[4] = ';';
-        separateur[5] = ':';
-        separateur[6] = '/';
-        separateur[7] = '!';
-        separateur[8] = ' ';
-        separateur[9] = '\n'; // retour chariot
-        separateur[10] = '(';
-        separateur[11] = ')';
-        separateur[12] = '\"';
-        separateur[13] = '-';
-        separateur[14] = '\'';// apostrophe
-        separateur[15] = '[';
-        separateur[16] = ']';
-
+        separateurs = new char[nbSep];
+        separateurs[0] = ',';
+        separateurs[1] = '?';
+        separateurs[2] = '.';
+        separateurs[4] = ';';
+        separateurs[5] = ':';
+        separateurs[6] = '/';
+        separateurs[7] = '!';
+        separateurs[8] = ' ';
+        separateurs[9] = '\n'; // retour chariot
+        separateurs[10] = '(';
+        separateurs[11] = ')';
+        separateurs[12] = '\"';
+        separateurs[13] = '-';
+        separateurs[14] = '\'';// apostrophe
+        separateurs[15] = '[';
+        separateurs[16] = ']';
     }
 
     public void demarrer() {
@@ -87,7 +90,7 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
     public boolean estSeparateur(char c) //Renvoie vrai si le caractères est separateur
     {
         int j = 0;
-        while (j < nbSep && separateur[j] != c)
+        while (j < nbSep && separateurs[j] != c)
         {
             j++;
         }
