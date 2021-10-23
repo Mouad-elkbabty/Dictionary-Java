@@ -1,6 +1,5 @@
 package inf353;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public interface MatriceIndex {
@@ -11,7 +10,7 @@ public interface MatriceIndex {
      *
      * @param nomDeFichier
      */
-    public abstract void sauver(String nomDeFichier) throws FileNotFoundException, IOException;
+    public abstract void sauver(String nomDeFichier) throws IOException;
 ;
 
     /**

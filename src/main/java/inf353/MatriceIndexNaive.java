@@ -18,7 +18,7 @@ public class MatriceIndexNaive implements MatriceIndex {
         this.matrice = new int[docs][termes];
     }
 
-    public MatriceIndexNaive(String nomFichier) throws FileNotFoundException, IOException {
+    public MatriceIndexNaive(String nomFichier) throws IOException {
         File fichier = new File(nomFichier);
         if (!fichier.exists() || !fichier.isFile()) {
             throw new FileNotFoundException("Aucun fichier du nom de " + nomFichier + " n'a été trouvé.");
