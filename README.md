@@ -65,9 +65,9 @@ Vous pouvez utiliser :
 ##### Répartition
 
 - constructeurs - ? : A TESTER
-- demarrer() - Mouad, Higo : EN COURS
+- demarrer() - Mouad, Higo : A TESTER
 - avancer() - Celia, Fabien : A TESTER
-- finDeSequence() - Mouad, Higo : EN COURS
+- finDeSequence() - Mouad, Higo : A TESTER
 - elementCourant() - Celia, Fabien : A TESTER
 - estSeparateur() - Celia, Fabien : A TESTER
 
