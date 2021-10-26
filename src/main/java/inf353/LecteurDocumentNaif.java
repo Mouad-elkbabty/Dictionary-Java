@@ -38,7 +38,7 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
     }
 
     public void demarrer() {
-
+        mot.charAt(0);
     }
 
     /**
@@ -64,7 +64,7 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
      * @return
      */
     public boolean finDeSequence() {
-        return true;
+        return i == mot.length();
     }
 
     /**
