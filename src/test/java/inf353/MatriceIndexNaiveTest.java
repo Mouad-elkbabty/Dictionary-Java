@@ -94,7 +94,39 @@ public class MatriceIndexNaiveTest {
 
     @Test
     public void incrementeTest() {
-
+        MatriceIndexNaive m1 = new MatriceIndexNaive(3,3);
+        /**
+         * Construction de la matrice
+         *  | 0 1 2 |
+         *  | 0 2 4 |
+         *  | 0 3 6 |  
+         */
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                m1.affecte(i, j, (i+1)*(j));
+            }
+        }
+        m1.incremente(0,0);
+        m1.incremente(0,1);
+        m1.incremente(0,2);
+        m1.incremente(0,2);
+        m1.incremente(0,2);
+        m1.incremente(1,0);
+        m1.incremente(1,0);
+        m1.incremente(1,1);
+        m1.incremente(1,2);
+        m1.incremente(2,0);
+        m1.incremente(2,1);
+        m1.incremente(2,2);
+        assertEquals(1, m1.val(0, 0));
+        assertEquals(2, m1.val(0, 1));
+        assertEquals(5, m1.val(0, 2));
+        assertEquals(2, m1.val(1, 0));
+        assertEquals(3, m1.val(1, 1));
+        assertEquals(5, m1.val(1, 2));
+        assertEquals(1, m1.val(2, 0));
+        assertEquals(4, m1.val(2, 1));
+        assertEquals(7, m1.val(2, 2));
     }
 
     @Test
