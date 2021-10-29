@@ -53,7 +53,7 @@ Vous pouvez utiliser :
 - constructeurs - Valentin, Gaétan : TESTÉS
 - sauver() - Valentin, Gaétan, Cyril : TESTÉ
 - val() - Gaétan, Cyril : TESTÉ
-- incremente() - Gaétan, Cyril : TESTÉ
+- incremente() - Gaétan, Cyril : A TESTER
 - affecte() - Gaétan, Cyril : TESTÉ
 
 ##### Améliorations possibles

@@ -8,7 +8,6 @@ import java.io.FileReader;
 import java.io.Writer;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
-import java.nio.charset.StandardCharsets;
 
 public class MatriceIndexNaive implements MatriceIndex {
 
@@ -67,12 +66,7 @@ public class MatriceIndexNaive implements MatriceIndex {
      * @param nomDeFichier
      */
     public void sauver(String nomDeFichier) throws FileNotFoundException, IOException {
-        File fichier = new File(nomDeFichier);
-        if (fichier.exists() && fichier.isFile()) {
-            fichier.delete();
-        }
-        fichier.createNewFile();
-        Writer writer = new FileWriter(fichier, StandardCharsets.UTF_8);
+        Writer writer = new FileWriter(nomDeFichier, false);
         BufferedWriter buffer = new BufferedWriter(writer);
         String ligne = "";
         for (int mots = 0; mots < this.matrice[0].length; mots++) {
