@@ -80,10 +80,10 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
     public boolean estSeparateur(char c) //Renvoie vrai si le caractères est separateur
     {
         int j = 0;
-        while (j < nbSep && separateurs[j] != c)
+        while (j < separateur.length && separateurs[j] != c)
         {
             j++;
         }
-        return j < nbSep;
+        return j < separateur.length;
     }
 }
