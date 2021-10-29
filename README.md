@@ -78,3 +78,6 @@ Vous pouvez utiliser :
 ### Faits marquants
 
 Bonne concertation en début de séance pour s'organiser et préparer les classes, bonne répartition des tâches et bonne participation de chacun dans ce qui lui a été confié.
+
+###### AJout de LecteurDocumentNaif avec split
+Changement potentiel pour enlever les methodes split.
