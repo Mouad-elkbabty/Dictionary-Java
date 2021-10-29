@@ -2,7 +2,7 @@
 
 * Mouad ElKbabty
 * Gaétan Combe
-* Fabien (un Dieu d'après ses dires)
+* Fabien Vial
 * Cyril Pigeyre
 * Célia Segura
 * Higo Medeiros
