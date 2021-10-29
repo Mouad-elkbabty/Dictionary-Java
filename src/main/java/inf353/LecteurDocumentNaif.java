@@ -8,7 +8,7 @@ import java.io.FileReader;
 public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
     
     public char[] separateurs = {',', '?', '.', ';', '/', '!', ' ', '\n', '(', ')', '"', '-', '\'', '[', ']'};
-    public int i;
+    public int curseur;
     public String texte;
 
     /**
@@ -37,7 +37,7 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
     }
 
     public void demarrer() {
-        this.i = 0;
+        this.curseur = 0;
         if (estSeparateur(texte.charAt(0))) this.avancer();
     }
 
@@ -45,11 +45,11 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
      * Passage à l'élément suivant
      */
     public void avancer() {
-        while(!finDeSequence() && !estSeparateur(texte.charAt(i))) {
-            this.i++;
+        while(!finDeSequence() && !estSeparateur(texte.charAt(curseur))) {
+            this.curseur++;
         }
-        while (!finDeSequence() && estSeparateur(texte.charAt(i))) {
-            this.i++;
+        while (!finDeSequence() && estSeparateur(texte.charAt(curseur))) {
+            this.curseur++;
         }
     }
 
@@ -58,7 +58,7 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
      * @return
      */
     public boolean finDeSequence() {
-        return i == texte.length();
+        return curseur == texte.length();
     }
 
     /**
@@ -67,7 +67,7 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
      */
     public String elementCourant() {
         String res = "";
-        int j = i;
+        int j = curseur;
         while(!finDeSequence() && !estSeparateur(texte.charAt(j))) {
             res = res + texte.charAt(j);
             j++;
