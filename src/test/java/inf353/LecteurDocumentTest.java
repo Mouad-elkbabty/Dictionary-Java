@@ -10,12 +10,34 @@ import java.io.FileReader;
 import org.junit.Test;
 
 public class LecteurDocumentTest {
-    /*
-    @Test
-    public void lireFichierTest() throws FileNotFoundException, java.io.IOException
+    
+
+    @Test // Passe
+    public void constructeurTest() throws FileNotFoundException, java.io.IOException
     {
         LecteurDocumentNaif naf = new LecteurDocumentNaif("./src/test/resources/inf353/TestLecteur.txt");
-        String mot = "Un mot";
-        assertEquals(mot, naf.mot);
-    }*/
+        naf.demarrer();
+        assertEquals("Un", naf.elementCourant());
+    }
+
+    @Test // Passe
+    public void constructeurTest2() throws FileNotFoundException, java.io.IOException
+    {
+        LecteurDocumentNaif naf = new LecteurDocumentNaif("./src/test/resources/inf353/TestLecteur.txt");
+        naf.demarrer();
+        naf.avancer();
+        assertEquals("mot", naf.elementCourant());
+    }
+
+    @Test // Passe
+    public void constructeurTest3() throws FileNotFoundException, java.io.IOException
+    {
+        LecteurDocumentNaif naf = new LecteurDocumentNaif("./src/test/resources/inf353/TestLecteur.txt");
+        naf.demarrer();
+        naf.avancer();
+        naf.avancer();
+
+        assertEquals("Je", naf.elementCourant());
+    }
+
 }
