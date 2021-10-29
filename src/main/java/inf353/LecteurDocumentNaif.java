@@ -10,31 +10,15 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
     /**
      * Initialisation du parcours.
      */
-    public char[] separateurs; // liste des separateurs
-    public int i = 0; // indice du caractere dans le texte
+    public char[] separateurs = {',','?','.',';',':','/',' ','\n','(',')','\"','-','\'','[',']','_'}; // liste des separateurs
+    public int i; // indice du caractere dans le texte
     public String mot;
     public BufferedReader br;
 
     public LecteurDocumentNaif(String file) throws FileNotFoundException, java.io.IOException {
         br = new BufferedReader(new FileReader(file));
-        separateurs = new char[17];
-        separateurs[0] = ',';
-        separateurs[1] = '?';
-        separateurs[2] = '.';
-        separateurs[4] = ';';
-        separateurs[5] = ':';
-        separateurs[6] = '/';
-        separateurs[7] = '!';
-        separateurs[8] = ' ';
-        separateurs[9] = '\n'; // retour chariot
-        separateurs[10] = '(';
-        separateurs[11] = ')';
-        separateurs[12] = '\"';
-        separateurs[13] = '-';
-        separateurs[14] = '\'';// apostrophe
-        separateurs[15] = '[';
-        separateurs[16] = ']';
         String strCurrentLine;
+        i = 0;
         while((strCurrentLine = br.readLine()) != null)
         {
             mot += strCurrentLine;
@@ -44,7 +28,7 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
     }
 
     public void demarrer() {
-        mot.charAt(0);
+        i= 0;
     }
 
     /**
