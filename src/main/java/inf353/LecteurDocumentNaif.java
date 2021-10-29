@@ -12,7 +12,7 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
      */
     public char[] separateurs = {',','?','.',';',':','/',' ','\n','(',')','\"','-','\'','[',']','_'}; // liste des separateurs
     public int i; // indice du caractere dans le texte
-    public String mot;
+    public String mot = "";
     public BufferedReader br;
 
     public LecteurDocumentNaif(String file) throws FileNotFoundException, java.io.IOException {
