@@ -17,7 +17,7 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
 
     public LecteurDocumentNaif(String file) throws FileNotFoundException, java.io.IOException {
         br = new BufferedReader(new FileReader(file));
-        String strCurrentLine;
+        String strCurrentLine = "";
         i = 0;
         while((strCurrentLine = br.readLine()) != null)
         {
@@ -80,10 +80,10 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
     public boolean estSeparateur(char c) //Renvoie vrai si le caractères est separateur
     {
         int j = 0;
-        while (j < separateur.length && separateurs[j] != c)
+        while (j < separateurs.length && separateurs[j] != c)
         {
             j++;
         }
-        return j < separateur.length;
+        return j < separateurs.length;
     }
 }

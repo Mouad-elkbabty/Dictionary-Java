@@ -10,11 +10,12 @@ import java.io.FileReader;
 import org.junit.Test;
 
 public class LecteurDocumentTest {
+    /*
     @Test
     public void lireFichierTest() throws FileNotFoundException, java.io.IOException
     {
         LecteurDocumentNaif naf = new LecteurDocumentNaif("./src/test/resources/inf353/TestLecteur.txt");
         String mot = "Un mot\n";
         assertEquals(mot, naf.mot);
-    }
+    }*/
 }
