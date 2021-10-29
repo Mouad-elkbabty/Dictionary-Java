@@ -51,9 +51,9 @@ Vous pouvez utiliser :
 ##### Répartition
 
 - constructeurs - Valentin, Gaétan : TESTÉS
-- sauver() - Valentin, Gaétan, Cyril : A TESTER
+- sauver() - Valentin, Gaétan, Cyril : TESTÉ
 - val() - Gaétan, Cyril : TESTÉ
-- incremente() - Gaétan, Cyril : A TESTER
+- incremente() - Gaétan, Cyril : TESTÉ
 - affecte() - Gaétan, Cyril : TESTÉ
 
 ##### Améliorations possibles
