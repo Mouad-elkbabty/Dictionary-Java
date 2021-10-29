@@ -7,6 +7,7 @@ import java.io.FileReader;
 
 public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
     
+<<<<<<< HEAD
     public char[] separateurs = {',', '?', '.', ';', '/', '!', ' ', '\n', '(', ')', '"', '-', '\'', '[', ']'};
     public int i;
     public String texte;
@@ -21,6 +22,30 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
     public void demarrer() {
         this.i = 0;
         if (estSeparateur(texte.charAt(0))) this.avancer();
+=======
+    /**
+     * Initialisation du parcours.
+     */
+    public char[] separateurs = {',','?','.',';',':','/',' ','\n','(',')','\"','-','\'','[',']','_'}; // liste des separateurs
+    public int i; // indice du caractere dans le texte
+    public String mot;
+    public BufferedReader br;
+
+    public LecteurDocumentNaif(String file) throws FileNotFoundException, java.io.IOException {
+        br = new BufferedReader(new FileReader(file));
+        String strCurrentLine = "";
+        i = 0;
+        while((strCurrentLine = br.readLine()) != null)
+        {
+            mot += strCurrentLine;
+            System.out.println(strCurrentLine);
+        }
+
+    }
+
+    public void demarrer() {
+        i= 0;
+>>>>>>> refs/remotes/origin/main
     }
 
     /**
@@ -64,9 +89,17 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
      */
     public boolean estSeparateur(char c) {
         int j = 0;
+<<<<<<< HEAD
         while (j < this.separateurs.length && this.separateurs[j] != c) {
             j++;
         }
         return j < this.separateurs.length;
+=======
+        while (j < separateurs.length && separateurs[j] != c)
+        {
+            j++;
+        }
+        return j < separateurs.length;
+>>>>>>> refs/remotes/origin/main
     }
 }
