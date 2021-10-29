@@ -10,13 +10,30 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
     public char[] separateurs = {',', '?', '.', ';', '/', '!', ' ', '\n', '(', ')', '"', '-', '\'', '[', ']'};
     public int i;
     public String texte;
-    public BufferedReader br;
 
-    public LecteurDocumentNaif(String nomFichier) throws IOException {
+    /**
+     * Créer le lecteur en donnant le fichier
+     * @param fichier le fichier
+     * @throws IOException
+     */
+    public LecteurDocumentNaif(File fichier) throws IOException {
         this.texte = "";
-        br = new BufferedReader(new FileReader(nomFichier));
-        String ligne = br.readLine();
-        
+        BufferedReader buffer = new BufferedReader(new FileReader(fichier));
+        String ligne = buffer.readLine();
+        while (ligne != null) {
+            this.texte += ligne + "\n";
+            ligne = buffer.readLine();
+        }
+        buffer.close();
+    }
+
+    /**
+     * Crée le lecteur en donnant le nom du fichier
+     * @param nomFichier le nom du fichier
+     * @throws IOException
+     */
+    public LecteurDocumentNaif(String nomFichier) throws IOException {
+        this(new File(nomFichier));
     }
 
     public void demarrer() {
