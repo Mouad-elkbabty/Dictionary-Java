@@ -8,7 +8,6 @@ import java.io.FileReader;
 import java.io.Writer;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
-import java.nio.charset.StandardCharsets;
 
 public class MatriceIndexNaive implements MatriceIndex {
 
