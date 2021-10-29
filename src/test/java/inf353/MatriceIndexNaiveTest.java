@@ -30,7 +30,7 @@ public class MatriceIndexNaiveTest {
         };
         assertEquals(matriceToString(attendu1), matriceToString(m1.matrice));
 
-        MatriceIndexNaive m2 = new MatriceIndexNaive("test-matrice.txt");
+        MatriceIndexNaive m2 = new MatriceIndexNaive("./src/test/resources/inf353/test-matrice1.txt");
         int[][] attendu2 = {
             {1,0,0,0,8,0,0,0,0,0},
             {0,2,0,0,0,0,0,0,0,0},
@@ -82,7 +82,7 @@ public class MatriceIndexNaiveTest {
         assertEquals(2, m1.val(1, 1));
         assertEquals(4, m1.val(1, 2));
         assertEquals(6, m1.val(2, 2));
-        MatriceIndexNaive m2 = new MatriceIndexNaive("test-matrice.txt");
+        MatriceIndexNaive m2 = new MatriceIndexNaive("./src/test/resources/inf353/test-matrice1.txt");
         assertEquals(1, m2.val(0, 0));
         assertEquals(8, m2.val(0, 4));
         assertEquals(0, m2.val(4, 0));
@@ -98,8 +98,27 @@ public class MatriceIndexNaiveTest {
     }
 
     @Test
-    public void sauverTest() {
-        
+    public void sauverTest() throws IOException {
+        MatriceIndexNaive attendu1 = new MatriceIndexNaive(3, 3);
+        /**
+         * Construction de la matrice
+         *  | 0 1 2 |
+         *  | 0 2 4 |
+         *  | 0 3 6 |  
+         */
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                attendu1.affecte(i, j, (i+1)*(j));
+            }
+        }
+        attendu1.sauver("./src/test/resources/inf353/output1.txt");
+        MatriceIndexNaive m1 = new MatriceIndexNaive("./src/test/resources/inf353/output1.txt");
+        assertEquals(matriceToString(attendu1.matrice), matriceToString(m1.matrice));
+
+        MatriceIndexNaive attendu2 = new MatriceIndexNaive("./src/test/resources/inf353/test-matrice1.txt");
+        attendu2.sauver("./src/test/resources/inf353/output2.txt");
+        MatriceIndexNaive m2 = new MatriceIndexNaive("./src/test/resources/inf353/output2.txt");
+        assertEquals(matriceToString(attendu2.matrice), matriceToString(m2.matrice));
     }
 
 }
