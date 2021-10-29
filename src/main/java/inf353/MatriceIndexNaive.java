@@ -14,10 +14,21 @@ public class MatriceIndexNaive implements MatriceIndex {
 
     public int[][] matrice;
 
+    /**
+     * Crée une matrice de docs lignes et termes colonnes.
+     * @param docs le nombre de documents, doit être strictement plus grand que 0
+     * @param termes le nombre de termes, doit être strictement plus grand que 0
+     */
     public MatriceIndexNaive(int docs, int termes) {
         this.matrice = new int[docs][termes];
     }
 
+    /**
+     * Crée une matrice depuis le fichier existant.
+     * Chaque entier de chaque ligne doit être séparé par une virgule.
+     * @param nomFichier le nom du fichier
+     * @throws IOException
+     */
     public MatriceIndexNaive(String nomFichier) throws IOException {
         File fichier = new File(nomFichier);
         if (!fichier.exists() || !fichier.isFile()) {
@@ -53,7 +64,6 @@ public class MatriceIndexNaive implements MatriceIndex {
     /**
      * Sauvegarde de la matrice d'occurence dans le fichier nomDeFichier. Le format est libre,
      * mais doit privilégier la vitesse de chargement et la compacité (taille du fichier).
-     *
      * @param nomDeFichier
      */
     public void sauver(String nomDeFichier) throws FileNotFoundException, IOException {
@@ -79,7 +89,7 @@ public class MatriceIndexNaive implements MatriceIndex {
     }
 
     /**
-     * retourne le nombre d'occurences du terme numéro nterm dans le document numéro ndoc.
+     * Retourne le nombre d'occurences du terme numéro nterm dans le document numéro ndoc.
      * @param  ndoc  le numéro du document
      * @param  nterm le numéro du terme
      * @return le nombre d'occurences du terme dans le document
