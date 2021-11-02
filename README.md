@@ -78,3 +78,25 @@ Vous pouvez utiliser :
 ### Faits marquants
 
 Bonne concertation en début de séance pour s'organiser et préparer les classes, bonne répartition des tâches et bonne participation de chacun dans ce qui lui a été confié.
+
+## Semaine 2 - ...
+
+### Objectifs de la semaine et répartition
+
+#### Classe
+
+##### Répartition
+
+...
+
+##### Améliorations possibles
+
+...
+
+##### Améliorations possibles
+
+...
+
+### Faits marquants
+
+...
