@@ -2,16 +2,19 @@ package inf353;
 
 public class Indexation {
 
+    // le DictionnaireNaif de mots
     public DictionnaireNaif dictioMots;
-    public int nbMots;
+    // la longueur maximale actuelle de dictioMots
     public int maxMots;
+    // le DictionnaireNaif de noms de documents
     public DictionnaireNaif dictioDocuments;
-    public int nbDocuments;
+    // la longueur maximale actuelle de dictioDocuments
     public int maxDocuments;
+    // la MatriceIndexNaive des occurences des mots en fonction du document
     public MatriceIndexNaive matriceOccurences;
 
     /**
-     * Crée une Indexation
+     * Crée une Indexation, ne prend aucun paramètre
      */
     public Indexation() {
         this.dictioMots = null;
@@ -30,7 +33,7 @@ public class Indexation {
             this.maxMots = 10;
             this.dictioMots = new DictionnaireNaif(this.maxMots);
             dictioMots.ajouterMot(mot);
-            if (this.dictioDocuments != null) this.changerMatriceMots();
+            if (this.dictioDocuments != null) this.changerMatrice();
         } else {
             if (this.maxMots == this.dictioMots.nbMots()) {
                 this.maxMots *= 2;
@@ -39,7 +42,7 @@ public class Indexation {
                     nouveauDictio.ajouterMot(this.dictioMots.motIndice(i));
                 }
                 this.dictioMots = nouveauDictio;
-                this.changerMatriceMots();
+                this.changerMatrice();
             }
             this.dictioMots.ajouterMot(mot);
         }
@@ -47,14 +50,14 @@ public class Indexation {
 
     /**
      * Ajouter un document à l'Indexation
-     * @param document le document à ajouter
+     * @param document Le document à ajouter
      */
     public void ajouterDocument(String document) {
         if (this.maxDocuments == 0) {
             this.maxDocuments = 10;
             this.dictioDocuments = new DictionnaireNaif(this.maxDocuments);
             dictioDocuments.ajouterMot(document);
-            if (this.dictioMots != null) this.changerMatriceDocuments();
+            if (this.dictioMots != null) this.changerMatrice();
         } else {
             if (this.maxDocuments == this.dictioDocuments.nbMots()) {
                 this.maxDocuments *= 2;
@@ -63,7 +66,7 @@ public class Indexation {
                     nouveauDictio.ajouterMot(this.dictioDocuments.motIndice(i));
                 }
                 this.dictioDocuments = nouveauDictio;
-                this.changerMatriceDocuments();
+                this.changerMatrice();
             }
             this.dictioDocuments.ajouterMot(document);
         }
@@ -71,28 +74,22 @@ public class Indexation {
     }
 
     /**
-     * Changer la matrice d'occurences en fonction des mots
+     * Changer matriceOccurences avec les nouvelles tailles, ou alors créer si elle n'existe pas
      */
-    private void changerMatriceMots() {
+    private void changerMatrice() {
         if (this.matriceOccurences == null) {
             this.matriceOccurences = new MatriceIndexNaive(this.maxDocuments, this.maxMots);
         } else {
-            int tailleActuelle = this.matriceOccurences.matrice[0].length;
+            int tailleDocuments = this.matriceOccurences.matrice.length;
+            int tailleMots = this.matriceOccurences.matrice[0].length;
             MatriceIndexNaive nouvelleMatrice = new MatriceIndexNaive(this.maxDocuments, this.maxMots);
-            
-        }
-    }
-
-    /**
-     * Changer la matrice d'occurences en fonction des mots
-     */
-    private void changerMatriceDocuments() {
-        if (this.matriceOccurences == null) {
-            this.matriceOccurences = new MatriceIndexNaive(this.maxDocuments, this.maxMots);
-        } else {
-            if (this.matriceOccurences.matrice.length != this.maxDocuments) {
-
+            for (int d = 0; d != tailleDocuments; d++) {
+                for (int m = 0; m != tailleMots; m++) {
+                    int valeur = this.matriceOccurences.val(d, m);
+                    nouvelleMatrice.affecte(d, m, valeur);
+                }
             }
+            this.matriceOccurences = nouvelleMatrice;
         }
     }
 
