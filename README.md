@@ -73,7 +73,7 @@ Vous pouvez utiliser :
 
 ##### Améliorations possibles
 
-- attributs : nbSep inutile car on a juste à retourner la propriété length du tableau
+- Modification du lecteur pour ne pas inclure la méthode split()
 
 ### Faits marquants
 

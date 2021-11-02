@@ -7,8 +7,6 @@ import java.io.FileReader;
 
 public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
     
-    public char[] separateurs = {',', '?', '.', ';', '/', '!', ' ', '\n', '(', ')', '"', '-', '\'', '[', ']'};
-    public int curseur;
     public String texte;
 
     /**
@@ -16,16 +14,24 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
      * @param fichier le fichier
      * @throws IOException
      */
+
+    public String separateurs = ",?.;:/ \n()\"-\'[]_@"; // liste des separateurs
+    public int curseur; // indice du mot dans la ligne
+    public String mot;
+    public BufferedReader br;
+    String[] ligneCourante = null; 
+
+    public LecteurDocumentNaif(String file) throws FileNotFoundException, java.io.IOException {
+        br = new BufferedReader(new FileReader(file));
+        this.curseur = 0;
+        this.mot = "";
+
     public LecteurDocumentNaif(File fichier) throws IOException {
-        this.texte = "";
-        BufferedReader buffer = new BufferedReader(new FileReader(fichier));
-        String ligne = buffer.readLine();
-        while (ligne != null) {
-            this.texte += ligne + "\n";
-            ligne = buffer.readLine();
-        }
-        buffer.close();
+        this.mot = "";
+        this.curseur = 0;
+        br = new BufferedReader(new FileReader(fichier));
     }
+
 
     /**
      * Crée le lecteur en donnant le nom du fichier
@@ -36,20 +42,30 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
         this(new File(nomFichier));
     }
 
-    public void demarrer() {
-        this.curseur = 0;
-        if (estSeparateur(texte.charAt(0))) this.avancer();
+
+    public void demarrer() throws java.io.IOException
+    {
+        this.curseur= 0;
+        ligneCourante = br.readLine().split(",|?|.|;|:|/| |\n|(|)|\"|-|\'|[|]|_|@");
+
     }
 
     /**
      * Passage à l'élément suivant
      */
-    public void avancer() {
-        while(!finDeSequence() && !estSeparateur(texte.charAt(curseur))) {
-            this.curseur++;
-        }
-        while (!finDeSequence() && estSeparateur(texte.charAt(curseur))) {
-            this.curseur++;
+
+    public void avancer() throws java.io.IOException {
+        if(!finDeSequence())
+        {
+            if(this.curseur < ligneCourante.length-1)
+            {
+                this.curseur++;
+            }
+            else
+            {
+                ligneCourante = br.readLine().split(",|?|.|;|:|/| |\n|(|)|\"|-|\'|[|]|_|@");
+                this.curseur = 0;
+            }
         }
     }
 
@@ -57,8 +73,10 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
      * vrai ssi la séquence est épuisée
      * @return
      */
-    public boolean finDeSequence() {
-        return curseur == texte.length();
+
+    public boolean finDeSequence()  {
+        return ligneCourante == null;
+
     }
 
     /**
@@ -67,24 +85,12 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
      */
     public String elementCourant() {
         String res = "";
-        int j = curseur;
-        while(!finDeSequence() && !estSeparateur(texte.charAt(j))) {
-            res = res + texte.charAt(j);
-            j++;
+
+        if(!finDeSequence())
+        {
+            res = ligneCourante[this.curseur];
+            
         }
         return res;
-    }
-
-    /**
-     * Renvoie vrai si le caractère est un séparateur
-     * @param c le caractère à tester
-     * @return
-     */
-    public boolean estSeparateur(char c) {
-        int j = 0;
-        while (j < this.separateurs.length && this.separateurs[j] != c) {
-            j++;
-        }
-        return j < this.separateurs.length;
     }
 }
