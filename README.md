@@ -28,7 +28,7 @@ La suite est un exemple de mise en forme, pour vous donner des éléments pour r
 
 ## Semaine 0 - Découverte de Git
 
-### Objectifs de la semaine et répartition
+### Objectifs de la semaine
 
 Vous pouvez utiliser :
 
@@ -40,11 +40,11 @@ Vous pouvez utiliser :
 
 ### Faits marquants
 
-...
+Tous les faits marquants de cette semaine !
 
 ## Semaine 1 - MatriceIndexNaive et LecteurDocumentNaif
 
-### Objectifs de la semaine et répartition
+### Objectifs de la semaine
 
 #### MatriceIndexNaive
 
@@ -56,46 +56,50 @@ Vous pouvez utiliser :
 - incremente() - Gaétan, Cyril : TESTÉ
 - affecte() - Gaétan, Cyril : TESTÉ
 
-##### Améliorations possibles
+#### LecteurDocumentNaif
 
-...
+Voir semaine 2
+
+### Faits marquants
+
+Bonne concertation en début de séance pour s'organiser et préparer les classes, bonne répartition des tâches et bonne participation de chacun dans ce qui lui a été confié. Nous n'étions pas au courant du travail en plus à fournir.
+
+## Semaine 2 - LecteurDocumentNaif et Indexation
+
+### Objectifs de la semaine
 
 #### LecteurDocumentNaif
 
 ##### Répartition
 
-- constructeurs - ? : A TESTER
-- demarrer() - Mouad, Higo : A TESTER
-- avancer() - Celia, Fabien : A TESTER
-- finDeSequence() - Mouad, Higo : A TESTER
-- elementCourant() - Celia, Fabien : A TESTER
-- estSeparateur() - Celia, Fabien : A TESTER
+Par ...
+- constructeurs - INCOMPLETS
+- demarrer() - INCOMPLET
+- avancer() - INCOMPLET
+- finDeSequence() - INCOMPLET
+- elementCourant() - INCOMPLET
 
 ##### Améliorations possibles
 
-- Modification du lecteur pour ne pas inclure la méthode split()
+- Modification de la classe pour ne pas inclure la méthode split().
 
-### Faits marquants
-
-Bonne concertation en début de séance pour s'organiser et préparer les classes, bonne répartition des tâches et bonne participation de chacun dans ce qui lui a été confié.
-
-## Semaine 2 - ...
-
-### Objectifs de la semaine et répartition
-
-#### Classe
+#### Indexation
 
 ##### Répartition
 
-...
+Par Valentin, Gaétan, Cyril
+- constructeurs - À REVOIR / À TESTER
+- changerMatrice() - À TESTER
+- ajouterMot() - À TESTER, DE PRÉFÉRENCE SI CHANGERMATRICE() FONCTIONNE
+- ajouterDocument() - À TESTER, DE PRÉFÉRENCE SI CHANGERMATRICE() FONCTIONNE
+- affecte() - À TESTER
+- incremente() - À TESTER
+- compter() - IMCOMPLET
+- sauver() - INCOMPLET
 
 ##### Améliorations possibles
 
-...
-
-##### Améliorations possibles
-
-...
+- compter() utilisera un LecteurDocumentNaif pour ajouter les mots.
 
 ### Faits marquants
 
