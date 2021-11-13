@@ -1,96 +1,79 @@
 package inf353;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
 import java.io.FileReader;
+import java.io.IOException;
 
 public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
     
-    public String texte;
-
-    /**
-     * Créer le lecteur en donnant le fichier
-     * @param fichier le fichier
-     * @throws IOException
-     */
-
-    public String separateurs = ",?.;:/ \n()\"-\'[]_@"; // liste des separateurs
-    public int curseur; // indice du mot dans la ligne
-    public String mot;
-    public BufferedReader br;
-    String[] ligneCourante = null; 
-
-    public LecteurDocumentNaif(String file) throws FileNotFoundException, java.io.IOException {
-        br = new BufferedReader(new FileReader(file));
-        this.curseur = 0;
-        this.mot = "";
-
-    public LecteurDocumentNaif(File fichier) throws IOException {
-        this.mot = "";
-        this.curseur = 0;
-        br = new BufferedReader(new FileReader(fichier));
-    }
+        
+	FileReader fileReader;
+    String texte;
+    String mot;
+    int contenu;
+	char separateurs[] = {',', ';', '?', '.', '!', ':', ' ', '\t', '\n', '{', '}', '(', ')', '"', '&', '-', '_', '\'', '/','\r'};
+	int i;
 
 
-    /**
-     * Crée le lecteur en donnant le nom du fichier
-     * @param nomFichier le nom du fichier
-     * @throws IOException
-     */
-    public LecteurDocumentNaif(String nomFichier) throws IOException {
-        this(new File(nomFichier));
-    }
-
-
-    public void demarrer() throws java.io.IOException
-    {
-        this.curseur= 0;
-        ligneCourante = br.readLine().split(",|?|.|;|:|/| |\n|(|)|\"|-|\'|[|]|_|@");
+    public LecteurDocumentNaif(String file){
+        
+		try {
+            i = 0;
+			fileReader = new FileReader(file);
+			contenu = fileReader.read();		
+		
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
 
     }
 
-    /**
-     * Passage à l'élément suivant
-     */
+    public void demarrer(){
+        try {
+				
+			if(estSeparateur((char) contenu)){
+				contenu = fileReader.read();
+			}
 
-    public void avancer() throws java.io.IOException {
-        if(!finDeSequence())
-        {
-            if(this.curseur < ligneCourante.length-1)
-            {
-                this.curseur++;
-            }
-            else
-            {
-                ligneCourante = br.readLine().split(",|?|.|;|:|/| |\n|(|)|\"|-|\'|[|]|_|@");
-                this.curseur = 0;
-            }
-        }
-    }
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+    }    
+	
+    public void avancer(){
+        try {
 
-    /**
-     * vrai ssi la séquence est épuisée
-     * @return
-     */
-
-    public boolean finDeSequence()  {
-        return ligneCourante == null;
-
-    }
-
-    /**
-     * renvoie l'élément courant
-     * @return
-     */
-    public String elementCourant() {
-        String res = "";
-
-        if(!finDeSequence())
-        {
-            res = ligneCourante[this.curseur];
+        	if(estSeparateur((char) contenu)){
             
-        }
-        return res;
+				contenu = fileReader.read();
+			}
+				
+			mot = "";
+			while(!estSeparateur((char) contenu)){
+				mot = mot + contenu;
+				contenu = fileReader.read();
+			}       	 
+			
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+		
     }
+
+    public boolean estSeparateur(char c){
+    	int j = 0;
+    	while(j != separateurs.length && separateurs[j] != c){
+    		j++;
+    	}
+    	return j != separateurs.length;
+    }
+
+    public String elementCourant(){
+        return mot;
+    }
+
+    public boolean finDeSequence(){
+        return mot==null||mot.equals("");
+    }
+
+
 }
