@@ -7,7 +7,7 @@ import static org.junit.Assert.assertFalse;
 import java.io.IOException;
 import org.junit.Test;
 
-public class LecteurDocumentTest {
+public class LecteurDocumentNaifTest {
     
     @Test
     public void constructeurTest() throws IOException {

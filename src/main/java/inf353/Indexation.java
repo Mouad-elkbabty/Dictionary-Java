@@ -1,5 +1,8 @@
 package inf353;
 
+import inf353.DictionnaireNaif;
+import java.io.IOException;
+
 public class Indexation {
 
     // le DictionnaireNaif de mots
@@ -52,7 +55,7 @@ public class Indexation {
      * Ajouter un document à l'Indexation
      * @param document Le document à ajouter
      */
-    public void ajouterDocument(String document) {
+    public void ajouterDocument(String document) throws IOException {
         if (this.maxDocuments == 0) {
             this.maxDocuments = 10;
             this.dictioDocuments = new DictionnaireNaif(this.maxDocuments);
@@ -128,8 +131,11 @@ public class Indexation {
      * Compte l'occurence des mots d'un certain document
      * @param document 
      */
-    public void compter(String document) {
+    public void compter(String document) throws IOException {
+        LecteurDocumentNaif lecteur = new LecteurDocumentNaif(document);
+        while (!lecteur.finDeSequence()) {
 
+        }
     }
 
     /**
