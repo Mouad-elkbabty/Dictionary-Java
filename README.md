@@ -98,10 +98,6 @@ Par Valentin, Gaétan, Cyril
 - compter() - INCOMPLET
 - sauver() - INCOMPLET
 
-##### Améliorations possibles
-
-- compter() utilisera un LecteurDocumentNaif pour ajouter les mots.
-
 ### Faits marquants
 
 ...
