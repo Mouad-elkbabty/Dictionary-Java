@@ -51,10 +51,10 @@ Tous les faits marquants de cette semaine !
 ##### Répartition
 
 - constructeurs - Valentin, Gaétan : TESTÉS
-- sauver() - Valentin, Gaétan, Cyril : TESTÉ
-- val() - Gaétan, Cyril : TESTÉ
-- incremente() - Gaétan, Cyril : TESTÉ
-- affecte() - Gaétan, Cyril : TESTÉ
+- sauver() - Valentin, Gaétan, Cyril : TESTÉE
+- val() - Gaétan, Cyril : TESTÉE
+- incremente() - Gaétan, Cyril : TESTÉE
+- affecte() - Gaétan, Cyril : TESTÉE
 
 #### LecteurDocumentNaif
 
@@ -72,12 +72,13 @@ Bonne concertation en début de séance pour s'organiser et préparer les classe
 
 ##### Répartition
 
-Par ...
-- constructeurs - INCOMPLETS
-- demarrer() - INCOMPLET
-- avancer() - INCOMPLET
-- finDeSequence() - INCOMPLET
-- elementCourant() - INCOMPLET
+Par Valentin, Higo, ...
+- constructeur - TESTÉ
+- demarrer() - TESTÉE
+- avancer() - TESTÉE
+- estSeperateur() - TESTÉE
+- finDeSequence() - TESTÉE
+- elementCourant() - TESTÉE
 
 ##### Améliorations possibles
 
@@ -94,7 +95,7 @@ Par Valentin, Gaétan, Cyril
 - ajouterDocument() - À TESTER, DE PRÉFÉRENCE SI CHANGERMATRICE() FONCTIONNE
 - affecte() - À TESTER
 - incremente() - À TESTER
-- compter() - IMCOMPLET
+- compter() - INCOMPLET
 - sauver() - INCOMPLET
 
 ##### Améliorations possibles
