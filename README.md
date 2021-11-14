@@ -80,10 +80,6 @@ Par Valentin, Higo, ...
 - finDeSequence() - TESTÉE
 - elementCourant() - TESTÉE
 
-##### Améliorations possibles
-
-- Modification de la classe pour ne pas inclure la méthode split().
-
 #### Indexation
 
 ##### Répartition
@@ -97,6 +93,10 @@ Par Valentin, Gaétan, Cyril
 - incremente() - À TESTER
 - compter() - INCOMPLET
 - sauver() - INCOMPLET
+
+##### Améliorations possibles
+
+- compter() utilisera un LecteurDocumentNaif pour ajouter les mots.
 
 ### Faits marquants
 
