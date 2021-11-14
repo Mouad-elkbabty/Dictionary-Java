@@ -129,12 +129,14 @@ public class Indexation {
 
     /**
      * Compte l'occurence des mots d'un certain document
-     * @param document 
+     * @param document le document à compter
      */
     public void compter(String document) throws IOException {
         LecteurDocumentNaif lecteur = new LecteurDocumentNaif(document);
+        lecteur.demarrer();
         while (!lecteur.finDeSequence()) {
-
+            this.ajouterMot(lecteur.elementCourant());
+            this.incremente(lecteur.elementCourant(), document);
         }
     }
 
@@ -143,7 +145,7 @@ public class Indexation {
      * @param nomFichier le nom du fichier
      */
     public void sauver(String nomFichier) {
-
+        
     }
 
 }
