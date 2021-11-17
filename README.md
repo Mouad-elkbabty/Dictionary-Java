@@ -85,11 +85,13 @@ Par Valentin, Higo, ...
 ##### Répartition
 
 Par Valentin, Gaétan, Cyril
-- constructeur - TESTÉ
+- constructeur - TESTER CELUI AVEC FICHIER
 - changerMatrice() - TESTÉE
 - ajouterMot() - TESTÉE
 - ajouterDocument() - TESTÉE
 - affecte() - À TESTER
 - incremente() - À TESTER
-- compter() - INCOMPLET
+- val() - À TESTER
+- compter() - À TESTER
 - sauver() - INCOMPLET
+- charger() - INCOMPLET
