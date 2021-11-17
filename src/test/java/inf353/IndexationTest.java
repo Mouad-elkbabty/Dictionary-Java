@@ -9,13 +9,15 @@ import org.junit.Test;
 public class IndexationTest {
 
     @Test
-    public void constructeurTest() {
+    public void constructeursTest() {
         Indexation indexation1 = new Indexation();
         assertEquals(null, indexation1.matriceOccurences);
         assertEquals(null, indexation1.dictioMots);
         assertEquals(null, indexation1.dictioDocuments);
         assertEquals(0, indexation1.maxMots);
         assertEquals(0, indexation1.maxDocuments);
+        
+        // tester le constructeur avec fichier
     }
 
     @Test
