@@ -85,19 +85,11 @@ Par Valentin, Higo, ...
 ##### Répartition
 
 Par Valentin, Gaétan, Cyril
-- constructeurs - À REVOIR / À TESTER
-- changerMatrice() - À TESTER
-- ajouterMot() - À TESTER, DE PRÉFÉRENCE SI CHANGERMATRICE() FONCTIONNE
-- ajouterDocument() - À TESTER, DE PRÉFÉRENCE SI CHANGERMATRICE() FONCTIONNE
+- constructeur - TESTÉ
+- changerMatrice() - TESTÉE
+- ajouterMot() - TESTÉE
+- ajouterDocument() - TESTÉE
 - affecte() - À TESTER
 - incremente() - À TESTER
 - compter() - INCOMPLET
 - sauver() - INCOMPLET
-
-##### Améliorations possibles
-
-- compter() utilisera un LecteurDocumentNaif pour ajouter les mots.
-
-### Faits marquants
-
-...
