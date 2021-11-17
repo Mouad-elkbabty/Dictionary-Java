@@ -16,7 +16,7 @@ public class IndexationTest {
         assertEquals(null, indexation1.dictioDocuments);
         assertEquals(0, indexation1.maxMots);
         assertEquals(0, indexation1.maxDocuments);
-        
+
         // tester le constructeur avec fichier
     }
 
@@ -71,6 +71,12 @@ public class IndexationTest {
 
     @Test
     public void incrementeTest() {
+        Indexation indexation1 = new Indexation();
+
+    }
+
+    @Test
+    public void valTest() {
         Indexation indexation1 = new Indexation();
 
     }
