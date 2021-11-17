@@ -17,7 +17,7 @@ public class Indexation {
     public MatriceIndexNaive matriceOccurences;
 
     /**
-     * Crée une Indexation, ne prend aucun paramètre
+     * Créer une Indexation vierge
      */
     public Indexation() {
         this.dictioMots = null;
@@ -25,6 +25,14 @@ public class Indexation {
         this.dictioDocuments = null;
         this.maxDocuments = 0;
         this.matriceOccurences = null;
+    }
+    
+    /**
+     * Créer une Indexation à partir d'un fichier
+     * @param nomFichier Le nom du fichier
+     */
+    public Indexation(String nomFichier) throws IOException {
+        // utiliser la méthode charger()
     }
 
     /**
@@ -35,7 +43,7 @@ public class Indexation {
         if (this.maxMots == 0) {
             this.maxMots = 10;
             this.dictioMots = new DictionnaireNaif(this.maxMots);
-            dictioMots.ajouterMot(mot);
+            this.dictioMots.ajouterMot(mot);
             if (this.dictioDocuments != null) this.changerMatrice();
         } else {
             if (this.maxMots == this.dictioMots.nbMots()) {
@@ -54,12 +62,13 @@ public class Indexation {
     /**
      * Ajouter un document à l'Indexation
      * @param document Le document à ajouter
+     * @param compter Compter automatiquement le document dans la matrice
      */
-    public void ajouterDocument(String document) throws IOException {
+    public void ajouterDocument(String document, boolean compter) throws IOException {
         if (this.maxDocuments == 0) {
             this.maxDocuments = 10;
             this.dictioDocuments = new DictionnaireNaif(this.maxDocuments);
-            dictioDocuments.ajouterMot(document);
+            this.dictioDocuments.ajouterMot(document);
             if (this.dictioMots != null) this.changerMatrice();
         } else {
             if (this.maxDocuments == this.dictioDocuments.nbMots()) {
@@ -73,13 +82,13 @@ public class Indexation {
             }
             this.dictioDocuments.ajouterMot(document);
         }
-        this.compter(document);
+        if (compter) this.compter(document);
     }
 
     /**
      * Changer matriceOccurences avec les nouvelles tailles, ou alors créer si elle n'existe pas
      */
-    private void changerMatrice() {
+    public void changerMatrice() {
         if (this.matriceOccurences == null) {
             this.matriceOccurences = new MatriceIndexNaive(this.maxDocuments, this.maxMots);
         } else {
@@ -128,10 +137,28 @@ public class Indexation {
     }
 
     /**
+     * Renvoie le nombre d'occurences du mot donné dans le document donné, sinon -1 si le couple n'est pas trouvé
+     * @param mot Le mot à chercher
+     * @param document Le document à chercher
+     */
+    public int val(String mot, String document) {
+        int v = -1;
+        int m = this.dictioMots.indiceMot(mot);
+        if (m != -1) {
+            int d = this.dictioDocuments.indiceMot(document);
+            if (d != -1) {
+                v = this.matriceOccurences.val(d, m);
+            }
+        }
+        return v;
+    }
+
+    /**
      * Compte l'occurence des mots d'un certain document
      * @param document le document à compter
      */
     public void compter(String document) throws IOException {
+        
         LecteurDocumentNaif lecteur = new LecteurDocumentNaif(document);
         lecteur.demarrer();
         while (!lecteur.finDeSequence()) {
@@ -142,10 +169,18 @@ public class Indexation {
 
     /**
      * Sauvegarder l'Indexation dans un certain fichier
-     * @param nomFichier le nom du fichier
+     * @param nomFichier Le nom du fichier
      */
     public void sauver(String nomFichier) {
         
+    }
+
+    /**
+     * Charger une Indexation grâce à un fichier sauvegardé
+     * @param nomFichier Le nom du fichier
+     */
+    public void charger(String nomFichier) {
+
     }
 
 }
