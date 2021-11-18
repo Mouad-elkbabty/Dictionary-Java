@@ -110,6 +110,7 @@ Par Fabien, Gaétan, Valentin
 ###### Répartition
 
 Par Fabien, Gaétan, Valentin
+
 Tout a été testé et tout semble bien fonctionner
 
 ### Faits marquants
