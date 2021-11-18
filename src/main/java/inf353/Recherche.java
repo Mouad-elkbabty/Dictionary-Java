@@ -63,9 +63,14 @@ public class Recherche {
                 }
                 j++;
             }
-            resultat[indiceMax] = resultat[i];
-            resultat[i][0] = max;
-            resultat[i][1] = indiceDoc;
+            if( i != indiceMax)
+            {
+                System.out.println("Prems " + resultat[i][0] + " " + resultat[i][1]);
+                resultat[indiceMax] = resultat[i];
+                resultat[i][0] = max;
+                resultat[i][1] = indiceDoc;
+                System.out.println("" + resultat[i][0] + " " + resultat[i][1]);
+            }
             i++;
         }
         int w = 0;
