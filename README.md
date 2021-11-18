@@ -72,7 +72,7 @@ Bonne concertation en début de séance pour s'organiser et préparer les classe
 
 ##### Répartition
 
-Par Valentin, Higo, ...
+Par Valentin, Higo, Fabien , Mouad
 - constructeur - TESTÉ
 - demarrer() - TESTÉE
 - avancer() - TESTÉE
@@ -95,3 +95,7 @@ Par Valentin, Gaétan, Cyril
 - compter() - À TESTER
 - sauver() - INCOMPLET
 - charger() - INCOMPLET
+
+### Faits marquants
+
+Bonne concertation , organisation des tâches et participation  de chacun dans ce qui lui a été confié  lors du dernier cours.   
