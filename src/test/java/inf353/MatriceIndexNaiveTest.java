@@ -144,12 +144,12 @@ public class MatriceIndexNaiveTest {
             }
         }
         attendu1.sauver("./src/test/resources/inf353/output-matrice1.txt");
-        MatriceIndexNaive m1 = new MatriceIndexNaive("./src/test/resources/inf353/output1.txt");
+        MatriceIndexNaive m1 = new MatriceIndexNaive("./src/test/resources/inf353/output-matrice1.txt");
         assertEquals(matriceToString(attendu1.matrice), matriceToString(m1.matrice));
 
         MatriceIndexNaive attendu2 = new MatriceIndexNaive("./src/test/resources/inf353/test-matrice1.txt");
         attendu2.sauver("./src/test/resources/inf353/output-matrice2.txt");
-        MatriceIndexNaive m2 = new MatriceIndexNaive("./src/test/resources/inf353/output2.txt");
+        MatriceIndexNaive m2 = new MatriceIndexNaive("./src/test/resources/inf353/output-matrice2.txt");
         assertEquals(matriceToString(attendu2.matrice), matriceToString(m2.matrice));
     }
 

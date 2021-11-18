@@ -3,6 +3,14 @@ package inf353;
 import inf353.DictionnaireNaif;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.File;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.Writer;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
 
 public class Indexation {
 
@@ -34,7 +42,11 @@ public class Indexation {
      */
     public Indexation(String nomFichierMatrice, String nomDeFichierMot) throws IOException {
         // utiliser la méthode charger()
-        Indexation();
+        this.dictioMots = null;
+        this.maxMots = 0;
+        this.dictioDocuments = null;
+        this.maxDocuments = 0;
+        this.matriceOccurences = null;
         charger(nomFichierMatrice,nomDeFichierMot);
     }
 
@@ -186,7 +198,7 @@ public class Indexation {
         buffer.write(ligne);
         buffer.newLine();
         ligne = "";
-        for (int docs = 0; docs < this.dictioDocuments.nbMots(); mots++) {
+        for (int docs = 0; docs < this.dictioDocuments.nbMots(); docs++) {
             ligne += this.dictioDocuments.motIndice(docs) + ",";
             //ligne = ligne.substring(0, ligne.length()-1);
         }
@@ -206,7 +218,7 @@ public class Indexation {
         //Remplissage de dictioMots
         File fichier = new File(nomDeFichierMot);
         if (!fichier.exists() || !fichier.isFile()) {
-            throw new FileNotFoundException("Aucun fichier du nom de " + nomFichier + " n'a été trouvé.");
+            throw new FileNotFoundException("Aucun fichier du nom de " + nomDeFichierMot + " n'a été trouvé.");
         }
         BufferedReader buffer = new BufferedReader(new FileReader(fichier));
         String ligne = buffer.readLine();
