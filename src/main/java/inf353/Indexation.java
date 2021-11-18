@@ -1,10 +1,7 @@
 package inf353;
 
-import inf353.DictionnaireNaif;
 import java.io.IOException;
-import java.io.Reader;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.File;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -24,6 +21,8 @@ public class Indexation {
     public int maxDocuments;
     // la MatriceIndexNaive des occurences des mots en fonction du document
     public MatriceIndexNaive matriceOccurences;
+    // le chemin utilisé pour charger les documents
+    static String chemin = "./src/test/resources/inf353/";
 
     /**
      * Créer une Indexation vierge
@@ -38,16 +37,12 @@ public class Indexation {
     
     /**
      * Créer une Indexation à partir d'un fichier
+     * /!\ LE FICHIER DOIT OBLIGATOIREMENT SE TROUVER DANS LE CHEMIN INDIQUÉ
      * @param nomFichier Le nom du fichier
      */
     public Indexation(String nomFichierMatrice, String nomDeFichierMot) throws IOException {
-        // utiliser la méthode charger()
-        this.dictioMots = null;
-        this.maxMots = 0;
-        this.dictioDocuments = null;
-        this.maxDocuments = 0;
-        this.matriceOccurences = null;
-        charger(nomFichierMatrice,nomDeFichierMot);
+        this();
+        this.charger(nomFichierMatrice, nomDeFichierMot);
     }
 
     /**
@@ -55,10 +50,10 @@ public class Indexation {
      * @param mot le mot à ajouter
      */
     public void ajouterMot(String mot) {
+        if (mot.length() > 39) throw new Error("Le mot donné fait 40 caractères ou plus.");
         if (this.maxMots == 0) {
             this.maxMots = 10;
             this.dictioMots = new DictionnaireNaif(this.maxMots);
-            this.dictioMots.ajouterMot(mot);
             if (this.dictioDocuments != null) this.changerMatrice();
         } else {
             if (this.maxMots == this.dictioMots.nbMots()) {
@@ -70,8 +65,8 @@ public class Indexation {
                 this.dictioMots = nouveauDictio;
                 this.changerMatrice();
             }
-            this.dictioMots.ajouterMot(mot);
         }
+        this.dictioMots.ajouterMot(mot);
     }
 
     /**
@@ -80,10 +75,10 @@ public class Indexation {
      * @param compter Compter automatiquement le document dans la matrice
      */
     public void ajouterDocument(String document, boolean compter) throws IOException {
+        if (document.length() > 39) throw new Error("Le document donné fait 40 caractères ou plus.");
         if (this.maxDocuments == 0) {
             this.maxDocuments = 10;
             this.dictioDocuments = new DictionnaireNaif(this.maxDocuments);
-            this.dictioDocuments.ajouterMot(document);
             if (this.dictioMots != null) this.changerMatrice();
         } else {
             if (this.maxDocuments == this.dictioDocuments.nbMots()) {
@@ -95,8 +90,8 @@ public class Indexation {
                 this.dictioDocuments = nouveauDictio;
                 this.changerMatrice();
             }
-            this.dictioDocuments.ajouterMot(document);
         }
+        this.dictioDocuments.ajouterMot(document);
         if (compter) this.compter(document);
     }
 
@@ -173,12 +168,12 @@ public class Indexation {
      * @param document le document à compter
      */
     public void compter(String document) throws IOException {
-        
-        LecteurDocumentNaif lecteur = new LecteurDocumentNaif(document);
+        LecteurDocumentNaif lecteur = new LecteurDocumentNaif(chemin + document);
         lecteur.demarrer();
         while (!lecteur.finDeSequence()) {
             this.ajouterMot(lecteur.elementCourant());
             this.incremente(lecteur.elementCourant(), document);
+            lecteur.avancer();
         }
     }
 
@@ -187,22 +182,31 @@ public class Indexation {
      * @param nomFichier Le nom du fichier
      */
     public void sauver(String nomDeFichierMatrice, String nomDeFichierMot) throws FileNotFoundException, IOException {
+        // Utilisation de la méthode sauver de MatriceIndexNaive
         this.matriceOccurences.sauver(nomDeFichierMatrice);
+
+        // Initialisation du Buffer
         Writer writer = new FileWriter(nomDeFichierMot, false);
         BufferedWriter buffer = new BufferedWriter(writer);
+
+        // Écriture de dictioMots
         String ligne = "";
         for (int mots = 0; mots < this.dictioMots.nbMots(); mots++) {
             ligne += this.dictioMots.motIndice(mots) + ",";
-            //ligne = ligne.substring(0, ligne.length()-1);
         }
+        if (ligne != "") ligne = ligne.substring(0, ligne.length()-1);
         buffer.write(ligne);
         buffer.newLine();
+
+        // Écriture de dictioDocuments
         ligne = "";
         for (int docs = 0; docs < this.dictioDocuments.nbMots(); docs++) {
             ligne += this.dictioDocuments.motIndice(docs) + ",";
-            //ligne = ligne.substring(0, ligne.length()-1);
         }
+        if (ligne != "") ligne = ligne.substring(0, ligne.length()-1);
         buffer.write(ligne);
+
+        // Enregistrement et fermeture du Buffer
         buffer.flush();
         buffer.close();
     }
@@ -210,43 +214,40 @@ public class Indexation {
 
     /**
      * Charger une Indexation grâce à un fichier sauvegardé
+     * /!\ LE FICHIER DOIT OBLIGATOIREMENT SE TROUVER DANS LE CHEMIN INDIQUÉ
      * @param nomFichier Le nom du fichier
      */
     public void charger(String nomDeFichierMatrice, String nomDeFichierMot) throws IOException  {
-        matriceOccurences = new MatriceIndexNaive(nomDeFichierMatrice);
+        // Utilisation du constructeur de MatriceIndexNaive
+        this.matriceOccurences = new MatriceIndexNaive(chemin + nomDeFichierMatrice);
 
-        //Remplissage de dictioMots
-        File fichier = new File(nomDeFichierMot);
+        // Initialisation du fichier et du Buffer
+        File fichier = new File(chemin + nomDeFichierMot);
         if (!fichier.exists() || !fichier.isFile()) {
-            throw new FileNotFoundException("Aucun fichier du nom de " + nomDeFichierMot + " n'a été trouvé.");
+            throw new FileNotFoundException("Aucun fichier du nom de " + chemin + nomDeFichierMot + " n'a été trouvé.");
         }
         BufferedReader buffer = new BufferedReader(new FileReader(fichier));
+
+        // Remplissage de dictioMots
         String ligne = buffer.readLine();
-        int docs = 0;
-        int termes = 0;
-        termes = Math.max(termes, ligne.split(",").length);
-        this.dictioMots = new DictionnaireNaif(termes);
-        int i = 0;
-        String[] save = new String[ligne.split(",").length];
-        while(i < termes)
-        {
-            dictioMots.ajouterMot(save[i]);
-            i++;
+        String[] mots = ligne.split(",");
+        this.maxMots = Math.max(10, mots.length*2);
+        this.dictioMots = new DictionnaireNaif(this.maxMots);
+        for (int m = 0; m < mots.length; m++) {
+            this.dictioMots.ajouterMot(mots[m]);
         }
-        ligne = buffer.readLine();
-        this.maxMots = termes;
         
-        //Remplissage de dictioDocument
-        i = 0;
-        docs = Math.max(docs, ligne.split(",").length);
-        save = new String[ligne.split(",").length];
-        this.dictioDocuments = new DictionnaireNaif(termes);
-        while(i < docs) 
-        {
-            dictioMots.ajouterMot(save[i]);
-            i++;
+        // Remplissage de dictioDocument
+        ligne = buffer.readLine();
+        String[] documents = ligne.split(",");
+        this.maxDocuments = Math.max(10, documents.length*2);
+        this.dictioDocuments = new DictionnaireNaif(this.maxDocuments);
+        for (int d = 0; d < documents.length; d++) {
+            this.dictioDocuments.ajouterMot(documents[d]);
         }
-        this.maxDocuments = docs;
+
+        // Fermeture du Buffer
+        buffer.close();
     }
 
 }
