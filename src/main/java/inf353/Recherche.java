@@ -1,85 +1,56 @@
 package inf353;
 
 public class Recherche {
+
     public String[] recherche; // La "phrase" recherchée
     public Indexation index; // L'indexation des documents(faite dans le main avant l'appel de la recherche)
     public int[][] resultat; // Tableau des couples [[score,indice du document],[score, indice du document],...]
 
-    public Recherche(String[] requete, Indexation indexation)
-    {
+    /**
+     * Créer une Recherche
+     * @param requete La requête faite
+     * @param indexation L'Indexation utilisée
+     */
+    public Recherche(String[] requete, Indexation indexation) {
         this.recherche = requete;
         this.index = indexation;
-        this.resultat = new int[index.maxDocuments][2];
+        this.resultat = new int[index.dictioDocuments.nbMots()][2];
     }
 
-    //Score parait OK
-    public void score () // Donne le score de chaque fichier par rapport à la recherche
-    {
-        int i = 0;
-        while(i != index.maxDocuments)
-        {
-            int j = 0;
+    /**
+     * Calcule le score des documents en fonction de l'Indexation
+     */
+    public void score() {
+        for (int i = 0; i < index.dictioDocuments.nbMots(); i++) {
             int score = 0;
-            while(j != recherche.length)
-            {
-                int element = index.dictioMots.indiceMot(recherche[j].toLowerCase());
-                if(element != -1)
-                {
-                    int occurence = index.matriceOccurences.val(i,element);
-                    score = score + occurence;
-                }
-                j++;
+            for (int j = 0; j < recherche.length; j++) {
+                int valeur = this.index.val(recherche[j], this.index.dictioDocuments.motIndice(i));
+                if (valeur != -1) score += valeur;
             }
             resultat[i][0] = score;
             resultat[i][1] = i;
-            i++;
-        } 
-        
+        }
     }
 
-    public String[] presentation()
-    {
-        String[] res = new String[this.index.maxDocuments];
-        int i = 0;
-        while(i+1 <= resultat.length) 
-        {
-            int max = resultat[i][0];
-            int j = i+1;
-            int indiceMax = i;
-            int indiceDoc = resultat[i][1];
-            /*for (; j < resultat.length; j++)
-            {
-
-            }*/
-
-
-            while(j < resultat.length) //Trouve le score max parmi tout les documents
-            {
-                if(resultat[j][0] > max)
-                {
-                    max = resultat[j][0];
-                    indiceDoc = resultat[j][1];
-                    indiceMax = j;
+    /**
+     * Trier les résultats du meilleur au pire score
+     */
+    public String[] presentation() {
+        int[][] copie = this.resultat.clone();
+        for (int i = 0; i < copie.length; i++) {
+            for (int j = i+1; j < copie.length; j++) {
+                if (copie[j][0] > copie[i][0]) {
+                    int[] element = copie[i];
+                    copie[i] = copie[j];
+                    copie[j] = element;
                 }
-                j++;
             }
-            if( i != indiceMax)
-            {
-                System.out.println("Prems " + resultat[i][0] + " " + resultat[i][1]);
-                resultat[indiceMax] = resultat[i];
-                resultat[i][0] = max;
-                resultat[i][1] = indiceDoc;
-                System.out.println("" + resultat[i][0] + " " + resultat[i][1]);
-            }
-            i++;
         }
-        int w = 0;
-        while(w < resultat.length)
-        {
-            res[w] = this.index.dictioDocuments.motIndice(resultat[w][1]);
-            w++;
+        String[] resultat = new String[copie.length];
+        for (int k = 0; k < resultat.length; k++) {
+            resultat[k] = this.index.dictioDocuments.motIndice(copie[k][1]);
         }
-        return res;
+        return resultat;
     }
 
 }

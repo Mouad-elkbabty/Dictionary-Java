@@ -100,10 +100,17 @@ Par Valentin, Gaétan, Cyril
 
 ###### Répartition
 
-Par Fabien, Gaétan
+Par Fabien, Gaétan, Valentin
 - constructeurs - À TESTER
 - score() - À TESTER
 - presentation() - À TESTER
+
+#### Main et MainIndexation
+
+###### Répartition
+
+Par Fabien, Gaétan, Valentin
+Tout a été testé et tout semble bien fonctionner
 
 ### Faits marquants
 
