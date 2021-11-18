@@ -9,7 +9,7 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
     
 	File fichier;
 	FileReader fileReader;
-	char caractereLu;
+	int caractereLu;
     String mot;
 	static char[] separateurs = {',', ';', '?', '.', '!', ':', ' ', '\t', '\n', '{', '}', '(', ')', '"', '&', '-', '_', '\'', '/','\r'};
 
@@ -30,7 +30,7 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
 	 */
     public void demarrer() throws IOException {
 		this.fileReader = new FileReader(this.fichier.getPath());
-		this.caractereLu = (char) this.fileReader.read();
+		this.caractereLu = this.fileReader.read();
 		this.avancer();
     }    
 	
@@ -38,13 +38,13 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
 	 * Avance vers le prochain mot
 	 */
     public void avancer() throws IOException {
-		while (estSeparateur(this.caractereLu)) {
-			this.caractereLu = (char) this.fileReader.read();
+		while (estSeparateur((char) this.caractereLu)) {
+			this.caractereLu = this.fileReader.read();
 		}
 		mot = "";
-		while (!estSeparateur(this.caractereLu)) {
-			this.mot += this.caractereLu;
-			this.caractereLu = (char) this.fileReader.read();
+		while (this.caractereLu != -1 && !estSeparateur((char) this.caractereLu)) {
+			this.mot += Character.toLowerCase((char) this.caractereLu);
+			this.caractereLu = this.fileReader.read();
 		}
     }
 
