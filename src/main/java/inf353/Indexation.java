@@ -21,28 +21,31 @@ public class Indexation {
     public int maxDocuments;
     // la MatriceIndexNaive des occurences des mots en fonction du document
     public MatriceIndexNaive matriceOccurences;
-    // le chemin utilisé pour charger les documents
-    static String chemin = "./src/test/resources/inf353/";
+    // le dossier utilisé pour charger les documents
+    public String nomDossier;
 
     /**
      * Créer une Indexation vierge
      */
-    public Indexation() {
+    public Indexation(String nomDossier) {
         this.dictioMots = null;
         this.maxMots = 0;
         this.dictioDocuments = null;
         this.maxDocuments = 0;
         this.matriceOccurences = null;
+        this.nomDossier = nomDossier;
     }
     
     /**
      * Créer une Indexation à partir d'un fichier
      * /!\ LE FICHIER DOIT OBLIGATOIREMENT SE TROUVER DANS LE CHEMIN INDIQUÉ
-     * @param nomFichier Le nom du fichier
+     * @param nomDossier Le dossier utilisé pour charger les documents
+     * @param nomFichierMatrice Le nom du fichier qui contient la matrice
+     * @param nomFichierDictionnaires Le nom du fichier qui contient les dictionnaires
      */
-    public Indexation(String nomFichierMatrice, String nomDeFichierMot) throws IOException {
-        this();
-        this.charger(nomFichierMatrice, nomDeFichierMot);
+    public Indexation(String nomDossier, String nomFichierMatrice, String nomFichierDictionnaires) throws IOException {
+        this(nomDossier);
+        this.charger(nomFichierMatrice, nomFichierDictionnaires);
     }
 
     /**
@@ -168,7 +171,7 @@ public class Indexation {
      * @param document le document à compter
      */
     public void compter(String document) throws IOException {
-        LecteurDocumentNaif lecteur = new LecteurDocumentNaif(chemin + document);
+        LecteurDocumentNaif lecteur = new LecteurDocumentNaif(this.nomDossier + document);
         lecteur.demarrer();
         while (!lecteur.finDeSequence()) {
             this.ajouterMot(lecteur.elementCourant());
@@ -219,12 +222,12 @@ public class Indexation {
      */
     public void charger(String nomDeFichierMatrice, String nomDeFichierMot) throws IOException  {
         // Utilisation du constructeur de MatriceIndexNaive
-        this.matriceOccurences = new MatriceIndexNaive(chemin + nomDeFichierMatrice);
+        this.matriceOccurences = new MatriceIndexNaive(this.nomDossier + nomDeFichierMatrice);
 
         // Initialisation du fichier et du Buffer
-        File fichier = new File(chemin + nomDeFichierMot);
+        File fichier = new File(this.nomDossier + nomDeFichierMot);
         if (!fichier.exists() || !fichier.isFile()) {
-            throw new FileNotFoundException("Aucun fichier du nom de " + chemin + nomDeFichierMot + " n'a été trouvé.");
+            throw new FileNotFoundException("Aucun fichier du nom de " + this.nomDossier + nomDeFichierMot + " n'a été trouvé.");
         }
         BufferedReader buffer = new BufferedReader(new FileReader(fichier));
 

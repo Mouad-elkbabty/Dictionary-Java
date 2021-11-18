@@ -9,12 +9,13 @@ import org.junit.Test;
 
 public class IndexationTest {
 
+    static String nomDossier = "./src/test/resources/inf353/";
     static String nomFichierMatrice1 = "test-indexation1-matrice.txt";
     static String nomFichierDictio1 = "test-indexation1-dictio.txt";
 
     @Test
     public void constructeursTest() throws IOException {
-        Indexation indexation1 = new Indexation();
+        Indexation indexation1 = new Indexation(nomDossier);
         assertEquals(null, indexation1.matriceOccurences);
         assertEquals(null, indexation1.dictioMots);
         assertEquals(null, indexation1.dictioDocuments);
@@ -22,7 +23,7 @@ public class IndexationTest {
         assertEquals(0, indexation1.maxDocuments);
 
         // ici, on teste donc en même temps la méthode charger
-        Indexation indexation2 = new Indexation(nomFichierMatrice1, nomFichierDictio1);
+        Indexation indexation2 = new Indexation(nomDossier, nomFichierMatrice1, nomFichierDictio1);
         int[][] matrice = {
             { 1, 2, 3, 4, 5 },
             { 3, 5, 7, 9, 11 },
@@ -45,10 +46,10 @@ public class IndexationTest {
 
     @Test
     public void changerMatriceTest() {
-        Indexation indexation1 = new Indexation();
+        Indexation indexation1 = new Indexation(nomDossier);
         indexation1.changerMatrice();
         assertEquals(0, indexation1.matriceOccurences.matrice.length);
-        Indexation indexation2 = new Indexation();
+        Indexation indexation2 = new Indexation(nomDossier);
         indexation2.maxMots = 4;
         indexation2.maxDocuments = 8;
         indexation2.changerMatrice();
@@ -58,7 +59,7 @@ public class IndexationTest {
 
     @Test
     public void ajouterMotTest() {
-        Indexation indexation1 = new Indexation();
+        Indexation indexation1 = new Indexation(nomDossier);
         indexation1.ajouterMot("test1");
         assertEquals(10, indexation1.maxMots);
         assertEquals(1, indexation1.dictioMots.nbMots());
@@ -73,7 +74,7 @@ public class IndexationTest {
 
     @Test
     public void ajouterDocumentTest() throws IOException {
-        Indexation indexation1 = new Indexation();
+        Indexation indexation1 = new Indexation(nomDossier);
         indexation1.ajouterDocument("test1", false);
         assertEquals(10, indexation1.maxDocuments);
         assertEquals(1, indexation1.dictioDocuments.nbMots());
@@ -88,7 +89,7 @@ public class IndexationTest {
 
     @Test
     public void valTest() throws IOException {
-        Indexation indexation1 = new Indexation(nomFichierMatrice1, nomFichierDictio1);
+        Indexation indexation1 = new Indexation(nomDossier, nomFichierMatrice1, nomFichierDictio1);
         assertEquals(10, indexation1.val("mot3", "doc3"));
         assertEquals(1, indexation1.val("mot5", "doc4"));
         assertEquals(9, indexation1.val("mot1", "doc4"));
@@ -98,7 +99,7 @@ public class IndexationTest {
 
     @Test
     public void affecteTest() throws IOException {
-        Indexation indexation1 = new Indexation(nomFichierMatrice1, nomFichierDictio1);
+        Indexation indexation1 = new Indexation(nomDossier, nomFichierMatrice1, nomFichierDictio1);
         indexation1.affecte("mot3", "doc3", 100);
         assertEquals(100, indexation1.val("mot3", "doc3"));
         indexation1.affecte("mot5", "doc1", 12);
@@ -111,7 +112,7 @@ public class IndexationTest {
 
     @Test
     public void incrementeTest() throws IOException {
-        Indexation indexation1 = new Indexation(nomFichierMatrice1, nomFichierDictio1);
+        Indexation indexation1 = new Indexation(nomDossier, nomFichierMatrice1, nomFichierDictio1);
         indexation1.incremente("mot1", "doc1");
         assertEquals(2, indexation1.val("mot1", "doc1"));
         indexation1.incremente("mot2", "doc4");
@@ -124,7 +125,7 @@ public class IndexationTest {
 
     @Test
     public void compterTest() throws IOException {
-        Indexation indexation1 = new Indexation();
+        Indexation indexation1 = new Indexation(nomDossier);
         String document = "test-lecteur1.txt";
         indexation1.ajouterDocument(document, true);
         String mots[] = { "un", "mot", "je", "rajoute", "une", "ligne" };
@@ -135,14 +136,14 @@ public class IndexationTest {
 
     @Test
     public void sauverTest() throws IOException {
-        Indexation indexation1 = new Indexation();
+        Indexation indexation1 = new Indexation(nomDossier);
         String document = "test-lecteur1.txt";
         indexation1.ajouterDocument(document, true);
         String cheminMatrice = "output-indexation1-matrice.txt";
         String cheminDictio = "output-indexation1-dictio.txt";
-        indexation1.sauver(Indexation.chemin + cheminMatrice, Indexation.chemin + cheminDictio);
+        indexation1.sauver(nomDossier + cheminMatrice, nomDossier + cheminDictio);
 
-        Indexation chargement1 = new Indexation(cheminMatrice, cheminDictio);
+        Indexation chargement1 = new Indexation(nomDossier, cheminMatrice, cheminDictio);
         assertEquals(document, chargement1.dictioDocuments.motIndice(0));
         String mots[] = { "un", "mot", "je", "rajoute", "une", "ligne" };
         for (int m = 0; m < mots.length; m++) {
