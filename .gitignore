@@ -130,9 +130,9 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 # ignore the output files in the test resources folder
-src/test/resources/*/output*.txt
+src/test/resources/inf353/output*.txt
 # ignore the private documents
-src/main/resources/inf353/documents
+src/main/resources/inf353/documents/**
 
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
