@@ -132,7 +132,7 @@ buildNumber.properties
 # ignore the output files in the test resources folder
 src/test/resources/*/output*.txt
 # ignore the private documents
-src/main/resources/inf353
+src/main/resources/inf353/documents
 
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
