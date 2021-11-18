@@ -100,7 +100,7 @@ Par Valentin, Gaétan, Cyril
 
 ###### Répartition
 
-Par Fabien, Gaétan
+Par Fabien, Gaétan, Valentin
 - constructeurs - À TESTER
 - score() - À TESTER
 - presentation() - À TESTER
