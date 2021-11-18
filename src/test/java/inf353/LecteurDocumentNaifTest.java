@@ -22,7 +22,7 @@ public class LecteurDocumentNaifTest {
     public void demarrerTest() throws IOException {
         LecteurDocumentNaif lecteur1 = new LecteurDocumentNaif("./src/test/resources/inf353/test-lecteur1.txt");
         lecteur1.demarrer();
-        assertEquals("Un", lecteur1.mot);
+        assertEquals("un", lecteur1.mot);
     }
 
     public void avancerEtElementCourantTest() throws IOException {
@@ -30,7 +30,7 @@ public class LecteurDocumentNaifTest {
         lecteur1.demarrer();
         lecteur1.avancer();
         lecteur1.avancer();
-        assertEquals("Je", lecteur1.elementCourant());
+        assertEquals("je", lecteur1.elementCourant());
         lecteur1.avancer();
         assertEquals("rajoute", lecteur1.elementCourant());
         lecteur1.avancer();
