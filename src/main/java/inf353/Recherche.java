@@ -22,12 +22,17 @@ public class Recherche {
             int score = 0;
             while(j != recherche.length)
             {
-                int element = index.dictioMots.indiceMot(recherche[j]);
-                int occurence = index.matriceOccurences.val(i,element);
-                score = score + occurence;
+                int element = index.dictioMots.indiceMot(recherche[j].toLowerCase());
+                if(element != -1)
+                {
+                    int occurence = index.matriceOccurences.val(i,element);
+                    score = score + occurence;
+                }
+                j++;
             }
             resultat[i][0] = score;
             resultat[i][1] = i;
+            i++;
         } 
         
     }
@@ -36,15 +41,21 @@ public class Recherche {
     {
         String[] res = new String[this.index.maxDocuments];
         int i = 0;
-        while(i != resultat.length) 
+        while(i+1 <= resultat.length) 
         {
             int max = resultat[i][0];
             int j = i+1;
             int indiceMax = i;
             int indiceDoc = resultat[i][1];
+            /*for (; j < resultat.length; j++)
+            {
+
+            }*/
+
+
             while(j < resultat.length) //Trouve le score max parmi tout les documents
             {
-                if(resultat[j][0] >= max)
+                if(resultat[j][0] > max)
                 {
                     max = resultat[j][0];
                     indiceDoc = resultat[j][1];
