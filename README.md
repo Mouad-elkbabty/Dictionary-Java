@@ -105,6 +105,13 @@ Par Fabien, Gaétan, Valentin
 - score() - À TESTER
 - presentation() - À TESTER
 
+#### Main et MainIndexation
+
+###### Répartition
+
+Par Fabien, Gaétan, Valentin
+Tout a été testé et tout semble bien fonctionner
+
 ### Faits marquants
 
 Bonne concertation, organisation des tâches et participation  de chacun dans ce qui lui a été confié lors du dernier cours.   
