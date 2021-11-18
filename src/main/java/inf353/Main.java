@@ -10,7 +10,7 @@ public class Main {
     public static Recherche recherche;
     public static void main (String[] args) throws IOException
     {
-        indexation = new Indexation("Matrice.txt","Mot.txt");
+        indexation = new Indexation("./src/main/resources/inf353/","Matrice.txt","Mots.txt");
         recherche = new Recherche(args, indexation);
         nbResultatAfficher = 15;
         int i = 0;
