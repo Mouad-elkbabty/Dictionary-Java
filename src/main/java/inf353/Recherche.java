@@ -13,7 +13,7 @@ public class Recherche {
     }
 
     //Score parait OK
-    public int[][] score ()
+    public void score () // Donne le score de chaque fichier par rapport à la recherche
     {
         int i = 0;
         while(i != index.maxDocuments)
@@ -29,7 +29,7 @@ public class Recherche {
             resultat[i][0] = score;
             resultat[i][1] = i;
         } 
-        return resultat;
+        
     }
 
     public String[] presentation()
@@ -63,8 +63,6 @@ public class Recherche {
             res[w] = this.index.dictioDocuments.motIndice(resultat[w][1]);
             w++;
         }
-
-
         return res;
     }
 
