@@ -72,7 +72,7 @@ Bonne concertation en début de séance pour s'organiser et préparer les classe
 
 ##### Répartition
 
-Par Valentin, Higo, Fabien , Mouad
+Par Valentin, Higo, Fabien, Mouad
 - constructeur - TESTÉ
 - demarrer() - TESTÉE
 - avancer() - TESTÉE
@@ -85,17 +85,26 @@ Par Valentin, Higo, Fabien , Mouad
 ##### Répartition
 
 Par Valentin, Gaétan, Cyril
-- constructeur - TESTER CELUI AVEC FICHIER
+- constructeur - TESTÉS
 - changerMatrice() - TESTÉE
 - ajouterMot() - TESTÉE
 - ajouterDocument() - TESTÉE
-- affecte() - À TESTER
-- incremente() - À TESTER
-- val() - À TESTER
-- compter() - À TESTER
-- sauver() - INCOMPLET
-- charger() - INCOMPLET
+- affecte() - TESTÉE
+- incremente() - TESTÉE
+- val() - TESTÉE
+- compter() - TESTÉE
+- sauver() - TESTÉE
+- charger() - TESTÉE
+
+#### Recherche
+
+###### Répartition
+
+Par Fabien, Gaétan
+- constructeurs - À TESTER
+- score() - À TESTER
+- presentation() - À TESTER
 
 ### Faits marquants
 
-Bonne concertation , organisation des tâches et participation  de chacun dans ce qui lui a été confié  lors du dernier cours.   
+Bonne concertation, organisation des tâches et participation  de chacun dans ce qui lui a été confié lors du dernier cours.   
