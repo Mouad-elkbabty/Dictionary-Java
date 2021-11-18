@@ -22,7 +22,7 @@ public class Indexation {
     // la MatriceIndexNaive des occurences des mots en fonction du document
     public MatriceIndexNaive matriceOccurences;
     // le chemin utilisé pour charger les documents
-    static String chemin = "./src/test/resources/inf353/";
+    public static String chemin = "./src/test/resources/inf353/";
 
     /**
      * Créer une Indexation vierge
