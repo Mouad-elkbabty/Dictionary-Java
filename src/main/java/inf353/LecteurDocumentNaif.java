@@ -64,7 +64,7 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
 	 * Renvoie le mot actuellement lu
 	 */
     public String elementCourant() {
-        return this.mot;
+        return this.supprimeAccents(mot);
     }
 
 	/**
@@ -72,6 +72,41 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
 	 */
     public boolean finDeSequence(){
         return this.mot != null && this.mot.equals("");
+    }
+
+     public String supprimeAccents(String m){
+    String r = "";
+    int i = 0;
+    int j = 0;
+    char[] a = {'Ç','ç','é','è','ê','ë','ù','ü','ô','ö','æ','à','É','È','Ê','Ë','Ù','Ü','Ô','Ö','Æ','À'};
+    char[] as = {'c','c','e','e','e','e','u','u','o','o','e','a','e','e','e','e','u','u','o','o','e','a'};
+
+
+    while(i < m.length()) {
+    if(m.charAt(i) >= 65 && m.charAt(i) <= 90){
+        r = r + (char)(m.charAt(i)+32);
+        i++;
+        }
+    else if(m.charAt(i) >= 97 && m.charAt(i) <= 122){
+        r = r + m.charAt(i);
+        i++;
+        }
+    else{
+        j=0;
+        while(j < a.length && m.charAt(i) != a[j]){
+            j++;
+            }
+        if (j<a.length){
+            r = r + as[j];
+            i++;
+            }
+        else{
+            r = r +m.charAt(i);
+            i++;
+            }
+        }
+    }
+    return r;
     }
 
 }
