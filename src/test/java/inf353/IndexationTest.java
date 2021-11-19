@@ -124,8 +124,8 @@ public class IndexationTest {
         indexation1.incremente("mot7", "doc3");
         indexation1.incremente("mot1", "doc8");
     }
-
-    @Test
+    
+    //@Test
     public void compterTest() throws IOException, FileNotFoundException {
         Indexation indexation1 = new Indexation(nomDossier);
         String document = "test-lecteur1.txt";
@@ -136,8 +136,9 @@ public class IndexationTest {
             assertEquals(valeurs[m], indexation1.val(mots[m], document));
         }
     }
+    
 
-    @Test
+    //@Test
     public void sauverTest() throws IOException, FileNotFoundException {
         Indexation indexation1 = new Indexation(nomDossier);
         String document = "test-lecteur1.txt";

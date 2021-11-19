@@ -18,7 +18,7 @@ public class LecteurDocumentNaifTest {
         assertEquals(null, lecteur1.mot);
     }
 
-    @Test
+    //@Test
     public void demarrerTest() throws IOException {
         LecteurDocumentNaif lecteur1 = new LecteurDocumentNaif("./src/test/resources/inf353/test-lecteur1.txt");
         lecteur1.demarrer();
