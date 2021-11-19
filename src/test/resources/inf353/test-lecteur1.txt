@@ -1,2 +1,2 @@
-,,,Un,mot
-Je_rajoute_une_ligne,,,
+un mot
+je rajoute une ligne,,, rajoute
