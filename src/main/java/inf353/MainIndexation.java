@@ -17,7 +17,7 @@ public class MainIndexation {
             index.ajouterDocument(commons[i], true);
             i++;
         }
-        index.sauver("./src/main/resources/inf353/sauvegarde/Matrice.txt", "./src/main/resources/inf353/sauvegarde/Dictionnaire.txt");
+        index.sauver("./src/main/resources/inf353/sauvegarde/Matrice.txt", "./src/main/resources/inf353/sauvegarde/Dictionnaires.txt");
     }
 
 
