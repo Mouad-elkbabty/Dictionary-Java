@@ -47,6 +47,14 @@ public class LecteurDocumentNaifTest {
         assertTrue(LecteurDocumentNaif.estSeparateur(','));
         assertTrue(LecteurDocumentNaif.estSeparateur('_'));
         assertFalse(LecteurDocumentNaif.estSeparateur('x'));
+        assertTrue(LecteurDocumentNaif.estSeparateur(';'));
+        assertTrue(LecteurDocumentNaif.estSeparateur('?'));
+        assertTrue(LecteurDocumentNaif.estSeparateur('\t'));
+        assertTrue(LecteurDocumentNaif.estSeparateur('\n'));
+        assertFalse(LecteurDocumentNaif.estSeparateur('f'));//** Test valide pour une lettre aléatoire f
+        assertTrue(LecteurDocumentNaif.estSeparateur('.'));
+
+
     }
 
     public void finDeSequenceTest() throws IOException {
