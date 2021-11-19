@@ -48,7 +48,7 @@ public class Recherche {
         }
         String[] resultat = new String[copie.length];
         for (int k = 0; k < resultat.length; k++) {
-            resultat[k] = this.index.dictioDocuments.motIndice(copie[k][1]);
+            resultat[k] = this.index.dictioDocuments.motIndice(copie[k][1]) + " (score: " + copie[k][0] + ")";
         }
         return resultat;
     }

@@ -69,8 +69,8 @@ public class MatriceIndexNaive implements MatriceIndex {
         Writer writer = new FileWriter(nomDeFichier, false);
         BufferedWriter buffer = new BufferedWriter(writer);
         String ligne = "";
-        for (int mots = 0; mots < this.matrice[0].length; mots++) {
-            for (int documents = 0; documents < this.matrice.length; documents++) {
+        for (int mots = 0; mots < this.matrice.length; mots++) {
+            for (int documents = 0; documents < this.matrice[0].length; documents++) {
                 ligne += this.matrice[mots][documents] + ",";
             }
             ligne = ligne.substring(0, ligne.length()-1);
