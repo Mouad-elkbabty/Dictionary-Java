@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.Normalizer;
 
 public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
     
@@ -64,6 +65,8 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
 	 * Renvoie le mot actuellement lu
 	 */
     public String elementCourant() {
+         this.mot = Normalizer.normalize(this.mot, Normalizer.Form.NFD);
+        this.mot = this.mot.replaceAll("[^\\p{ASCII}]", "");
         return this.mot;
     }
 
