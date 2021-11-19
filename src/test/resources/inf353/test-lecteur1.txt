@@ -1,3 +1,8 @@
+<<<<<<< HEAD
 ,,,Un,mot
 Je_rajoute_une_ligne,,,
 éèàöÔÆ
+=======
+un mot
+je rajoute une ligne,,, rajoute
+>>>>>>> 6d1f208aa25d89fa4de0fc74685d0242e1bff09c

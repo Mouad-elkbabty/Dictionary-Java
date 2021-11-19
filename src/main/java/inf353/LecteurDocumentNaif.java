@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.Normalizer;
 
 public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
     
@@ -64,6 +65,8 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
 	 * Renvoie le mot actuellement lu
 	 */
     public String elementCourant() {
+         this.mot = Normalizer.normalize(this.mot, Normalizer.Form.NFD);
+        this.mot = this.mot.replaceAll("[^\\p{ASCII}]", "");
         return this.supprimeAccents(mot);
     }
 
@@ -74,7 +77,12 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
         return this.mot != null && this.mot.equals("");
     }
 
-     public String supprimeAccents(String m){
+
+
+    /**
+	 * Renvoie le mot m sans accents ni majuscules
+	 */
+    public String supprimeAccents(String m){
     String r = "";
     int i = 0;
     int j = 0;
