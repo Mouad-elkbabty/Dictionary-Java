@@ -220,7 +220,7 @@ public class Indexation {
      * /!\ LE FICHIER DOIT OBLIGATOIREMENT SE TROUVER DANS LE CHEMIN INDIQUÉ
      * @param nomFichier Le nom du fichier
      */
-    public void charger(String nomDeFichierMatrice, String nomDeFichierMot) throws IOException  {
+    public void charger(String nomDeFichierMatrice, String nomDeFichierMot) throws IOException, FileNotFoundException  {
         // Utilisation du constructeur de MatriceIndexNaive
         this.matriceOccurences = new MatriceIndexNaive(this.nomDossier + nomDeFichierMatrice);
 

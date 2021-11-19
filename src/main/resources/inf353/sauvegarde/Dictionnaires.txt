@@ -1,2 +1,2 @@
-la,banane,c,est,genial,goyave,aussi,papaya
-Banana.txt,Goyave.txt,Papaya.txt
+je,suis,un,exemple
+exemple.txt
