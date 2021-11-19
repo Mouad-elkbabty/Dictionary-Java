@@ -17,6 +17,10 @@ public class MainIndexation {
             index.ajouterDocument(commons[i], true);
             i++;
         }
+        File sauvegarde = new File("./src/main/resources/inf353/sauvegarde/");
+        if (!sauvegarde.isDirectory()) {
+            sauvegarde.mkdir();
+        }
         index.sauver("./src/main/resources/inf353/sauvegarde/Matrice.txt", "./src/main/resources/inf353/sauvegarde/Dictionnaires.txt");
     }
 
