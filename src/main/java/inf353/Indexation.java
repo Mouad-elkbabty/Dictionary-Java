@@ -6,8 +6,6 @@ import java.io.File;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.Writer;
-import java.text.Normalizer;
-import java.util.regex.Pattern;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
 
@@ -25,32 +23,38 @@ public class Indexation {
     public MatriceIndexNaive matriceOccurences;
     // le dossier utilisé pour charger les documents
     public String nomDossier;
-    // liste des accents sous forme d'un tableau de tableaux { caractère, liste des accents }
-    public static String[][] accents = {
-        { "A", "ÀÁÄÂ" },
-        { "C", "Ç" },
-        { "E", "ÉÈËÊ" },
-        { "I", "ÏÎÍÌ" },
-        { "O", "ÔÖÓÒ" },
-        { "U", "ÛÜÚÙ" },
-        { "a", "àáäâ" },
-        { "c", "ç" },
-        { "e", "éèëê" },
-        { "i", "ïîíì" },
-        { "o", "ôöóò" },
-        { "u", "ûüúù" }
-    };
-
+    public int nbMotInterdit = 495;
+    public String[] stopList;
     /**
      * Créer une Indexation vierge
      */
-    public Indexation(String nomDossier) {
+    
+    public Indexation(String nomDossier) throws IOException, FileNotFoundException{
         this.dictioMots = null;
         this.maxMots = 0;
         this.dictioDocuments = null;
         this.maxDocuments = 0;
         this.matriceOccurences = null;
         this.nomDossier = nomDossier;
+
+        stopList = new String[nbMotInterdit];
+        File file = new File ("./src/main/resources/inf353/DictionnaireStoplist.txt");
+
+        if (!file.exists() || !file.isFile()) {
+            throw new FileNotFoundException("Aucun fichier stoplist n'a été trouvé.");
+        }
+        
+        BufferedReader buffer = new BufferedReader(new FileReader(file));
+        int i = 0;
+        String ligne = buffer.readLine();
+        while(ligne != null && i < nbMotInterdit) // Rempli la stopList
+        {
+            stopList[i] = ligne;
+            ligne = buffer.readLine();
+            i++;
+        }
+        buffer.close();
+
     }
     
     /**
@@ -60,7 +64,7 @@ public class Indexation {
      * @param nomFichierMatrice Le nom du fichier qui contient la matrice
      * @param nomFichierDictionnaires Le nom du fichier qui contient les dictionnaires
      */
-    public Indexation(String nomDossier, String nomFichierMatrice, String nomFichierDictionnaires) throws IOException {
+    public Indexation(String nomDossier, String nomFichierMatrice, String nomFichierDictionnaires) throws IOException, FileNotFoundException {
         this(nomDossier);
         this.charger(nomFichierMatrice, nomFichierDictionnaires);
     }
@@ -70,23 +74,28 @@ public class Indexation {
      * @param mot le mot à ajouter
      */
     public void ajouterMot(String mot) {
-        if (mot.length() > 39) throw new Error("Le mot donné fait 40 caractères ou plus.");
-        if (this.maxMots == 0) {
-            this.maxMots = 10;
-            this.dictioMots = new DictionnaireNaif(this.maxMots);
-            if (this.dictioDocuments != null) this.changerMatrice();
-        } else {
-            if (this.maxMots == this.dictioMots.nbMots()) {
-                this.maxMots *= 2;
-                DictionnaireNaif nouveauDictio = new DictionnaireNaif(this.maxMots);
-                for (int i = 0; i != this.dictioMots.nbMots(); i++) {
-                    nouveauDictio.ajouterMot(this.dictioMots.motIndice(i));
+        if(!estInterdit(mot))
+        {
+            if (mot.length() > 39) throw new Error("Le mot donné fait 40 caractères ou plus.");
+            if (this.maxMots == 0) {
+                this.maxMots = 10;
+                this.dictioMots = new DictionnaireNaif(this.maxMots);
+                if (this.dictioDocuments != null) this.changerMatrice();
+            } 
+            else {
+                if (this.maxMots == this.dictioMots.nbMots()) {
+                    this.maxMots *= 2;
+
+                    DictionnaireNaif nouveauDictio = new DictionnaireNaif(this.maxMots);
+                    for (int i = 0; i != this.dictioMots.nbMots(); i++) {
+                        nouveauDictio.ajouterMot(this.dictioMots.motIndice(i));
+                    }
+                    this.dictioMots = nouveauDictio;
+                    this.changerMatrice();
                 }
-                this.dictioMots = nouveauDictio;
-                this.changerMatrice();
             }
+            this.dictioMots.ajouterMot(mot);
         }
-        this.dictioMots.ajouterMot(mot);
     }
 
     /**
@@ -191,34 +200,10 @@ public class Indexation {
         LecteurDocumentNaif lecteur = new LecteurDocumentNaif(this.nomDossier + document);
         lecteur.demarrer();
         while (!lecteur.finDeSequence()) {
-            System.out.println(lecteur.elementCourant());
-            String mot = retirerAccents(lecteur.elementCourant()).toLowerCase();
-            System.out.println(mot);
-            this.ajouterMot(mot);
-            this.incremente(mot, document);
+            this.ajouterMot(lecteur.elementCourant());
+            this.incremente(lecteur.elementCourant(), document);
             lecteur.avancer();
         }
-    }
-
-    /**
-     * Retirer les accents d'un texte
-     * https://stackoverflow.com/a/46118158/14464264
-     * @param texte Le texte voulu
-     */
-    public static String retirerAccents(String texte) {
-        String resultat = "";
-        for (int i = 0; i < texte.length(); i++) {
-            char caractere = texte.charAt(i);
-            for (int a = 0; a < accents.length; a++) {
-                if (accents[a][0].equals(caractere + "")) {
-                    for (int e = 0; e < accents[a][1].length(); e++) {
-                        if (accents[a][1].charAt(e) == caractere) caractere = accents[a][1].charAt(e);
-                    }
-                }
-            }
-            resultat += caractere;
-        }
-        return resultat;
     }
 
     /**
@@ -261,7 +246,7 @@ public class Indexation {
      * /!\ LE FICHIER DOIT OBLIGATOIREMENT SE TROUVER DANS LE CHEMIN INDIQUÉ
      * @param nomFichier Le nom du fichier
      */
-    public void charger(String nomDeFichierMatrice, String nomDeFichierMot) throws IOException  {
+    public void charger(String nomDeFichierMatrice, String nomDeFichierMot) throws IOException, FileNotFoundException  {
         // Utilisation du constructeur de MatriceIndexNaive
         this.matriceOccurences = new MatriceIndexNaive(this.nomDossier + nomDeFichierMatrice);
 
@@ -292,6 +277,21 @@ public class Indexation {
 
         // Fermeture du Buffer
         buffer.close();
+    }
+
+    /**
+     * Renvoie true si le mot considéré est un mot interdit par la stopList
+     * @param mot Le mot considéré
+     */
+
+    public boolean estInterdit(String mot)
+    {
+        int i = 0;
+        while(i < this.nbMotInterdit && stopList[i] != null && !mot.equals(stopList[i]))
+        {
+            i++;
+        }
+        return !(i == this.nbMotInterdit);
     }
 
 }

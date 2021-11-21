@@ -10,7 +10,7 @@ public class Main {
     public static void main (String[] args) throws IOException {
         indexation = new Indexation("./src/main/resources/inf353/sauvegarde/","Matrice.txt","Dictionnaires.txt");
         for (int a = 0; a < args.length; a++) {
-            args[a] = Indexation.retirerAccents(args[a].toLowerCase());
+            args[a] = LecteurDocumentNaif.supprimeAccents(args[a].toLowerCase());
         }
 
         recherche = new Recherche(args, indexation);

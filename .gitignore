@@ -134,7 +134,7 @@ src/test/resources/inf353/output*.txt
 # ignore the private documents
 src/main/resources/inf353/**
 !src/main/resources/inf353/documents/exemple.txt
-
+!src/main/resources/inf353/DictionnaireStoplist.txt
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
 
