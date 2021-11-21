@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.Writer;
+import java.text.Normalizer;
+import java.util.regex.Pattern;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
 
@@ -23,6 +25,21 @@ public class Indexation {
     public MatriceIndexNaive matriceOccurences;
     // le dossier utilisé pour charger les documents
     public String nomDossier;
+    // liste des accents sous forme d'un tableau de tableaux { caractère, liste des accents }
+    public static String[][] accents = {
+        { "A", "ÀÁÄÂ" },
+        { "C", "Ç" },
+        { "E", "ÉÈËÊ" },
+        { "I", "ÏÎÍÌ" },
+        { "O", "ÔÖÓÒ" },
+        { "U", "ÛÜÚÙ" },
+        { "a", "àáäâ" },
+        { "c", "ç" },
+        { "e", "éèëê" },
+        { "i", "ïîíì" },
+        { "o", "ôöóò" },
+        { "u", "ûüúù" }
+    };
 
     /**
      * Créer une Indexation vierge
@@ -174,10 +191,34 @@ public class Indexation {
         LecteurDocumentNaif lecteur = new LecteurDocumentNaif(this.nomDossier + document);
         lecteur.demarrer();
         while (!lecteur.finDeSequence()) {
-            this.ajouterMot(lecteur.elementCourant());
-            this.incremente(lecteur.elementCourant(), document);
+            System.out.println(lecteur.elementCourant());
+            String mot = retirerAccents(lecteur.elementCourant()).toLowerCase();
+            System.out.println(mot);
+            this.ajouterMot(mot);
+            this.incremente(mot, document);
             lecteur.avancer();
         }
+    }
+
+    /**
+     * Retirer les accents d'un texte
+     * https://stackoverflow.com/a/46118158/14464264
+     * @param texte Le texte voulu
+     */
+    public static String retirerAccents(String texte) {
+        String resultat = "";
+        for (int i = 0; i < texte.length(); i++) {
+            char caractere = texte.charAt(i);
+            for (int a = 0; a < accents.length; a++) {
+                if (accents[a][0].equals(caractere + "")) {
+                    for (int e = 0; e < accents[a][1].length(); e++) {
+                        if (accents[a][1].charAt(e) == caractere) caractere = accents[a][1].charAt(e);
+                    }
+                }
+            }
+            resultat += caractere;
+        }
+        return resultat;
     }
 
     /**

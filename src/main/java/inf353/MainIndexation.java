@@ -6,10 +6,11 @@ import java.io.IOException;
 public class MainIndexation {
     public static String[] commons;
     public static Indexation index;
-    public static void main (String[] args) throws IOException
+    public static void main (String[] args) throws IOException, ClassNotFoundException
     {
         index = new Indexation("./src/main/resources/inf353/documents/");
         File fichier = new File("./src/main/resources/inf353/documents/");
+
         commons = fichier.list();
         int i = 0;
         while(i < commons.length)
@@ -17,6 +18,7 @@ public class MainIndexation {
             index.ajouterDocument(commons[i], true);
             i++;
         }
+
         File sauvegarde = new File("./src/main/resources/inf353/sauvegarde/");
         if (!sauvegarde.isDirectory()) {
             sauvegarde.mkdir();
