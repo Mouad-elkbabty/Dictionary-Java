@@ -48,7 +48,7 @@ public class Indexation {
         String ligne = buffer.readLine();
         while(ligne != null && i < nbMotInterdit) // Rempli la stopList
         {
-            stopList[i] = ligne;
+            stopList[i] = this.format(ligne);
             ligne = buffer.readLine();
             i++;
         }
@@ -73,8 +73,8 @@ public class Indexation {
      * @param mot le mot à ajouter
      */
     public void ajouterMot(String mot) {
-        if(!estInterdit(mot))
-        {
+        mot = this.format(mot);
+        if(!estInterdit(mot)) {
             if (mot.length() > 39) throw new Error("Le mot donné fait 40 caractères ou plus.");
             if (this.maxMots == 0) {
                 this.maxMots = 10;
@@ -150,11 +150,14 @@ public class Indexation {
      * @param n L'entier à affecter
      */
     public void affecte(String mot, String document, int n) {
-        int m = this.dictioMots.indiceMot(mot);
-        if (m != -1) {
-            int d = this.dictioDocuments.indiceMot(document);
-            if (d != -1) {
-                this.matriceOccurences.affecte(d, m, n);
+        if (this.dictioMots != null && this.dictioDocuments != null) {
+            mot = this.format(mot);
+            int m = this.dictioMots.indiceMot(mot);
+            if (m != -1) {
+                int d = this.dictioDocuments.indiceMot(document);
+                if (d != -1) {
+                    this.matriceOccurences.affecte(d, m, n);
+                }
             }
         }
     }
@@ -165,11 +168,14 @@ public class Indexation {
      * @param document Le document dans lequel on doit incrémenter
      */
     public void incremente(String mot, String document) {
-        int m = this.dictioMots.indiceMot(mot);
-        if (m != -1) {
-            int d = this.dictioDocuments.indiceMot(document);
-            if (d != -1) {
-                this.matriceOccurences.incremente(d, m);
+        if (this.dictioMots != null && this.dictioDocuments != null) {
+            mot = this.format(mot);
+            int m = this.dictioMots.indiceMot(mot);
+            if (m != -1) {
+                int d = this.dictioDocuments.indiceMot(document);
+                if (d != -1) {
+                    this.matriceOccurences.incremente(d, m);
+                }
             }
         }
     }
@@ -181,11 +187,14 @@ public class Indexation {
      */
     public int val(String mot, String document) {
         int v = -1;
-        int m = this.dictioMots.indiceMot(mot);
-        if (m != -1) {
-            int d = this.dictioDocuments.indiceMot(document);
-            if (d != -1) {
-                v = this.matriceOccurences.val(d, m);
+        if (this.dictioMots != null && this.dictioDocuments != null) {
+            mot = this.format(mot);
+            int m = this.dictioMots.indiceMot(mot);
+            if (m != -1) {
+                int d = this.dictioDocuments.indiceMot(document);
+                if (d != -1) {
+                    v = this.matriceOccurences.val(d, m);
+                }
             }
         }
         return v;
@@ -199,8 +208,9 @@ public class Indexation {
         LecteurDocumentNaif lecteur = new LecteurDocumentNaif(this.nomDossier + document);
         lecteur.demarrer();
         while (!lecteur.finDeSequence()) {
-            this.ajouterMot(lecteur.elementCourant());
-            this.incremente(lecteur.elementCourant(), document);
+            String mot = this.supprimerAccents(lecteur.elementCourant());
+            this.ajouterMot(mot);
+            this.incremente(mot, document);
             lecteur.avancer();
         }
     }
@@ -283,13 +293,54 @@ public class Indexation {
      * @param mot Le mot considéré
      */
 
-    public boolean estInterdit(String mot)
-    {
+    public boolean estInterdit(String mot) {
         int i = 0;
         while(i < this.nbMotInterdit && stopList[i] != null && !mot.equals(stopList[i]))
         {
             i++;
         }
         return !(i == this.nbMotInterdit);
+    }
+
+    /**
+	 * Renvoie le mot m sans accents ni majuscules
+	 */
+    public String supprimerAccents(String m) {
+        String r = "";
+        int i = 0;
+        int j = 0;
+        char[] a = {'Ç','ç','é','è','ê','ë','ù','ü','ô','ö','æ','à','É','È','Ê','Ë','Ù','Ü','Ô','Ö','Æ','À'};
+        char[] as = {'C','c','e','e','e','e','u','u','o','o','e','a','E','E','E','E','U','U','O','O','E','A'};
+    
+    
+        while(i < m.length()) {
+        if(m.charAt(i) >= 65 && m.charAt(i) <= 90){
+            r = r + (char)(m.charAt(i)+32);
+            i++;
+            }
+        else if(m.charAt(i) >= 97 && m.charAt(i) <= 122){
+            r = r + m.charAt(i);
+            i++;
+            }
+        else{
+            j=0;
+            while(j < a.length && m.charAt(i) != a[j]){
+                j++;
+                }
+            if (j<a.length){
+                r = r + as[j];
+                i++;
+                }
+            else{
+                r = r +m.charAt(i);
+                i++;
+                }
+            }
+        }
+        return r;
+    }  
+
+    public String format(String mot) {
+        return this.supprimerAccents(mot).toLowerCase();
     }
 }

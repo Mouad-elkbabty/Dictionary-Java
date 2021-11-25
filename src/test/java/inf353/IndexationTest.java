@@ -125,20 +125,20 @@ public class IndexationTest {
         indexation1.incremente("mot1", "doc8");
     }
     
-    //@Test
+    @Test
     public void compterTest() throws IOException, FileNotFoundException {
         Indexation indexation1 = new Indexation(nomDossier);
         String document = "test-lecteur1.txt";
         indexation1.ajouterDocument(document, true);
-        String mots[] = { "un", "mot","je", "rajoute", "une","ligne","rajoute"};
-        int[] valeurs = {-1,1,-1,2,1};
+        String mots[] = { "j", "ecris", "une", "premiere", "phrase" };
+        int[] valeurs = {-1,1,-1,-1,3};
         for (int m = 0; m < mots.length; m++) {
             assertEquals(valeurs[m], indexation1.val(mots[m], document));
         }
     }
     
 
-    //@Test
+    @Test
     public void sauverTest() throws IOException, FileNotFoundException {
         Indexation indexation1 = new Indexation(nomDossier);
         String document = "test-lecteur1.txt";
@@ -149,8 +149,8 @@ public class IndexationTest {
 
         Indexation chargement1 = new Indexation(nomDossier, cheminMatrice, cheminDictio);
         assertEquals(document, chargement1.dictioDocuments.motIndice(0));
-        String mots[] = {  "mot", "rajoute", "ligne"};
-        int[] valeurs = {1,2,1};
+        String mots[] = { "ecris", "phrase" };
+        int[] valeurs = {1,3};
         for (int m = 0; m < mots.length; m++) {
             assertEquals(mots[m], chargement1.dictioMots.motIndice(m));
             assertEquals(valeurs[m], chargement1.val(mots[m], document));

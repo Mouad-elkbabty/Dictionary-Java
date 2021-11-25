@@ -18,31 +18,19 @@ public class LecteurDocumentNaifTest {
         assertEquals(null, lecteur1.mot);
     }
 
-    //@Test
-    public void demarrerTest() throws IOException {
-        LecteurDocumentNaif lecteur1 = new LecteurDocumentNaif("./src/test/resources/inf353/test-lecteur1.txt");
-        lecteur1.demarrer();
-        assertEquals("mot", lecteur1.mot);
-    }
-
     @Test
-    public void avancerEtElementCourantTest() throws IOException {
+    public void demarrerAvancerEtElementCourantTest() throws IOException {
         LecteurDocumentNaif lecteur1 = new LecteurDocumentNaif("./src/test/resources/inf353/test-lecteur1.txt");
         lecteur1.demarrer();
+        assertEquals("J", lecteur1.elementCourant());
         lecteur1.avancer();
-        lecteur1.avancer();
-        assertEquals("je", lecteur1.elementCourant());
-        lecteur1.avancer();
-        assertEquals("rajoute", lecteur1.elementCourant());
+        assertEquals("écris", lecteur1.elementCourant());
         lecteur1.avancer();
         assertEquals("une", lecteur1.elementCourant());
         lecteur1.avancer();
-        assertEquals("ligne", lecteur1.elementCourant());
+        assertEquals("première", lecteur1.elementCourant());
         lecteur1.avancer();
-        System.out.println(lecteur1.elementCourant());
-        assertEquals("eeaooe", lecteur1.elementCourant());
-        lecteur1.avancer(); // on regarde si ça fait une erreur lorsqu'on avance encore
-        assertEquals("", lecteur1.elementCourant());
+        assertEquals("phrase", lecteur1.elementCourant());
     }
 
     @Test
@@ -56,8 +44,6 @@ public class LecteurDocumentNaifTest {
         assertTrue(LecteurDocumentNaif.estSeparateur('\n'));
         assertFalse(LecteurDocumentNaif.estSeparateur('f'));//** Test valide pour une lettre aléatoire f
         assertTrue(LecteurDocumentNaif.estSeparateur('.'));
-
-
     }
 
     @Test
