@@ -15,6 +15,9 @@ public class Recherche {
         this.recherche = requete;
         this.index = indexation;
         this.resultat = new int[index.dictioDocuments.nbMots()][2];
+        for (int r = 0; r < this.recherche.length; r++) {
+            this.recherche[r] = this.index.supprimerAccents(this.recherche[r]);
+        }
     }
 
     /**
@@ -51,6 +54,6 @@ public class Recherche {
             resultat[k] = this.index.dictioDocuments.motIndice(copie[k][1]) + " (score: " + copie[k][0] + ")";
         }
         return resultat;
-    }
+    } 
 
 }

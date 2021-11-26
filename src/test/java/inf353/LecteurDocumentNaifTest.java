@@ -18,15 +18,8 @@ public class LecteurDocumentNaifTest {
         assertEquals(null, lecteur1.mot);
     }
 
-    //@Test
-    public void demarrerTest() throws IOException {
-        LecteurDocumentNaif lecteur1 = new LecteurDocumentNaif("./src/test/resources/inf353/test-lecteur1.txt");
-        lecteur1.demarrer();
-        assertEquals("mot", lecteur1.mot);
-    }
-
     @Test
-    public void avancerEtElementCourantTest() throws IOException {
+    public void demarrerAvancerEtElementCourantTest() throws IOException {
         LecteurDocumentNaif lecteur1 = new LecteurDocumentNaif("./src/test/resources/inf353/test-lecteur1.txt");
         lecteur1.demarrer();
         assertEquals("Je", lecteur1.elementCourant());
@@ -51,8 +44,6 @@ public class LecteurDocumentNaifTest {
         assertTrue(LecteurDocumentNaif.estSeparateur('\n'));
         assertFalse(LecteurDocumentNaif.estSeparateur('f'));//** Test valide pour une lettre aléatoire f
         assertTrue(LecteurDocumentNaif.estSeparateur('.'));
-
-
     }
 
     @Test

@@ -109,11 +109,13 @@ public class Indexation {
      * @param n L'entier à affecter
      */
     public void affecte(String mot, String document, int n) {
-        int m = this.dictioMots.indiceMot(mot);
-        if (m != -1) {
-            int d = this.dictioDocuments.indiceMot(document);
-            if (d != -1) {
-                this.matriceOccurences.affecte(d, m, n);
+        if (this.dictioMots != null && this.dictioDocuments != null) {
+            int m = this.dictioMots.indiceMot(mot);
+            if (m != -1) {
+                int d = this.dictioDocuments.indiceMot(document);
+                if (d != -1) {
+                    this.matriceOccurences.affecte(d, m, n);
+                }
             }
         }
     }
@@ -124,11 +126,13 @@ public class Indexation {
      * @param document Le document dans lequel on doit incrémenter
      */
     public void incremente(String mot, String document) {
-        int m = this.dictioMots.indiceMot(mot);
-        if (m != -1) {
-            int d = this.dictioDocuments.indiceMot(document);
-            if (d != -1) {
-                this.matriceOccurences.incremente(d, m);
+        if (this.dictioMots != null && this.dictioDocuments != null) {
+            int m = this.dictioMots.indiceMot(mot);
+            if (m != -1) {
+                int d = this.dictioDocuments.indiceMot(document);
+                if (d != -1) {
+                    this.matriceOccurences.incremente(d, m);
+                }
             }
         }
     }
@@ -140,11 +144,13 @@ public class Indexation {
      */
     public int val(String mot, String document) {
         int v = -1;
-        int m = this.dictioMots.indiceMot(mot);
-        if (m != -1) {
-            int d = this.dictioDocuments.indiceMot(document);
-            if (d != -1) {
-                v = this.matriceOccurences.val(d, m);
+        if (this.dictioMots != null && this.dictioDocuments != null) {
+            int m = this.dictioMots.indiceMot(mot);
+            if (m != -1) {
+                int d = this.dictioDocuments.indiceMot(document);
+                if (d != -1) {
+                    v = this.matriceOccurences.val(d, m);
+                }
             }
         }
         return v;
