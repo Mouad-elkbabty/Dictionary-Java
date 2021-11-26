@@ -8,11 +8,9 @@ public class Main {
     public static Recherche recherche;
 
     public static void main (String[] args) throws IOException {
-        indexation = new Indexation("./src/main/resources/inf353/sauvegarde/","Matrice.txt","Dictionnaires.txt");
-        for (int a = 0; a < args.length; a++) {
-            args[a] = LecteurDocumentNaif.supprimeAccents(args[a].toLowerCase());
-        }
 
+        // à modifier
+        indexation = new Indexation();
         recherche = new Recherche(args, indexation);
         nbResultatAfficher = 15;
         int i = 0;

@@ -21,52 +21,27 @@ public class Indexation {
     public int maxDocuments;
     // la MatriceIndexNaive des occurences des mots en fonction du document
     public MatriceIndexNaive matriceOccurences;
-    // le dossier utilisé pour charger les documents
-    public String nomDossier;
-    public int nbMotInterdit = 495;
-    public String[] stopList;
+
     /**
      * Créer une Indexation vierge
      */
     
-    public Indexation(String nomDossier) throws IOException, FileNotFoundException{
-        this.dictioMots = null;
-        this.maxMots = 0;
-        this.dictioDocuments = null;
-        this.maxDocuments = 0;
-        this.matriceOccurences = null;
-        this.nomDossier = nomDossier;
-
-        stopList = new String[nbMotInterdit];
-        File file = new File ("./src/main/resources/inf353/DictionnaireStoplist.txt");
-
-        if (!file.exists() || !file.isFile()) {
-            throw new FileNotFoundException("Aucun fichier stoplist n'a été trouvé.");
-        }
-        
-        BufferedReader buffer = new BufferedReader(new FileReader(file));
-        int i = 0;
-        String ligne = buffer.readLine();
-        while(ligne != null && i < nbMotInterdit) // Rempli la stopList
-        {
-            stopList[i] = ligne;
-            ligne = buffer.readLine();
-            i++;
-        }
-        buffer.close();
-
+    public Indexation() throws IOException {
+        this.maxMots = 10;
+        this.dictioMots = new DictionnaireNaif(this.maxMots);
+        this.maxDocuments = 10;
+        this.dictioDocuments = new DictionnaireNaif(this.maxDocuments);
+        this.matriceOccurences = new MatriceIndexNaive(this.maxDocuments, this.maxMots);
     }
     
     /**
      * Créer une Indexation à partir d'un fichier
-     * /!\ LE FICHIER DOIT OBLIGATOIREMENT SE TROUVER DANS LE CHEMIN INDIQUÉ
-     * @param nomDossier Le dossier utilisé pour charger les documents
-     * @param nomFichierMatrice Le nom du fichier qui contient la matrice
-     * @param nomFichierDictionnaires Le nom du fichier qui contient les dictionnaires
+     * @param fichierMatrice Le nom du fichier qui contient la matrice
+     * @param fichierDictionnaires Le nom du fichier qui contient les dictionnaires
      */
-    public Indexation(String nomDossier, String nomFichierMatrice, String nomFichierDictionnaires) throws IOException, FileNotFoundException {
-        this(nomDossier);
-        this.charger(nomFichierMatrice, nomFichierDictionnaires);
+    public Indexation(String fichierMatrice, String fichierDictionnaires) throws IOException {
+        this();
+        this.charger(fichierMatrice, fichierDictionnaires);
     }
 
     /**
@@ -74,25 +49,15 @@ public class Indexation {
      * @param mot le mot à ajouter
      */
     public void ajouterMot(String mot) {
-        if(!estInterdit(mot))
-        {
-            if (mot.length() > 39) throw new Error("Le mot donné fait 40 caractères ou plus.");
-            if (this.maxMots == 0) {
-                this.maxMots = 10;
-                this.dictioMots = new DictionnaireNaif(this.maxMots);
-                if (this.dictioDocuments != null) this.changerMatrice();
-            } 
-            else {
-                if (this.maxMots == this.dictioMots.nbMots()) {
-                    this.maxMots *= 2;
-
-                    DictionnaireNaif nouveauDictio = new DictionnaireNaif(this.maxMots);
-                    for (int i = 0; i != this.dictioMots.nbMots(); i++) {
-                        nouveauDictio.ajouterMot(this.dictioMots.motIndice(i));
-                    }
-                    this.dictioMots = nouveauDictio;
-                    this.changerMatrice();
+        if (this.dictioMots.estValide(mot)) {
+            if (this.maxMots == this.dictioMots.nbMots()) {
+                this.maxMots *= 2;
+                DictionnaireNaif nouveauDictio = new DictionnaireNaif(this.maxMots);
+                for (int i = 0; i != this.dictioMots.nbMots(); i++) {
+                    nouveauDictio.ajouterMot(this.dictioMots.motIndice(i));
                 }
+                this.dictioMots = nouveauDictio;
+                this.changerMatrice();
             }
             this.dictioMots.ajouterMot(mot);
         }
@@ -103,13 +68,10 @@ public class Indexation {
      * @param document Le document à ajouter
      * @param compter Compter automatiquement le document dans la matrice
      */
-    public void ajouterDocument(String document, boolean compter) throws IOException {
-        if (document.length() > 39) throw new Error("Le document donné fait 40 caractères ou plus.");
-        if (this.maxDocuments == 0) {
-            this.maxDocuments = 10;
-            this.dictioDocuments = new DictionnaireNaif(this.maxDocuments);
-            if (this.dictioMots != null) this.changerMatrice();
-        } else {
+    public void ajouterDocument(String document) throws IOException {
+        if (this.dictioDocuments.estValide(document)) {
+            File fichier = new File(document);
+            if (!fichier.exists() || !fichier.isFile()) throw new FileNotFoundException("Le fichier " + document + " n'a pas été trouvé.");
             if (this.maxDocuments == this.dictioDocuments.nbMots()) {
                 this.maxDocuments *= 2;
                 DictionnaireNaif nouveauDictio = new DictionnaireNaif(this.maxDocuments);
@@ -119,29 +81,25 @@ public class Indexation {
                 this.dictioDocuments = nouveauDictio;
                 this.changerMatrice();
             }
+            this.dictioDocuments.ajouterMot(fichier.getName());
+            this.compter(fichier.getName());
         }
-        this.dictioDocuments.ajouterMot(document);
-        if (compter) this.compter(document);
     }
 
     /**
      * Changer matriceOccurences avec les nouvelles tailles, ou alors créer si elle n'existe pas
      */
     public void changerMatrice() {
-        if (this.matriceOccurences == null) {
-            this.matriceOccurences = new MatriceIndexNaive(this.maxDocuments, this.maxMots);
-        } else {
-            int tailleDocuments = this.matriceOccurences.matrice.length;
-            int tailleMots = this.matriceOccurences.matrice[0].length;
-            MatriceIndexNaive nouvelleMatrice = new MatriceIndexNaive(this.maxDocuments, this.maxMots);
-            for (int d = 0; d != tailleDocuments; d++) {
-                for (int m = 0; m != tailleMots; m++) {
-                    int valeur = this.matriceOccurences.val(d, m);
-                    nouvelleMatrice.affecte(d, m, valeur);
-                }
+        int tailleDocuments = this.matriceOccurences.matrice.length;
+        int tailleMots = this.matriceOccurences.matrice[0].length;
+        MatriceIndexNaive nouvelleMatrice = new MatriceIndexNaive(this.maxDocuments, this.maxMots);
+        for (int d = 0; d != tailleDocuments; d++) {
+            for (int m = 0; m != tailleMots; m++) {
+                int valeur = this.matriceOccurences.val(d, m);
+                nouvelleMatrice.affecte(d, m, valeur);
             }
-            this.matriceOccurences = nouvelleMatrice;
         }
+        this.matriceOccurences = nouvelleMatrice;
     }
 
     /**
@@ -197,7 +155,7 @@ public class Indexation {
      * @param document le document à compter
      */
     public void compter(String document) throws IOException {
-        LecteurDocumentNaif lecteur = new LecteurDocumentNaif(this.nomDossier + document);
+        LecteurDocumentNaif lecteur = new LecteurDocumentNaif(document);
         lecteur.demarrer();
         while (!lecteur.finDeSequence()) {
             this.ajouterMot(lecteur.elementCourant());
@@ -242,18 +200,19 @@ public class Indexation {
 
 
     /**
-     * Charger une Indexation grâce à un fichier sauvegardé
-     * /!\ LE FICHIER DOIT OBLIGATOIREMENT SE TROUVER DANS LE CHEMIN INDIQUÉ
-     * @param nomFichier Le nom du fichier
+     * Charge l'Indexation à l'aide des deux fichiers
+     * @param fichierMatrice
+     * @param fichierDictionnaires
+     * @throws IOException
      */
-    public void charger(String nomDeFichierMatrice, String nomDeFichierMot) throws IOException, FileNotFoundException  {
+    public void charger(String fichierMatrice, String fichierDictionnaires) throws IOException {
         // Utilisation du constructeur de MatriceIndexNaive
-        this.matriceOccurences = new MatriceIndexNaive(this.nomDossier + nomDeFichierMatrice);
+        this.matriceOccurences = new MatriceIndexNaive(fichierMatrice);
 
         // Initialisation du fichier et du Buffer
-        File fichier = new File(this.nomDossier + nomDeFichierMot);
+        File fichier = new File(fichierDictionnaires);
         if (!fichier.exists() || !fichier.isFile()) {
-            throw new FileNotFoundException("Aucun fichier du nom de " + this.nomDossier + nomDeFichierMot + " n'a été trouvé.");
+            throw new FileNotFoundException("Aucun fichier du nom de " + fichierDictionnaires + " n'a été trouvé.");
         }
         BufferedReader buffer = new BufferedReader(new FileReader(fichier));
 
@@ -277,21 +236,6 @@ public class Indexation {
 
         // Fermeture du Buffer
         buffer.close();
-    }
-
-    /**
-     * Renvoie true si le mot considéré est un mot interdit par la stopList
-     * @param mot Le mot considéré
-     */
-
-    public boolean estInterdit(String mot)
-    {
-        int i = 0;
-        while(i < this.nbMotInterdit && stopList[i] != null && !mot.equals(stopList[i]))
-        {
-            i++;
-        }
-        return !(i == this.nbMotInterdit);
     }
 
 }

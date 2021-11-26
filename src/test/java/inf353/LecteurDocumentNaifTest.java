@@ -29,20 +29,15 @@ public class LecteurDocumentNaifTest {
     public void avancerEtElementCourantTest() throws IOException {
         LecteurDocumentNaif lecteur1 = new LecteurDocumentNaif("./src/test/resources/inf353/test-lecteur1.txt");
         lecteur1.demarrer();
-        lecteur1.avancer();
-        lecteur1.avancer();
-        assertEquals("je", lecteur1.elementCourant());
+        assertEquals("Je", lecteur1.elementCourant());
         lecteur1.avancer();
         assertEquals("rajoute", lecteur1.elementCourant());
         lecteur1.avancer();
         assertEquals("une", lecteur1.elementCourant());
         lecteur1.avancer();
-        assertEquals("ligne", lecteur1.elementCourant());
+        assertEquals("première", lecteur1.elementCourant());
         lecteur1.avancer();
-        System.out.println(lecteur1.elementCourant());
-        assertEquals("eeaooe", lecteur1.elementCourant());
-        lecteur1.avancer(); // on regarde si ça fait une erreur lorsqu'on avance encore
-        assertEquals("", lecteur1.elementCourant());
+        assertEquals("ligne", lecteur1.elementCourant());
     }
 
     @Test
