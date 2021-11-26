@@ -29,7 +29,7 @@ public class DictionnaireNaif implements Dictionnaire {
      * @param m
      */
     public void ajouterMot(String m) {
-        if (m != "" && m.length() < 40 && !contient(m) && nbMots() < this.dictio.length/40) {
+        if (estValide(m)) {
             int i = 0;
             while (this.dictio[i] != '\0') {
                 if (this.dictio[i+1] == '\0') i++;
@@ -209,6 +209,15 @@ public class DictionnaireNaif implements Dictionnaire {
             i++;
         }
         return plusLong;
+    }
+
+    /**
+     * Renvoie vrai si le mot est valide
+     * @param mot le mot à tester
+     * @return
+     */
+    public boolean estValide(String mot) {
+        return (mot != "" && mot.length() < 40 && !contient(mot) && nbMots() < this.dictio.length/40);
     }
 
 }

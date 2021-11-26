@@ -7,7 +7,7 @@ import java.io.IOException;
 import org.junit.Test;
 
 public class MatriceIndexNaiveTest {
-
+/*
     public String matriceToString(int[][] m) {
         String matrice = "";
         for (int i = 0; i < m[0].length; i++) {
@@ -71,6 +71,7 @@ public class MatriceIndexNaiveTest {
          *  | 0 2 4 |
          *  | 0 3 6 |  
          */
+        /*
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 m1.affecte(i, j, (i+1)*(j));
@@ -101,6 +102,7 @@ public class MatriceIndexNaiveTest {
          *  | 0 2 4 |
          *  | 0 3 6 |  
          */
+        /*
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 m1.affecte(i, j, (i+1)*(j));
@@ -128,7 +130,8 @@ public class MatriceIndexNaiveTest {
         assertEquals(4, m1.val(2, 1));
         assertEquals(7, m1.val(2, 2));
     }
-
+*/
+/*
     @Test
     public void sauverTest() throws IOException {
         MatriceIndexNaive attendu1 = new MatriceIndexNaive(3, 3);
@@ -138,6 +141,7 @@ public class MatriceIndexNaiveTest {
          *  | 0 2 4 |
          *  | 0 3 6 |  
          */
+        /*
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 attendu1.affecte(i, j, (i+1)*(j));
@@ -152,5 +156,5 @@ public class MatriceIndexNaiveTest {
         MatriceIndexNaive m2 = new MatriceIndexNaive("./src/test/resources/inf353/output-matrice2.txt");
         assertEquals(matriceToString(attendu2.matrice), matriceToString(m2.matrice));
     }
-
+*/
 }

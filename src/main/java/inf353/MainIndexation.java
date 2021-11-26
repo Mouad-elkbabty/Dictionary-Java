@@ -6,10 +6,10 @@ import java.io.IOException;
 public class MainIndexation {
     public static String[] commons;
     public static Indexation index;
-    public static void main (String[] args) throws IOException
+    public static void main (String[] args) throws IOException, ClassNotFoundException
     {
         String dossier = "/partage_etu/Science/INF/353_projet/french";
-        index = new Indexation(dossier);
+        index = new Indexation();
         int i = 0;
         chargerFichiers(dossier);
         /*
@@ -23,7 +23,9 @@ public class MainIndexation {
         if (!sauvegarde.isDirectory()) {
             sauvegarde.mkdir();
         }
-        //index.sauver("./src/main/resources/inf353/sauvegarde/Matrice.txt", "./src/main/resources/inf353/sauvegarde/Dictionnaires.txt");
+        index.sauver("./src/main/resources/inf353/sauvegarde/Matrice.txt", "./src/main/resources/inf353/sauvegarde/Dictionnaires.txt");
+        System.out.println("" + index.dictioMots.nbMots());
+        System.out.println("" + index.dictioDocuments.nbMots());
     }
 
     /**
@@ -48,7 +50,8 @@ public class MainIndexation {
             }
             else
             {
-                index.ajouterDocument(suivant.getPath(), true);
+                System.out.println(suivant.getPath());
+                index.ajouterDocument(suivant.getPath());
             }
         }
 
