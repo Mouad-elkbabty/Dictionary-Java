@@ -27,9 +27,9 @@ public class Indexation {
      */
     
     public Indexation() throws IOException {
-        this.maxMots = 100001;
+        this.maxMots = 50001;
         this.dictioMots = new DictionnaireNaif(this.maxMots);
-        this.maxDocuments = 100001;
+        this.maxDocuments = 10001;
         this.dictioDocuments = new DictionnaireNaif(this.maxDocuments);
         this.matriceOccurences = new MatriceIndexNaive(this.maxDocuments, this.maxMots);
     }

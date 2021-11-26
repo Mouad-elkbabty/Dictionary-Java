@@ -52,12 +52,14 @@ public class MainIndexation {
             {
                 System.out.println(suivant.getPath());
                 index.ajouterDocument(suivant.getPath());
-                System.out.println(index.dictioMots.nbMots()));
+                System.out.println(index.dictioMots.nbMots());
+                System.out.println(index.dictioDocuments.nbMots());
             }
         }
 
         
     }
 
-
+//43550 mots
+//4005 documents
 }
