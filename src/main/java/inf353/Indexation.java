@@ -24,7 +24,7 @@ public class Indexation {
     // le dossier utilisé pour charger les documents
     public String nomDossier;
     public int nbMotInterdit = 495;
-    public String[] stopList;
+    //public String[] stopList;
     /**
      * Créer une Indexation vierge
      */
@@ -36,23 +36,25 @@ public class Indexation {
         this.matriceOccurences = null;
         this.nomDossier = nomDossier;
 
-        stopList = new String[nbMotInterdit];
+        /*
+        //stopList = new String[nbMotInterdit];
         File file = new File ("./src/main/resources/inf353/DictionnaireStoplist.txt");
 
         if (!file.exists() || !file.isFile()) {
             throw new FileNotFoundException("Aucun fichier stoplist n'a été trouvé.");
         }
-        
+
         BufferedReader buffer = new BufferedReader(new FileReader(file));
         int i = 0;
         String ligne = buffer.readLine();
         while(ligne != null && i < nbMotInterdit) // Rempli la stopList
         {
-            stopList[i] = this.format(ligne);
+            //stopList[i] = this.format(ligne);
             ligne = buffer.readLine();
             i++;
         }
         buffer.close();
+        */
 
     }
     
@@ -74,7 +76,6 @@ public class Indexation {
      */
     public void ajouterMot(String mot) {
         mot = this.format(mot);
-        if(!estInterdit(mot)) {
             if (mot.length() > 39) throw new Error("Le mot donné fait 40 caractères ou plus.");
             if (this.maxMots == 0) {
                 this.maxMots = 10;
@@ -94,7 +95,6 @@ public class Indexation {
                 }
             }
             this.dictioMots.ajouterMot(mot);
-        }
     }
 
     /**
@@ -292,7 +292,7 @@ public class Indexation {
      * Renvoie true si le mot considéré est un mot interdit par la stopList
      * @param mot Le mot considéré
      */
-
+    /*
     public boolean estInterdit(String mot) {
         int i = 0;
         while(i < this.nbMotInterdit && stopList[i] != null && !mot.equals(stopList[i]))
@@ -301,7 +301,7 @@ public class Indexation {
         }
         return !(i == this.nbMotInterdit);
     }
-
+*/
     /**
 	 * Renvoie le mot m sans accents ni majuscules
 	 */
