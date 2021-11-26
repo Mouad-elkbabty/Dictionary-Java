@@ -52,6 +52,7 @@ public class MainIndexation {
             {
                 System.out.println(suivant.getPath());
                 index.ajouterDocument(suivant.getPath());
+                System.out.println(index.dictioMots.nbMots()));
             }
         }
 
