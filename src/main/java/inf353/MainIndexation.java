@@ -10,7 +10,7 @@ public class MainIndexation {
     {
         String dossier = "/partage_etu/Science/INF/353_projet/french";
         index = new Indexation();
-        int i = 0;
+
         chargerFichiers(dossier);
         /*
         while(i < commons.length)
@@ -52,7 +52,7 @@ public class MainIndexation {
             {
                 System.out.println(suivant.getPath());
                 index.ajouterDocument(suivant.getPath());
-                System.out.println(index.dictioMots.nbMots()));
+                System.out.println(index.dictioMots.nbMots());
             }
         }
 
