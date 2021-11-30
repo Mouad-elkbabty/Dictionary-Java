@@ -2,11 +2,16 @@ package inf353;
 
 public class DictionnaireHash implements Dictionnaire {
 
+	///attributs
+
+	CelluleDictio [] T;
+	int nb;
     /**
      * Crée un DictionnaireHash vide
      */
     public DictionnaireHash() {
-
+	T = new CelluleDictio[10000];
+	nb = 0;
     }
 
     /**
@@ -14,16 +19,46 @@ public class DictionnaireHash implements Dictionnaire {
      */
     @Override
     public void vider() {
-        return;        
+    int i = 0;
+	while(i < T.length())'
+	T[i] = null;
+	i++;
+	}        
     }
 
     /**
-     * Ajoute un mot au dictionnaire
+     * Ajoute un mot au dictionnaire si il n'y est pas déjà présent
      * @param m Le mot à ajouter
      */
     @Override
     public void ajouterMot(String m) {
-        return;
+	int n;
+	int i;
+	CelluleDictio cc;
+	CelluleDictio cp;
+
+	cp = null;
+	if(!contient(s)){
+		n = hashCode(s))%(T.length()-1));
+		if(n < 0){
+			n = n* (-1);
+		}
+		cc = T[n];
+		cp = null;;
+		i = 0;
+		while(cc != null)){
+			cp = cc;
+			cc = cc.suiv;
+			i++;
+		}
+		if(cp == null){
+			T[n] = new CelluleDictio(s,(n*10000)+i,null)
+		}
+		else{
+			cp.suiv = new CelluleDictio(s,(n*10000)+i,null)
+		}
+	}
+	
     }
 
     /**
@@ -33,7 +68,24 @@ public class DictionnaireHash implements Dictionnaire {
      */
     @Override
     public int indiceMot(String m) {
-        return 0;
+	int n;
+	CelluleDictio cc;
+	
+	n = hashCode(m)%(T.length()-1);
+	if (n < 0){
+		n = n * (-1);
+	}
+	cc = T[n];
+	while(cc != null && cc.elt != m){
+		cc = cc.suiv;
+	}
+	if(cc != null){
+		n = cc.ind;
+	}
+	else{
+		n = -1;
+	}
+        return n;
     }
 
     /**
@@ -43,7 +95,20 @@ public class DictionnaireHash implements Dictionnaire {
      */
     @Override
     public String motIndice(int i) {
-        return null;
+	int j = 0;
+	CelluleDictio cc;
+	String s == null;
+	
+	j = i-((i/10000)*10000);
+	cc = T[i/10000];
+	while(cc != null && j > 0) {
+		cc = cc.suiv;
+		j = j-1;
+	}
+	if(cc != null){
+		s = cc.elt;
+	}
+        return s;
     }
 
     /**
@@ -53,7 +118,7 @@ public class DictionnaireHash implements Dictionnaire {
      */
     @Override
     public boolean contient(String m) {
-        return false;
+        return indiceMot(m) != -1;
     }
 
     /**
@@ -62,7 +127,7 @@ public class DictionnaireHash implements Dictionnaire {
      */
     @Override
     public int nbMots() {
-        return 0;
+        return this.nb;
     }
 
     /**
