@@ -4,22 +4,32 @@ import java.io.File;
 import java.io.IOException;
 
 public class MainIndexation {
-    public static String[] commons;
-    public static Indexation index;
-    public static void main (String[] args) throws IOException
-    {
-        index = new Indexation("./src/main/resources/inf353/documents/");
-        File fichier = new File("./src/main/resources/inf353/documents/");
-        commons = fichier.list();
-        int i = 0;
-        while(i < commons.length)
-        {
-            index.ajouterDocument(commons[i], true);
-            i++;
-        }
-        index.sauver("./src/main/resources/inf353/sauvegarde/Matrice.txt", "./src/main/resources/inf353/sauvegarde/Dictionnaire.txt");
+
+    public static void main (String[] args) throws IOException {
+        String dossier = "/partage_etu/Science/INF/353_projet/french";
+        Indexation indexation = new Indexation();
+        chargerFichiers(dossier, indexation);
+        File sauvegarde = new File("./src/main/resources/inf353/sauvegarde/");
+        if (!sauvegarde.isDirectory()) sauvegarde.mkdir();
+        // indexation.sauver(...);
     }
 
-
+    /**
+     * Charge tous les documents du corpus
+     * @param chemin Le chemin du dossier qui contient le corpus
+     * @throws IOException
+     */
+    public static void chargerFichiers(String chemin, Indexation indexation) throws IOException {
+        File fichier = new File(chemin);
+        String[] resultat = fichier.list();
+        for(int i = 0; i< resultat.length; i++) {
+            File suivant = new File(chemin+ "/" + resultat[i]);
+            if(suivant.isDirectory()) {
+                chargerFichiers(suivant.getPath(), indexation);
+            } else {
+                indexation.ajouterDocument(suivant.getPath());
+            }
+        }
+    }
 
 }
