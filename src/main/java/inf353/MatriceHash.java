@@ -18,7 +18,7 @@ public class MatriceHash implements MatriceIndex{
      */
     @Override
     public void sauver(String chemin) throws IOException {
-        return;
+        
     }
 
     @Override
@@ -28,12 +28,11 @@ public class MatriceHash implements MatriceIndex{
 
     @Override
     public void incremente(int ndoc, int nterm) {
-        return;
+        
     }
 
     @Override
     public void affecte(int ndoc, int nterm, int val) {
-        return;
+        
     }
-
 }

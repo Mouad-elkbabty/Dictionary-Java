@@ -35,13 +35,15 @@ public class DictionnaireHash implements Dictionnaire {
     @Override
     public void ajouterMot(String m) {
         if (!contient(m)) {
-            int n = m.hashCode() % (N - 1);
+            int n = m.hashCode() % N;
             if (n < 0) {
                 n = n * (-1);
             }
-            CelluleDictio cc = T[n];
-            CelluleDictio cp = null;
+            T[n] = new CelluleDictio(m,nb+1,T[n]);
+            this.nb++;
+            /*CelluleDictio cp = null;
             int i = 0;
+            
             while (cc != null) {
                 cp = cc;
                 cc = cc.suiv;
@@ -51,7 +53,7 @@ public class DictionnaireHash implements Dictionnaire {
                 T[n] = new CelluleDictio(m, (n * 10000) + i, null);
             } else {
                 cp.suiv = new CelluleDictio(m, (n * 10000) + i, null);
-            }
+            }*/
         }
     }
 
