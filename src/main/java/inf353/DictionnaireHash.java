@@ -3,9 +3,9 @@ package inf353;
 public class DictionnaireHash implements Dictionnaire {
 
     /// attributs
-    static int N = 100000;
-    CelluleDictio[] T;
-    int nb;
+    public int N = 2000;
+    public CelluleDictio[] T;
+    public int nb;
 
     /**
      * Crée un DictionnaireHash vide
@@ -13,6 +13,18 @@ public class DictionnaireHash implements Dictionnaire {
     public DictionnaireHash() {
         this.T = new CelluleDictio[N];
         this.nb = 0;
+    }
+
+    public DictionnaireHash(int n)
+    {
+        this.N = n;
+        this.T = new CelluleDictio[N];
+        this.nb = 0;
+    }
+
+    public DictionnaireHash(String chemin)
+    {
+        
     }
 
     /**

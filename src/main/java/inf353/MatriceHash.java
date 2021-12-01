@@ -12,7 +12,13 @@ public class MatriceHash implements MatriceIndex{
      */
     public MatriceHash() 
     {
-        this.N = 100000;
+        this.N = 2000;
+        T = new CelluleMatrice[N];
+    }
+
+    public MatriceHash(int n)
+    {
+        this.N = n;
         T = new CelluleMatrice[N];
     }
 

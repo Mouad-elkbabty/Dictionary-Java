@@ -8,4 +8,9 @@ public class MainRecherche {
 
     }
 
+    public static int score(int ndoc)
+    {
+        return 0;
+    }
+
 }
