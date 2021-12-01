@@ -9,7 +9,7 @@ public class DictionnaireHashTest {
     @Test
     public void constructeurTest() {
         DictionnaireHash dictio = new DictionnaireHash();
-        assertEquals(100000, dictio.T.length);
+        assertEquals(2000, dictio.T.length);
         assertEquals(0, dictio.nb);
     }
 
@@ -28,7 +28,7 @@ public class DictionnaireHashTest {
     // impossible d'utiliser ajouterMot sans vérifier indiceMot
     public void indiceMotTest() {
         DictionnaireHash dictio = new DictionnaireHash();
-        dictio.T["test".hashCode()%DictionnaireHash.N] = new CelluleDictio("test", 0, null);
+        dictio.T["test".hashCode()%dictio.N] = new CelluleDictio("test", 0, null);
         dictio.nb += 1;
         assertEquals(0, dictio.indiceMot("test"));
         assertEquals(-1, dictio.indiceMot("pas test"));
@@ -38,7 +38,7 @@ public class DictionnaireHashTest {
     @Test
     public void contientTest() {
         DictionnaireHash dictio = new DictionnaireHash();
-        dictio.T["test".hashCode()%DictionnaireHash.N] = new CelluleDictio("test", 0, null);
+        dictio.T["test".hashCode()%dictio.N] = new CelluleDictio("test", 0, null);
         dictio.nb += 1;
         assertEquals(true, dictio.contient("test"));
         assertEquals(false, dictio.contient("pas test"));
@@ -48,7 +48,7 @@ public class DictionnaireHashTest {
     public void ajouterMotTest() {
         DictionnaireHash dictio = new DictionnaireHash();
         dictio.ajouterMot("test");
-        assertNotEquals(null, dictio.T["test".hashCode()%DictionnaireHash.N]);
+        assertNotEquals(null, dictio.T["test".hashCode()%dictio.N]);
         assertEquals(1, dictio.nbMots());
         dictio.ajouterMot("un autre test");
         dictio.ajouterMot("puis encore un");
