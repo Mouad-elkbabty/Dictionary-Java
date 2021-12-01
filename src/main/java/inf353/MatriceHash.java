@@ -39,6 +39,7 @@ public class MatriceHash implements MatriceIndex{
             }
             i++;
         }
+        writer.close();
     }
 
     @Override
