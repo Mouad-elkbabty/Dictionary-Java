@@ -1,40 +1,42 @@
 package inf353;
 
-public class CelluleDictio{
-    
+public class CelluleMatrice {
+      
    /**
      * Attributs de la cellule : le mot, son indice, et son successeur.
      */
-    public String elt;
+    public int elt;
     public int ind;
-    public CelluleDictio suiv;
+    public CelluleMatrice suiv;
 
     /**
      * Constructeur vide (l'élément et le suivant ne sont pas spécifiés.
      */
-    public CelluleDictio() {}
+    public CelluleMatrice() {
+        super();
+    }
 
     /**
      * Constructeur à partir d'un élément (le suivant n'est pas spécifié).
      */
-    public CelluleDictio(String val) {
+    public CelluleMatrice(int val) {
         this(val, 0, null);
     }
 
     /**
      * Constructeur à partir d'un suivant (l'élément n'est pas spécifié).
      */
-    public CelluleDictio(CelluleDictio suiv) {
-        this(null, 0, suiv);
+    public CelluleMatrice(CelluleMatrice suiv) {
+        this(0, 0, suiv);
     }
 
     /**
      * Constructeur à partir d'un élément et d'un suivant.
      */
-    public CelluleDictio(String val, int n, CelluleDictio suiv) {
+    public CelluleMatrice(int val, int n, CelluleMatrice suiv) {
         this.elt = val;
         this.suiv = suiv;
         this.ind = n;
     }
-
+    
 }
