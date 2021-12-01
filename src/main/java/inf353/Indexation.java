@@ -124,9 +124,10 @@ public class Indexation {
      * @throws IOException
      */
     public void sauver(String chemin) throws IOException {
-        return;
+        this.dictioDocuments.sauver(chemin+ "DictionnaireDocumentSave.txt");
+        this.dictioMots.sauver(chemin + "DictionnaireDocumentMot.txt");
+        this.matriceOccurences.sauver(chemin+ "MatriceOccurence.txt");
     }
-
 
     /**
      * Charge l'Indexation à l'aide des deux fichiers
@@ -134,7 +135,9 @@ public class Indexation {
      * @throws IOException
      */
     public void charger(String chemin) throws IOException {
-        return;
+        this.dictioDocuments.charger(chemin + "DictionnaireDocumentSave.txt");
+        this.dictioMots.charger(chemin + "DictionnaireDocumentMot.txt");
+        this.matriceOccurences.charger(chemin + "MatriceOccurence.txt");
     }
 
 }

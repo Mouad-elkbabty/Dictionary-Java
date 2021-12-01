@@ -24,7 +24,7 @@ public class DictionnaireHash implements Dictionnaire {
 
     public DictionnaireHash(String chemin)
     {
-        
+               
     }
 
     /**

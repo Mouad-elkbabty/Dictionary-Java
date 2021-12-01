@@ -1,5 +1,6 @@
 package inf353;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -22,6 +23,11 @@ public class MatriceHash implements MatriceIndex{
         T = new CelluleMatrice[N];
     }
 
+    public MatriceHash(String chemin)
+    {
+
+    }
+
     /**
      * Sauvegarde la matrice dans un fichier
      * Format  (Document1(T[1]))|elt,ind elt,ind etc...
@@ -33,6 +39,7 @@ public class MatriceHash implements MatriceIndex{
     public void sauver(String chemin) throws IOException {
         File fichier = new File(chemin);
         FileWriter writer = new FileWriter(fichier);
+        BufferedWriter bw = new BufferedWriter(writer);
         int i = 0;
         CelluleMatrice cc;
         while(i < N && T[i] != null )
@@ -40,9 +47,10 @@ public class MatriceHash implements MatriceIndex{
             cc = T[i];
             while(cc !=null)
             {
-                writer.write(cc.elt+","+cc.ind+" ");
+                bw.write(cc.elt+","+cc.ind+" ");
                 cc = cc.suiv;
             }
+            bw.newLine();
             i++;
         }
         writer.close();
