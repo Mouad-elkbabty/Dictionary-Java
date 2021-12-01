@@ -11,7 +11,7 @@ import java.io.FileWriter;
 public class DictionnaireHash implements Dictionnaire {
 
     /// attributs
-    public int N = 2000;
+    public int N;
     public CelluleDictio[] T;
     public int nb;
 
@@ -19,8 +19,7 @@ public class DictionnaireHash implements Dictionnaire {
      * Crée un DictionnaireHash vide
      */
     public DictionnaireHash() {
-        this.T = new CelluleDictio[N];
-        this.nb = 0;
+        this(2000);
     }
 
     public DictionnaireHash(int n)
