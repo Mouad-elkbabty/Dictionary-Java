@@ -1,5 +1,7 @@
 package inf353;
 
+import java.io.IOException;
+
 /**
  * Un Dictionnaire est un ensemble de L mot (tous différents). Chaque mot est associé à un entier
  * compris entre 0 et L-1.
@@ -71,7 +73,16 @@ public interface Dictionnaire {
      */
     public String plusLongPrefixeDe(String mot);
 
-    // ["montre", "machin", "montrer", "mont", "monter", "mon"]
-    // montrerai
+    /**
+     * Sauvegarder le Dictionnaire dans le chemin voulu
+     * @param chemin le chemin
+     */
+    public void sauver(String chemin) throws IOException;
+
+    /**
+     * Charger le Dictionnaire situé dans le chemin voulu
+     * @param chemin le chemin
+     */
+    public void charger(String chemin) throws IOException;
 
 }
