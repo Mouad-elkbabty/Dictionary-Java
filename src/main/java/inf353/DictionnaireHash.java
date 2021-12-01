@@ -39,7 +39,7 @@ public class DictionnaireHash implements Dictionnaire {
             if (n < 0) {
                 n = n * (-1);
             }
-            T[n] = new CelluleDictio(m,nb+1,T[n]);
+            T[n] = new CelluleDictio(m,nb,T[n]);
             this.nb++;
             /*CelluleDictio cp = null;
             int i = 0;
@@ -65,17 +65,21 @@ public class DictionnaireHash implements Dictionnaire {
      */
     @Override
     public int indiceMot(String m) {
-        int n = m.hashCode() % (N - 1);
+        int n = m.hashCode() % N;
         if (n < 0) {
             n = n * (-1);
         }
         CelluleDictio cc = T[n];
-        while (cc != null && cc.elt != m) {
+        while (cc != null && cc.elt != m) 
+        {
             cc = cc.suiv;
         }
-        if (cc != null) {
+        if (cc != null) 
+        {
             n = cc.ind;
-        } else {
+        } 
+        else 
+        {
             n = -1;
         }
         return n;
