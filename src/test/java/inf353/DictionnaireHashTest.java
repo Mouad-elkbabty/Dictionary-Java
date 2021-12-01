@@ -6,7 +6,6 @@ import org.junit.Test;
 
 public class DictionnaireHashTest {
     
-    /*
     @Test
     public void constructeurTest() {
         DictionnaireHash dictio = new DictionnaireHash();
@@ -91,7 +90,6 @@ public class DictionnaireHashTest {
         assertFalse(dictio.contientPrefixe("jee"));
         assertFalse(dictio.contientPrefixe("b"));
     }
-    */
 
     @Test
     public void plusLongPrefixeDeTest() {
