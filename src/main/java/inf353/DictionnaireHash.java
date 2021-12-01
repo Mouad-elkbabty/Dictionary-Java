@@ -33,19 +33,8 @@ public class DictionnaireHash implements Dictionnaire {
     public void ajouterMot(String m) {
         if (!contient(m)) {
             int n = Math.abs(m.hashCode() % N);
-            CelluleDictio cc = T[n];
-            CelluleDictio cp = null;
-            int i = 0;
-            while (cc != null) {
-                cp = cc;
-                cc = cc.suiv;
-                i++;
-            }
-            if (cp == null) {
-                T[n] = new CelluleDictio(m, (n * 10000) + i, null);
-            } else {
-                cp.suiv = new CelluleDictio(m, (n * 10000) + i, null);
-            }
+            T[n] = new CelluleDictio(m, nb, T[n]);
+            this.nb += 1;
         }
     }
 
@@ -57,40 +46,39 @@ public class DictionnaireHash implements Dictionnaire {
      */
     @Override
     public int indiceMot(String m) {
-        int n = Math.abs(m.hashCode() % N);
-        CelluleDictio cc = T[n];
+        int n = -1;
+        int i = Math.abs(m.hashCode() % N);
+        CelluleDictio cc = T[i];
         while (cc != null && cc.elt != m) {
             cc = cc.suiv;
         }
         if (cc != null) {
             n = cc.ind;
-        } else {
-            n = -1;
         }
         return n;
     }
 
     /**
-     * Retourne le mot contenu à l'indice i dans le DictionnaireHash ou null s'il
-     * n'existe pas
+     * Retourne le mot contenu à l'indice i dans le DictionnaireHash ou null s'il n'existe pas
      * 
      * @param i L'indice à tester
      * @return Le mot de l'indice testé
      */
     @Override
     public String motIndice(int i) {
-        int j = 0;
-        CelluleDictio cc;
         String s = null;
-
-        j = i - ((i / 10000) * 10000);
-        cc = T[i / 10000];
-        while (cc != null && j > 0) {
-            cc = cc.suiv;
-            j = j - 1;
-        }
-        if (cc != null) {
-            s = cc.elt;
+        if (this.nb > i) {
+            int j = 0;
+            while (j < N && s == null) {
+                CelluleDictio cc = this.T[j];
+                while (cc != null && cc.ind != i) {
+                    cc = cc.suiv;
+                }
+                if (cc != null) {
+                    s = cc.elt;
+                }
+                j++;
+            }
         }
         return s;
     }
@@ -125,7 +113,19 @@ public class DictionnaireHash implements Dictionnaire {
      */
     @Override
     public boolean contientPrefixe(String p) {
-        return false;
+        boolean trouve = false;
+        int j = 0;
+        while (j < N && !trouve) {
+            CelluleDictio cc = this.T[j];
+            while (cc != null && !cc.elt.startsWith(p)) {
+                cc = cc.suiv;
+            }
+            if (cc != null) {
+                trouve = true;
+            }
+            j++;
+        }
+        return trouve;
     }
 
     /**
@@ -136,7 +136,12 @@ public class DictionnaireHash implements Dictionnaire {
      */
     @Override
     public String plusLongPrefixeDe(String mot) {
-        return null;
+        int n = this.indiceMot(mot);
+        while (mot.length() > 0 && n == -1) {
+            mot = mot.substring(0, mot.length()-1);
+            n = this.indiceMot(mot);
+        }
+        return mot;
     }
 
 }
