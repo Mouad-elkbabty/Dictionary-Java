@@ -20,11 +20,8 @@ public class DictionnaireHash implements Dictionnaire {
      */
     @Override
     public void vider() {
-        int i = 0;
-        while (i < this.T.length) {
-            this.T[i] = null;
-            i++;
-        }
+        this.T = new CelluleDictio[N];
+        this.nb = 0;
     }
 
     /**
@@ -35,10 +32,7 @@ public class DictionnaireHash implements Dictionnaire {
     @Override
     public void ajouterMot(String m) {
         if (!contient(m)) {
-            int n = m.hashCode() % (N - 1);
-            if (n < 0) {
-                n = n * (-1);
-            }
+            int n = Math.abs(m.hashCode() % N);
             CelluleDictio cc = T[n];
             CelluleDictio cp = null;
             int i = 0;
@@ -63,10 +57,7 @@ public class DictionnaireHash implements Dictionnaire {
      */
     @Override
     public int indiceMot(String m) {
-        int n = m.hashCode() % (N - 1);
-        if (n < 0) {
-            n = n * (-1);
-        }
+        int n = Math.abs(m.hashCode() % N);
         CelluleDictio cc = T[n];
         while (cc != null && cc.elt != m) {
             cc = cc.suiv;
