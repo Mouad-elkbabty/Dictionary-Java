@@ -12,9 +12,7 @@ public class CelluleMatrice {
     /**
      * Constructeur vide (l'élément et le suivant ne sont pas spécifiés.
      */
-    public CelluleMatrice() {
-        super();
-    }
+    public CelluleMatrice() {}
 
     /**
      * Constructeur à partir d'un élément (le suivant n'est pas spécifié).

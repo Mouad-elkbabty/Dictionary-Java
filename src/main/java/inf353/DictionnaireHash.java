@@ -1,5 +1,13 @@
 package inf353;
 
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.File;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+
 public class DictionnaireHash implements Dictionnaire {
 
     /// attributs
@@ -142,6 +150,67 @@ public class DictionnaireHash implements Dictionnaire {
             trouve = this.contient(mot);
         }
         return mot;
+    }
+
+    /**
+     * Enregistre le dictionnaire dans le chemin demandé
+     * @param chemin le chemin voulu
+     */
+    public void sauver(String chemin) throws IOException {
+        // Chargement du fichier
+        File fichier = new File(chemin);
+        if (fichier.isDirectory()) throw new IOException("Le chemin \"" + chemin + "\" est un dossier.");
+
+        // Chargement du tableau pour garder l'index des mots
+        String[] mots = new String[this.nbMots()];
+        int i = 0;
+        while (i < this.nbMots()) {
+            CelluleDictio cc = this.T[i];
+            while (cc != null) {
+                mots[cc.ind] = cc.elt;
+                cc = cc.suiv;
+            }
+            i++;
+        }
+
+        // Initialisation du Buffer
+        BufferedWriter buffer = new BufferedWriter(new FileWriter(chemin, false));
+
+        // Écriture du du contenu du Dictionnaire
+        String ligne = "";
+        for (int j = 0; j < this.nbMots(); j++) {
+            ligne += mots[j] + ",";
+        }
+        if (ligne != "") ligne = ligne.substring(0, ligne.length()-1);
+        buffer.write(ligne);
+
+        // Enregistrement et fermeture du Buffer
+        buffer.flush();
+        buffer.close();
+    }
+
+    /**
+     * Charger le dictionnaire stocké dans le chemin demandé
+     * @param chemin le chemin voulu
+     */
+    public void charger(String chemin) throws IOException {
+        // Initialisation du fichier et du Buffer
+        File fichier = new File(chemin);
+        if (!fichier.exists() || !fichier.isFile()) throw new FileNotFoundException("Aucun fichier du nom de " + chemin + " n'a été trouvé.");
+        BufferedReader buffer = new BufferedReader(new FileReader(fichier));
+
+        // Vide du Dictionnaire
+        this.vider();
+
+        // Remplissage du Dictionnaire
+        String ligne = buffer.readLine();
+        String[] mots = ligne.split(",");
+        for (int m = 0; m < mots.length; m++) {
+            this.ajouterMot(mots[m]);
+        }
+        
+        // Fermeture du Buffer
+        buffer.close();
     }
 
 }
