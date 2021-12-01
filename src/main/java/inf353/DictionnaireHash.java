@@ -61,7 +61,7 @@ public class DictionnaireHash implements Dictionnaire {
         int n = -1;
         int i = Math.abs(m.hashCode() % N);
         CelluleDictio cc = T[i];
-        while (cc != null && cc.elt != m) {
+        while (cc != null && !cc.elt.equals(m)) {
             cc = cc.suiv;
         }
         if (cc != null) {
@@ -148,10 +148,10 @@ public class DictionnaireHash implements Dictionnaire {
      */
     @Override
     public String plusLongPrefixeDe(String mot) {
-        int n = this.indiceMot(mot);
-        while (mot.length() > 0 && n == -1) {
+        boolean trouve = this.contient(mot);
+        while (mot.length() > 0 && !trouve) {
             mot = mot.substring(0, mot.length()-1);
-            n = this.indiceMot(mot);
+            trouve = this.contient(mot);
         }
         return mot;
     }

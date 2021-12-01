@@ -105,7 +105,7 @@ Par Fabien, Gaétan, Valentin
 - score() - À TESTER
 - presentation() - À TESTER
 
-#### Main et MainIndexation
+#### MainRecherche et MainIndexation
 
 ###### Répartition
 
@@ -116,3 +116,38 @@ Tout a été testé et tout semble bien fonctionner
 ### Faits marquants
 
 Bonne concertation, organisation des tâches et participation  de chacun dans ce qui lui a été confié lors du dernier cours.   
+
+## Semaine 3 - Implémentation des classes en Hashcode
+
+### Objectifs de la semaine
+
+#### DictionnaireHash
+
+##### Répartition
+
+Par Valentin, Célia 
+- constructeur - TESTÉ
+- vider() - TESTÉE
+- indiceMot() - TESTÉE
+- motIndice() - TESTÉE
+- contient() - TESTÉE
+- nbMots() - TESTÉE
+- contientPrefixe() - TESTÉE
+- plusLongPrefixeDe() - TESTÉE
+
+#### MatriceHash
+
+Par Fabien
+- constructeurs - À TESTER
+- sauver() - À TESTER
+- val() - À TESTER
+- incremente() - À TESTER
+- affecte() - À TESTER
+
+#### MainRecherche et MainIndexation
+
+À faire lorsque tout sera testé.
+
+### Faits marquants
+
+Très bonne communication, la répartition semble bonne.

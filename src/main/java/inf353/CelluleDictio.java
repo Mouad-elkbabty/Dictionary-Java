@@ -12,9 +12,7 @@ public class CelluleDictio{
     /**
      * Constructeur vide (l'élément et le suivant ne sont pas spécifiés.
      */
-    public CelluleDictio() {
-        super();
-    }
+    public CelluleDictio() {}
 
     /**
      * Constructeur à partir d'un élément (le suivant n'est pas spécifié).
