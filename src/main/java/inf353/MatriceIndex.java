@@ -1,18 +1,8 @@
 package inf353;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public interface MatriceIndex {
-
-    /**
-     * Sauvegarde de la matrice d'occurence dans le fichier nomDeFichier. Le format est libre,
-     * mais doit privilégier la vitesse de chargement et la compacité (taille du fichier).
-     *
-     * @param nomDeFichier
-     */
-    public abstract void sauver(String nomDeFichier) throws IOException;
-;
 
     /**
      * retourne le nombre d'occurences du terme numéro nterm dans le document numéro ndoc.
@@ -38,9 +28,17 @@ public interface MatriceIndex {
     public abstract void affecte(int ndoc, int nterm, int val);
 
     /**
+     * Sauvegarde de la matrice d'occurence dans le fichier nomDeFichier. Le format est libre,
+     * mais doit privilégier la vitesse de chargement et la compacité (taille du fichier).
+     *
+     * @param nomDeFichier
+     */
+    public abstract void sauver(String nomDeFichier) throws IOException;
+
+    /**
      * Rempli la matrice avec les données contenu dans le chemin en paramètres
      * @param  chemin  le chemin du document source
      */
-    public abstract void charger(String chemin) throws FileNotFoundException, IOException;
+    public abstract void charger(String chemin) throws IOException;
 
 }
