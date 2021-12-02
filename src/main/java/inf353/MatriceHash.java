@@ -1,7 +1,10 @@
 package inf353;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -13,7 +16,7 @@ public class MatriceHash implements MatriceIndex{
      */
     public MatriceHash() 
     {
-        this.N = 2000;
+        this.N = 100000;
         T = new CelluleMatrice[N];
     }
 
@@ -95,5 +98,49 @@ public class MatriceHash implements MatriceIndex{
         {
             cc.elt = val;
         }
+    }
+
+    //Version ou on ne prend pas en compte la taille de la matrice(on en prend une de 100 000 ligne)
+    @Override
+    public void charger(String chemin) throws FileNotFoundException, IOException
+    {
+        File fichier = new File(chemin);
+        BufferedReader buffer = new BufferedReader(new FileReader(fichier));
+        int i = 0;
+        while(i < this.N  )
+        {
+            CelluleMatrice matrice = null;
+            String ligne = buffer.readLine();
+            int j = 0;
+            String nombre = "";
+            while(j < ligne.length()) //Lecture de la ligne
+            {
+                int occurence = 0;
+                int indice = 0;
+                
+                nombre = "";
+                while(ligne.charAt(j) != ',')//lecture du nombre d'occurence
+                {
+                    nombre += ligne.charAt(j);
+                    j++;
+                }            
+                occurence = Integer.parseInt(nombre);
+                
+                nombre = "";
+                while(ligne.charAt(j) != ' ') // Lecture de l'indice
+                {
+                    nombre += ligne.charAt(j);
+                    j++;
+                }
+                indice = Integer.parseInt(nombre);
+
+                matrice = new CelluleMatrice(occurence,indice,matrice); // Creation de la sequence chainee
+                j++;
+            }
+            T[i] = matrice;//remplissage du tableau
+            i++;
+            
+        }
+        buffer.close();
     }
 }

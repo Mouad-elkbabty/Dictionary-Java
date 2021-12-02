@@ -1,5 +1,6 @@
 package inf353;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public interface MatriceIndex {
@@ -35,5 +36,11 @@ public interface MatriceIndex {
      * @param val    la nouvelle valeur du nombre d'occurence
      */
     public abstract void affecte(int ndoc, int nterm, int val);
+
+    /**
+     * Rempli la matrice avec les données contenu dans le chemin en paramètres
+     * @param  chemin  le chemin du document source
+     */
+    public abstract void charger(String chemin) throws FileNotFoundException, IOException;
 
 }
