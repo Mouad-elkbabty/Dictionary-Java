@@ -6,14 +6,14 @@ import java.io.File;
 
 public class Indexation {
 
+    // attributs
     public DictionnaireHash dictioMots;
     public DictionnaireHash dictioDocuments;
     public MatriceHash matriceOccurences;
 
     /**
-     * Créer une Indexation vierge
+     * Crée une Indexation vierge
      */
-    
     public Indexation() throws IOException {
         this.dictioMots = new DictionnaireHash();
         this.dictioDocuments = new DictionnaireHash();
@@ -21,7 +21,9 @@ public class Indexation {
     }
     
     /**
-     * Créer une Indexation à partir d'un fichier
+     * Crée une Indexation à partir d'un dossier
+     * Les noms pour les documents, les mots puis les matrices seront respectivement
+     * DictionnaireDocuments, DictionnaireMots et MatriceOccurences avec l'extension txt
      * @param chemin Le chemin vers le fichier
      */
     public Indexation(String chemin) throws IOException {
@@ -30,7 +32,7 @@ public class Indexation {
     }
 
     /**
-     * Ajouter un mot à l'Indexation
+     * Ajoute un mot à l'Indexation
      * @param mot le mot à ajouter
      */
     public void ajouterMot(String mot) {
@@ -38,15 +40,20 @@ public class Indexation {
     }
 
     /**
-     * Ajouter un document à l'Indexation
+     * Ajoute un document à l'Indexation et le compte
      * @param document Le document à ajouter
-     * @param compter Compter automatiquement le document dans la matrice
      */
     public void ajouterDocument(String document) throws IOException {
         File fichier = new File(document);
         if (!fichier.exists() || !fichier.isFile()) throw new FileNotFoundException("Le fichier " + document + " n'a pas été trouvé.");
         this.dictioDocuments.ajouterMot(fichier.getName());
-        this.compter(fichier.getPath());
+        LecteurDocumentNaif lecteur = new LecteurDocumentNaif(document);
+        lecteur.demarrer();
+        while (!lecteur.finDeSequence()) {
+            this.ajouterMot(lecteur.elementCourant());
+            this.incremente(lecteur.elementCourant(), document);
+            lecteur.avancer();
+        }
     }
 
     /**
@@ -68,7 +75,7 @@ public class Indexation {
     }
 
     /**
-     * Incrémenter la valeur d'un certain mot pour un certain document
+     * Incrémente la valeur d'un certain mot pour un certain document
      * @param mot Le mot à incrémenter
      * @param document Le document dans lequel on doit incrémenter
      */
@@ -104,34 +111,23 @@ public class Indexation {
     }
 
     /**
-     * Compte l'occurence des mots d'un certain document
-     * @param document le document à compter
-     * @throws IOException
-     */
-    public void compter(String document) throws IOException {
-        LecteurDocumentNaif lecteur = new LecteurDocumentNaif(document);
-        lecteur.demarrer();
-        while (!lecteur.finDeSequence()) {
-            this.ajouterMot(lecteur.elementCourant());
-            this.incremente(lecteur.elementCourant(), document);
-            lecteur.avancer();
-        }
-    }
-
-    /**
-     * Sauvegarder l'Indexation dans un certain fichier
-     * @param chemin Le chemin vers le fichier
+     * Sauvegarde l'Indexation dans un certain dossier
+     * Les noms pour les documents, les mots puis les matrices seront respectivement
+     * DictionnaireDocuments, DictionnaireMots et MatriceOccurences avec l'extension txt
+     * @param chemin Le chemin vers le dossier
      * @throws IOException
      */
     public void sauver(String chemin) throws IOException {
-        this.dictioDocuments.sauver(chemin+ "DictionnaireDocumentSave.txt");
-        this.dictioMots.sauver(chemin + "DictionnaireDocumentMot.txt");
-        this.matriceOccurences.sauver(chemin+ "MatriceOccurence.txt");
+        this.dictioDocuments.sauver(chemin + "DictionnaireDocuments.txt");
+        this.dictioMots.sauver(chemin + "DictionnaireMots.txt");
+        this.matriceOccurences.sauver(chemin + "MatriceOccurences.txt");
     }
 
     /**
-     * Charge l'Indexation à l'aide des deux fichiers
-     * @param chemin Le chemin vers le fichier
+     * Charge l'Indexation contenu dans un certain dossier
+     * Les noms pour les documents, les mots puis les matrices doivent respectivement être
+     * DictionnaireDocuments, DictionnaireMots et MatriceOccurences avec l'extension txt
+     * @param chemin Le chemin vers le dossier
      * @throws IOException
      */
     public void charger(String chemin) throws IOException {

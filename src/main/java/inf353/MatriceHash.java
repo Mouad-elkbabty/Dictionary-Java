@@ -9,28 +9,63 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class MatriceHash implements MatriceIndex{
+
     public int N;
     public CelluleMatrice[] T;
+
     /**
      * Crée une MatriceHash vide
      */
-    public MatriceHash() 
-    {
-        this.N = 100000;
-        T = new CelluleMatrice[N];
+    public MatriceHash() {
+        this(100000);
     }
 
-    public MatriceHash(int n)
-    {
+    public MatriceHash(int n) {
         this.N = n;
         T = new CelluleMatrice[N];
     }
 
-    public MatriceHash(String chemin)
-    {
-
+    public MatriceHash(String chemin) throws IOException {
+        this();
+        this.charger(chemin);
     }
 
+    @Override
+    public int val(int ndoc, int nterm) {
+        CelluleMatrice cc = T[ndoc];
+        while(cc != null && cc.ind == nterm) {
+            cc = cc.suiv;
+        }
+        if(cc == null) {
+            return 0;
+        }
+        return cc.elt;
+    }
+
+    @Override
+    public void incremente(int ndoc, int nterm) {
+        CelluleMatrice cc = T[ndoc];
+        while (cc != null && cc.ind != nterm) {
+            cc = cc.suiv;
+        }
+        if(cc != null) {
+            cc.elt++;
+        }
+        
+    }
+
+    @Override
+    public void affecte(int ndoc, int nterm, int val) {
+        CelluleMatrice cc = T[ndoc];
+        while (cc != null && cc.ind != nterm) {
+            cc = cc.suiv;
+        }
+        if(cc != null) {
+            cc.elt = val;
+        }
+    }
+
+    
     /**
      * Sauvegarde la matrice dans un fichier
      * Format  (Document1(T[1]))|elt,ind elt,ind etc...
@@ -45,8 +80,7 @@ public class MatriceHash implements MatriceIndex{
         BufferedWriter bw = new BufferedWriter(writer);
         int i = 0;
         CelluleMatrice cc;
-        while(i < N && T[i] != null )
-        {
+        while(i < N && T[i] != null ) {
             cc = T[i];
             while(cc !=null)
             {
@@ -59,56 +93,14 @@ public class MatriceHash implements MatriceIndex{
         writer.close();
     }
 
-    @Override
-    public int val(int ndoc, int nterm) {
-        CelluleMatrice cc = T[ndoc];
-        while(cc != null && cc.ind == nterm)
-        {
-            cc = cc.suiv;
-        }
-        if(cc == null)
-        {
-            return 0;
-        }
-        return cc.elt;
-    }
-
-    @Override
-    public void incremente(int ndoc, int nterm) {
-        CelluleMatrice cc = T[ndoc];
-        while (cc != null && cc.ind != nterm)
-        {
-            cc = cc.suiv;
-        }
-        if(cc != null)
-        {
-            cc.elt++;
-        }
-        
-    }
-
-    @Override
-    public void affecte(int ndoc, int nterm, int val) {
-        CelluleMatrice cc = T[ndoc];
-        while (cc != null && cc.ind != nterm)
-        {
-            cc = cc.suiv;
-        }
-        if(cc != null)
-        {
-            cc.elt = val;
-        }
-    }
-
     //Version ou on ne prend pas en compte la taille de la matrice(on en prend une de 100 000 ligne)
     @Override
-    public void charger(String chemin) throws FileNotFoundException, IOException
-    {
+    public void charger(String chemin) throws IOException {
         File fichier = new File(chemin);
+        if (!fichier.exists() || !fichier.isFile()) throw new FileNotFoundException("Aucun fichier du nom de " + chemin + " n'a été trouvé.");
         BufferedReader buffer = new BufferedReader(new FileReader(fichier));
         int i = 0;
-        while(i < this.N  )
-        {
+        while(i < this.N) {
             CelluleMatrice matrice = null;
             String ligne = buffer.readLine();
             int j = 0;
