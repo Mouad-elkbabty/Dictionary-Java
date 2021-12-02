@@ -1,0 +1,2 @@
+manger,JOUER,balancer,CASSER,PASSER,nager,patoger,ENCOURAGER
+TEST
