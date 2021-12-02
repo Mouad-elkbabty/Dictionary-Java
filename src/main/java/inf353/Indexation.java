@@ -6,7 +6,10 @@ import java.io.File;
 
 public class Indexation {
 
-    // attributs
+    /**
+     * Les attributs de la classe : deux DictionnaireHash pour les mots et les
+     * documents ainsi qu'une MatriceHash pour les occurences
+     */
     public DictionnaireHash dictioMots;
     public DictionnaireHash dictioDocuments;
     public MatriceHash matriceOccurences;
@@ -19,11 +22,14 @@ public class Indexation {
         this.dictioDocuments = new DictionnaireHash();
         this.matriceOccurences = new MatriceHash();
     }
-    
+
     /**
      * Crée une Indexation à partir d'un dossier
-     * Les noms pour les documents, les mots puis les matrices seront respectivement
-     * DictionnaireDocuments, DictionnaireMots et MatriceOccurences avec l'extension txt
+     * Les noms des fichiers contenant les documents, les mots et la matrice seront
+     * respectivement
+     * DictionnaireDocuments, DictionnaireMots et MatriceOccurences avec l'extension
+     * txt
+     * 
      * @param chemin Le chemin vers le fichier
      */
     public Indexation(String chemin) throws IOException {
@@ -33,6 +39,7 @@ public class Indexation {
 
     /**
      * Ajoute un mot à l'Indexation
+     * 
      * @param mot le mot à ajouter
      */
     public void ajouterMot(String mot) {
@@ -41,11 +48,13 @@ public class Indexation {
 
     /**
      * Ajoute un document à l'Indexation et le compte
+     * 
      * @param document Le document à ajouter
      */
     public void ajouterDocument(String document) throws IOException {
         File fichier = new File(document);
-        if (!fichier.exists() || !fichier.isFile()) throw new FileNotFoundException("Le fichier " + document + " n'a pas été trouvé.");
+        if (!fichier.exists() || !fichier.isFile())
+            throw new FileNotFoundException("Le fichier " + document + " n'a pas été trouvé.");
         this.dictioDocuments.ajouterMot(fichier.getName());
         LecteurDocumentNaif lecteur = new LecteurDocumentNaif(document);
         lecteur.demarrer();
@@ -58,9 +67,10 @@ public class Indexation {
 
     /**
      * Affecter la valeur d'un certain mot pour un certain document
-     * @param mot Le mot à affecter
+     * 
+     * @param mot      Le mot à affecter
      * @param document Le document dans lequel on doit affecter
-     * @param n L'entier à affecter
+     * @param n        L'entier à affecter
      */
     public void affecte(String mot, String document, int n) {
         if (this.dictioMots != null && this.dictioDocuments != null) {
@@ -76,7 +86,8 @@ public class Indexation {
 
     /**
      * Incrémente la valeur d'un certain mot pour un certain document
-     * @param mot Le mot à incrémenter
+     * 
+     * @param mot      Le mot à incrémenter
      * @param document Le document dans lequel on doit incrémenter
      */
     public void incremente(String mot, String document) {
@@ -92,8 +103,10 @@ public class Indexation {
     }
 
     /**
-     * Renvoie le nombre d'occurences du mot donné dans le document donné, sinon -1 si le couple n'est pas trouvé
-     * @param mot Le mot à chercher
+     * Renvoie le nombre d'occurences du mot donné dans le document donné, sinon -1
+     * si le couple n'est pas trouvé
+     * 
+     * @param mot      Le mot à chercher
      * @param document Le document à chercher
      */
     public int val(String mot, String document) {
@@ -112,8 +125,11 @@ public class Indexation {
 
     /**
      * Sauvegarde l'Indexation dans un certain dossier
-     * Les noms pour les documents, les mots puis les matrices seront respectivement
-     * DictionnaireDocuments, DictionnaireMots et MatriceOccurences avec l'extension txt
+     * Les noms des fichiers contenant les documents, les mots et la matrice seront
+     * respectivement
+     * DictionnaireDocuments, DictionnaireMots et MatriceOccurences avec l'extension
+     * txt
+     * 
      * @param chemin Le chemin vers le dossier
      * @throws IOException
      */
@@ -125,8 +141,11 @@ public class Indexation {
 
     /**
      * Charge l'Indexation contenu dans un certain dossier
-     * Les noms pour les documents, les mots puis les matrices doivent respectivement être
-     * DictionnaireDocuments, DictionnaireMots et MatriceOccurences avec l'extension txt
+     * Les noms des fichiers contenant les documents, les mots et la matrice seront
+     * respectivement
+     * DictionnaireDocuments, DictionnaireMots et MatriceOccurences avec l'extension
+     * txt
+     * 
      * @param chemin Le chemin vers le dossier
      * @throws IOException
      */

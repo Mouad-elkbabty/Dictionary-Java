@@ -10,7 +10,10 @@ import java.io.FileWriter;
 
 public class DictionnaireHash implements Dictionnaire {
 
-    /// attributs
+    /**
+     * Attributs de la classe : le tableau T de taille N ainsi que le nombre de mots
+     * totaux nb
+     */
     public int N;
     public CelluleDictio[] T;
     public int nb;
@@ -22,16 +25,25 @@ public class DictionnaireHash implements Dictionnaire {
         this(2000);
     }
 
-    public DictionnaireHash(int n)
-    {
+    /**
+     * Crée un DictionnaireHash vide de taille n
+     * 
+     * @param n la taille du DictionnaireHash
+     */
+    public DictionnaireHash(int n) {
         this.N = n;
         this.T = new CelluleDictio[N];
         this.nb = 0;
     }
 
-    public DictionnaireHash(String chemin)
-    {
-               
+    /**
+     * Crée un DictionnaireHash à partir du fichier demandé
+     * 
+     * @param chemin le chemin où le fichier est stocké
+     */
+    public DictionnaireHash(String chemin) throws IOException {
+        this();
+        this.charger(chemin);
     }
 
     /**
@@ -61,7 +73,6 @@ public class DictionnaireHash implements Dictionnaire {
      * Retourne l'indice du mot dans le DictionnaireHash ou -1 s'il n'est pas trouvé
      * 
      * @param m Le mot à tester
-     * @return L'indice du mot testé
      */
     @Override
     public int indiceMot(String m) {
@@ -78,10 +89,10 @@ public class DictionnaireHash implements Dictionnaire {
     }
 
     /**
-     * Retourne le mot contenu à l'indice i dans le DictionnaireHash ou null s'il n'existe pas
+     * Retourne le mot contenu à l'indice i dans le DictionnaireHash ou null s'il
+     * n'existe pas
      * 
      * @param i L'indice à tester
-     * @return Le mot de l'indice testé
      */
     @Override
     public String motIndice(int i) {
@@ -128,7 +139,6 @@ public class DictionnaireHash implements Dictionnaire {
      * DictionnaireHash
      * 
      * @param p Le préfixe à tester
-     * @return
      */
     @Override
     public boolean contientPrefixe(String p) {
@@ -151,13 +161,12 @@ public class DictionnaireHash implements Dictionnaire {
      * Retourne le préfixe le plus long du mot contenu dans le DictionnaireHash
      * 
      * @param mot Le mot à tester
-     * @return
      */
     @Override
     public String plusLongPrefixeDe(String mot) {
         boolean trouve = this.contient(mot);
         while (mot.length() > 0 && !trouve) {
-            mot = mot.substring(0, mot.length()-1);
+            mot = mot.substring(0, mot.length() - 1);
             trouve = this.contient(mot);
         }
         return mot;
@@ -165,12 +174,14 @@ public class DictionnaireHash implements Dictionnaire {
 
     /**
      * Enregistre le dictionnaire dans le chemin demandé
-     * @param chemin le chemin voulu
+     * 
+     * @param chemin le chemin vers le fichier où sera stocké le DictionnaireHash
      */
     public void sauver(String chemin) throws IOException {
         // Chargement du fichier
         File fichier = new File(chemin);
-        if (fichier.isDirectory()) throw new IOException("Le chemin \"" + chemin + "\" est un dossier.");
+        if (fichier.isDirectory())
+            throw new IOException("Le chemin \"" + chemin + "\" est un dossier.");
 
         // Chargement du tableau pour garder l'index des mots
         String[] mots = new String[this.nbMots()];
@@ -187,12 +198,13 @@ public class DictionnaireHash implements Dictionnaire {
         // Initialisation du Buffer
         BufferedWriter buffer = new BufferedWriter(new FileWriter(chemin, false));
 
-        // Écriture du du contenu du Dictionnaire
+        // Écriture du contenu du DictionnaireHash
         String ligne = "";
         for (int j = 0; j < this.nbMots(); j++) {
             ligne += mots[j] + ",";
         }
-        if (ligne != "") ligne = ligne.substring(0, ligne.length()-1);
+        if (ligne != "")
+            ligne = ligne.substring(0, ligne.length() - 1);
         buffer.write(ligne);
 
         // Enregistrement et fermeture du Buffer
@@ -201,13 +213,15 @@ public class DictionnaireHash implements Dictionnaire {
     }
 
     /**
-     * Charger le dictionnaire stocké dans le chemin demandé
-     * @param chemin le chemin voulu
+     * Charge le DictionnaireHash stocké dans le chemin demandé
+     * 
+     * @param chemin le chemin où le fichier est stocké
      */
     public void charger(String chemin) throws IOException {
         // Initialisation du fichier et du Buffer
         File fichier = new File(chemin);
-        if (!fichier.exists() || !fichier.isFile()) throw new FileNotFoundException("Aucun fichier du nom de " + chemin + " n'a été trouvé.");
+        if (!fichier.exists() || !fichier.isFile())
+            throw new FileNotFoundException("Aucun fichier du nom de " + chemin + " n'a été trouvé.");
         BufferedReader buffer = new BufferedReader(new FileReader(fichier));
 
         // Vide du Dictionnaire
@@ -219,7 +233,7 @@ public class DictionnaireHash implements Dictionnaire {
         for (int m = 0; m < mots.length; m++) {
             this.ajouterMot(mots[m]);
         }
-        
+
         // Fermeture du Buffer
         buffer.close();
     }
