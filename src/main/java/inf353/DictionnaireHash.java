@@ -186,7 +186,7 @@ public class DictionnaireHash implements Dictionnaire {
         // Chargement du tableau pour garder l'index des mots
         String[] mots = new String[this.nbMots()];
         int i = 0;
-        while (i < this.nbMots()) {
+        while (i < this.N) {
             CelluleDictio cc = this.T[i];
             while (cc != null) {
                 mots[cc.ind] = cc.elt;

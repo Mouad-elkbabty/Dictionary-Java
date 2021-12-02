@@ -125,8 +125,8 @@ Bonne concertation, organisation des tâches et participation  de chacun dans ce
 
 ##### Répartition
 
-Par Valentin, Célia 
-- constructeur - TESTÉ
+Par Valentin, Célia, Gaétan, Fabien
+- constructeur - TESTÉS
 - vider() - TESTÉE
 - indiceMot() - TESTÉE
 - motIndice() - TESTÉE
@@ -137,12 +137,20 @@ Par Valentin, Célia
 
 #### MatriceHash
 
-Par Fabien
+Par Fabien, Gaétan
 - constructeurs - À TESTER
 - sauver() - À TESTER
 - val() - À TESTER
 - incremente() - À TESTER
 - affecte() - À TESTER
+
+#### Recherche
+
+Par Fabien
+- constructeur - EN COURS
+- score() - EN COURS
+- presentation() - EN COURS
+- 
 
 #### MainRecherche et MainIndexation
 
