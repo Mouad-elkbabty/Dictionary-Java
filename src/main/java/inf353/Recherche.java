@@ -22,13 +22,16 @@ public class Recherche {
     public void score() {
         int[] valeurs = new int[this.index.dictioDocuments.nbMots()];
         int i = 0;
-        while(i < this.index.dictioDocuments.nbMots())
+        while(i < this.index.dictioDocuments.nbMots()) //Parcours de tout les documents
         {
-            
+            int j = 0;
+            while(j < recherche.length) //parcours la liste des element de la recherche
+            {
+                valeurs[i] += index.matriceOccurences.val(i,index.dictioMots.indiceMot(recherche[j]));
+                j++;
+            }
+            i++;
         }
-
-
-        return;
     }
 
     /**
