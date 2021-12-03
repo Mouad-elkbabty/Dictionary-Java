@@ -92,7 +92,7 @@ public class MatriceHash implements MatriceIndex {
             throw new IOException("Le chemin \"" + chemin + "\" est un dossier.");
 
         // Initialisation du Buffer
-        BufferedWriter buffer = new BufferedWriter(new FileWriter(chemin, true));
+        BufferedWriter buffer = new BufferedWriter(new FileWriter(chemin, false));
 
         // Écriture du contenu de la MatriceHash
         int i = 0;
