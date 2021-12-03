@@ -6,12 +6,12 @@ import java.io.IOException;
 public class MainIndexation {
 
     public static void main (String[] args) throws IOException {
-        String dossier = "/partage_etu/Science/INF/353_projet/french";
+        String dossier = "/partage_etu/Science/INF/353_projet/echantillon_100";
         Indexation indexation = new Indexation();
         chargerFichiers(dossier, indexation);
-        File sauvegarde = new File("./src/main/resources/inf353/sauvegarde/");
+        File sauvegarde = new File("./src/main/resources/inf353/");
         if (!sauvegarde.isDirectory()) sauvegarde.mkdir();
-        // indexation.sauver(...);
+        indexation.sauver("./src/main/resources/inf353/");
     }
 
     /**
