@@ -156,6 +156,10 @@ Par Fabien
 
 À faire lorsque tout sera testé.
 
+### Commentaire et specification
+
+Ajout des commentaire  détailé pour tous les testes , ainsi que specifier tous les méthodes déja faites .
+
 ### Faits marquants
 
 Très bonne communication, la répartition semble bonne.
