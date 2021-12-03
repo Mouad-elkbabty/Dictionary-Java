@@ -123,8 +123,6 @@ Bonne concertation, organisation des tâches et participation  de chacun dans ce
 
 #### DictionnaireHash
 
-##### Répartition
-
 Par Valentin, Célia, Gaétan, Fabien
 - constructeur - TESTÉS
 - vider() - TESTÉE
@@ -138,24 +136,39 @@ Par Valentin, Célia, Gaétan, Fabien
 #### MatriceHash
 
 Par Fabien, Gaétan
-- constructeurs - À TESTER
-- sauver() - À TESTER
-- val() - À TESTER
-- incremente() - À TESTER
-- affecte() - À TESTER
+- constructeurs - DONE
+- sauver() - DONE
+- val() - DONE
+- incremente() - DONE
+- affecte() - DONE
 
 #### Recherche
 
 Par Fabien
-- constructeur - EN COURS
-- score() - EN COURS
-- presentation() - EN COURS
+- constructeur - DONE
+- score() - A MODIFIER (NOUVELLE TECHNIQUE DE CALCULE)
+- presentation() - DONE
 - 
 
 #### MainRecherche et MainIndexation
 
-À faire lorsque tout sera testé.
+- Première version fonctionnelle meme sur le corpus complet. Recherche d'environ 25 Seconde dependant de la recherche.
+- Nécessité de re-Indexer pour prendre en compte la nouvelle version du lecteur
+
+### Commentaire et specification
+
+Ajout des commentaires  détailés pour tous les testes , ainsi que specifier tous les méthodes déja faites .
 
 ### Faits marquants
 
 Très bonne communication, la répartition semble bonne.
+<<<<<<< HEAD
+
+#### A FAIRE
+- S'assurer que le programme actuel FONTIONNE a 100%
+- Commencer a mettre en place mes nouvelles methodes de calcul de similarité 
+    - nnn (actuel)
+- Plus de nécésité de stoplist
+- Rajouter des tests
+=======
+>>>>>>> dd1d4207027762782b30e9273ffd69cdd628b025

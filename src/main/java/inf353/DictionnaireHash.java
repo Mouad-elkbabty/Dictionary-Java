@@ -22,7 +22,7 @@ public class DictionnaireHash implements Dictionnaire {
      * Crée un DictionnaireHash vide
      */
     public DictionnaireHash() {
-        this(2000);
+        this(4000);
     }
 
     /**
@@ -180,10 +180,12 @@ public class DictionnaireHash implements Dictionnaire {
     public void sauver(String chemin) throws IOException {
         // Chargement du fichier
         File fichier = new File(chemin);
-        if (fichier.isDirectory())
+        if (fichier.isDirectory()){
             throw new IOException("Le chemin \"" + chemin + "\" est un dossier.");
+        }
 
         // Chargement du tableau pour garder l'index des mots
+        fichier.createNewFile();
         String[] mots = new String[this.nbMots()];
         int i = 0;
         while (i < this.N) {
