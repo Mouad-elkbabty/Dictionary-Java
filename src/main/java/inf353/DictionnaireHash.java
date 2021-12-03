@@ -180,9 +180,10 @@ public class DictionnaireHash implements Dictionnaire {
     public void sauver(String chemin) throws IOException {
         // Chargement du fichier
         File fichier = new File(chemin);
-        if (fichier.isDirectory())
+        if (fichier.isDirectory()){
             throw new IOException("Le chemin \"" + chemin + "\" est un dossier.");
-
+        }
+        
         // Chargement du tableau pour garder l'index des mots
         String[] mots = new String[this.nbMots()];
         int i = 0;

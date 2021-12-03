@@ -28,6 +28,7 @@ public class Recherche {
             while(j < recherche.length) //parcours la liste des element de la recherche
             {
                 valeurs[i] += index.matriceOccurences.val(i,index.dictioMots.indiceMot(recherche[j]));
+                System.out.println(index.dictioMots.indiceMot(recherche[j]));
                 j++;
             }
             i++;
@@ -40,6 +41,12 @@ public class Recherche {
      */
     public void presentation() {
         int[] valeurs = score(); 
+        int l = 0;
+        while (l < valeurs.length)
+        {
+            System.out.println(valeurs[l]);
+            l++;
+        }
         int[] tab = new int[10];
         int i = 0;
         int j = 0;

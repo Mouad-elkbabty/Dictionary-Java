@@ -37,7 +37,7 @@ public class MatriceHash implements MatriceIndex {
 
     @Override
     public int val(int ndoc, int nterm) {
-        int v = -1;
+        int v = 0;
         CelluleMatrice cc = T[ndoc];
         while (cc != null && cc.ind != nterm) {
             cc = cc.suiv;
