@@ -27,17 +27,18 @@ public class LecteurDocumentNaifTest {
         // puis on avance et on regarde sur quels mots on est
         lecteur.avancer();
         lecteur.avancer();
-        assertEquals("une", lecteur.elementCourant());
+        assertEquals("une", lecteur.elementCourant());  //vérifie si lect.elementCourant est égale à "une " ou non.
         lecteur.avancer();
         lecteur.avancer();
-        assertEquals("phrase", lecteur.elementCourant());
+        assertEquals("phrase", lecteur.elementCourant()); //vérifie si lect.elementCourant est égale à "phrase" ou non.
         lecteur.avancer();
-        assertEquals("Puis", lecteur.elementCourant());
+        assertEquals("Puis", lecteur.elementCourant()); //vérifie si lect.elementCourant est égale à "Puis" ou non.
     }
 
     @Test
+    // Test des différents séparateurs de notre liste ainsi que des lettre qui composent nos mots  
     public void estSeparateurTest() {
-        // on teste différents séparateurs de notre liste
+        // le Teste est  True pour des différents séparateurs de notre liste
         assertTrue(LecteurDocumentNaif.estSeparateur(' '));
         assertTrue(LecteurDocumentNaif.estSeparateur('.'));
         assertTrue(LecteurDocumentNaif.estSeparateur(';'));
@@ -48,7 +49,7 @@ public class LecteurDocumentNaifTest {
         assertTrue(LecteurDocumentNaif.estSeparateur('{'));
         assertTrue(LecteurDocumentNaif.estSeparateur('&'));
 
-        // puis on teste des lettres qui composent nos mots
+        // Le Teste  est False pour  des lettres qui composent nos mots
         assertFalse(LecteurDocumentNaif.estSeparateur('a'));
         assertFalse(LecteurDocumentNaif.estSeparateur('E'));
         assertFalse(LecteurDocumentNaif.estSeparateur('l'));
@@ -56,8 +57,10 @@ public class LecteurDocumentNaifTest {
     }
 
     @Test
+    //Test pour savoir si on n'est pas en fin de séquence dés l'inisialisation ou apres démarrer
+    // Test pour savoir si on a une boucle infinie ou non
     public void finDeSequenceTest() throws IOException {
-        // lorsqu'on initialise, on est pas en fin de séquence
+        // lorsqu'on initialise, on n' est pas en fin de séquence
         LecteurDocumentNaif lecteur = new LecteurDocumentNaif("./src/test/resources/inf353/test-lecteur1.txt");
         assertFalse(lecteur.finDeSequence());
         // ni quand on démarre
