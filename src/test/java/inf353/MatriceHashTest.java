@@ -20,10 +20,7 @@ public class MatriceHashTest {
         };
         for (int i = 0; i < valeurs.length; i++) {
             for (int j = 0; j < valeurs[0].length; j++) {
-                System.out.println(valeurs[i][j]);
-                System.out.println(matrice.val(i, j));
                 assertEquals(valeurs[i][j], matrice.val(i, j));
-                System.out.println();
             }
         }
     }
