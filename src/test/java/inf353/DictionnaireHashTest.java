@@ -19,13 +19,14 @@ public class DictionnaireHashTest {
     }
 
     // impossible d'utiliser ajouterMot sans vérifier contient
+    // test de Contient pour être sûr qu'il renvoie False si le mot n'y ai pas , et True s'il contient le mot
     @Test
     public void contientTest() {
         DictionnaireHash dictio = new DictionnaireHash();
         dictio.T["test".hashCode()%dictio.N] = new CelluleDictio("test", 0, null);
         dictio.nb += 1;
         // le dictionnaire contient bien le mot test et inversement pour pas test
-        assertTrue(dictio.contient("test"));
+        assertTrue(dictio.contient("test")); 
         assertFalse(dictio.contient("pas test"));
     }
 
