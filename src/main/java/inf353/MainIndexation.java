@@ -7,7 +7,7 @@ public class MainIndexation {
 
     public static void main (String[] args) throws IOException {
         Indexation indexation = new Indexation();
-        chargerFichiers("C:/Users/val0u/Desktop/echantillon_100/", indexation);
+        chargerFichiers("C:/Users/val0u/Desktop/echantillon_5000/", indexation);
         File sauvegarde = new File("./src/main/resources/inf353/");
         if (!sauvegarde.isDirectory()) sauvegarde.mkdir();
         indexation.sauver("./src/main/resources/inf353/");
