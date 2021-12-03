@@ -23,7 +23,7 @@ public class LecteurDocumentNaifTest {
         LecteurDocumentNaif lecteur = new LecteurDocumentNaif("./src/test/resources/inf353/test-lecteur1.txt");
         // lorsqu'on démarre, on est sur le premier élément
         lecteur.demarrer();
-        assertEquals("J", lecteur.elementCourant());
+        assertEquals("j", lecteur.elementCourant());
         // puis on avance et on regarde sur quels mots on est
         lecteur.avancer();
         lecteur.avancer();
@@ -32,7 +32,9 @@ public class LecteurDocumentNaifTest {
         lecteur.avancer();
         assertEquals("phrase", lecteur.elementCourant()); //vérifie si lect.elementCourant est égale à "phrase" ou non.
         lecteur.avancer();
-        assertEquals("Puis", lecteur.elementCourant()); //vérifie si lect.elementCourant est égale à "Puis" ou non.
+        assertEquals("puis", lecteur.elementCourant()); //vérifie si lect.elementCourant est égale à "Puis" ou non.
+        lecteur.avancer();
+        assertEquals("aaaeeu", lecteur.elementCourant()); //vérifie si lect.elementCourant enlève les accents
     }
 
     @Test
