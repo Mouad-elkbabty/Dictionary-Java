@@ -184,6 +184,7 @@ public class DictionnaireHash implements Dictionnaire {
             throw new IOException("Le chemin \"" + chemin + "\" est un dossier.");
 
         // Chargement du tableau pour garder l'index des mots
+        fichier.createNewFile();
         String[] mots = new String[this.nbMots()];
         int i = 0;
         while (i < this.N) {

@@ -128,6 +128,11 @@ public class Indexation {
      * @throws IOException
      */
     public void sauver(String chemin) throws IOException {
+        File dossier = new File(chemin);
+        if(!dossier.isDirectory())
+        {
+            dossier.mkdirs();
+        }
         this.dictioDocuments.sauver(chemin + "DictionnaireDocuments.txt");
         this.dictioMots.sauver(chemin + "DictionnaireMots.txt");
         this.matriceOccurences.sauver(chemin + "MatriceOccurences.txt");
