@@ -27,8 +27,7 @@ public class Recherche {
             int j = 0;
             while(j < recherche.length) //parcours la liste des element de la recherche
             {
-                valeurs[i] += index.matriceOccurences.val(i,index.dictioMots.indiceMot(recherche[j]));
-                System.out.println(index.dictioMots.indiceMot(recherche[j]));
+                valeurs[i] += index.matriceOccurences.val(i, index.dictioMots.indiceMot(recherche[j]));
                 j++;
             }
             i++;
@@ -41,41 +40,25 @@ public class Recherche {
      */
     public void presentation() {
         int[] valeurs = score(); 
-        int l = 0;
-        while (l < valeurs.length)
-        {
-            System.out.println(valeurs[l]);
-            l++;
+        int[] positions = new int[valeurs.length];
+        for (int p = 0; p < positions.length; p++) {
+            positions[p] = p;
         }
-        int[] tab = new int[10];
-        int i = 0;
-        int j = 0;
-        int k = 0;
-        int max = 0;
-        int indicemax = 0;
-        while (j < 10 && j < valeurs.length)
-        {
-            indicemax =0;
-            i = 0;
-            max = 0;
-            while(i < valeurs.length)
-            {
-                if(valeurs[i] > max)
-                {
-                    max = valeurs[i];
-                    indicemax = i;
+        for (int i = 0; i < valeurs.length; i++) {
+            for (int j = i + 1; j < valeurs.length; j++) {
+                if (valeurs[i] < valeurs[j]) {
+                    int v = valeurs[i];
+                    valeurs[i] = valeurs[j];
+                    valeurs[j] = v;
+                    int p = positions[i];
+                    positions[i] = positions[j];
+                    positions[j] = p;
                 }
-                i++;
             }
-            valeurs[indicemax] = 0;
-            tab[j] = indicemax;
-            j++;
         }
-        
-        while(k < 10 && k < valeurs.length) 
-        {
-            System.out.println(index.dictioDocuments.motIndice(tab[k]));
-            k++;
+        for (int r = 0; r < 10 && r < positions.length; r++) {
+            String resultat = (r+1) + ". " + index.dictioDocuments.motIndice(positions[r]) + " (score: " + valeurs[r] + ")";
+            System.out.println(resultat);
         }
     } 
 

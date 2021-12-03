@@ -76,9 +76,10 @@ public class MatriceHash implements MatriceIndex {
     }
 
     /**
-     * Sauvegarde la matrice dans un fichier
-     * Format (Document1(T[1]))|elt,ind elt,ind etc...
-     * (Document2(T[2]))|elt,ind elt,ind etc...
+     * Sauvegarde la matrice dans un fichier formatté de la manière suivante :
+     * indiceMot1:occurenceMot1Doc1,indiceMot2:occurenceMot2Doc1,...
+     * indiceMot1:occurenceMot1Doc2,indiceMot3:occurenceMot3Doc2,...
+     * ...
      * 
      * @param chemin Le chemin
      * @throws IOException
@@ -106,7 +107,6 @@ public class MatriceHash implements MatriceIndex {
             if (ligne != "")
                 ligne = ligne.substring(0, ligne.length() - 1);
             buffer.write(ligne);
-            System.out.println(ligne);
             buffer.newLine();
             i++;
             cc = T[i];
@@ -130,20 +130,25 @@ public class MatriceHash implements MatriceIndex {
         String ligne = buffer.readLine();
         while (i < this.N && ligne != null ) {
             CelluleMatrice tete = null;
-            String[] cellules = ligne.split(",");
-            int j = 0;
-            while (j < cellules.length) // Lecture de la ligne
-            {
-                String[] data = cellules[j].split(":");
-                int indice = Integer.parseInt(data[0]);
-                int occurence = Integer.parseInt(data[1]);
-                tete = new CelluleMatrice(occurence, indice, tete); // Creation de la sequence chainee
-                j++;
+            int p = 0;
+            while (p < ligne.length()) {
+                String indice = "";
+                while (ligne.charAt(p) != ':') {
+                    indice += ligne.charAt(p);
+                    p++;
+                }
+                p++;
+                String occurence = "";
+                while (p != ligne.length() && ligne.charAt(p) != ',') {
+                    occurence += ligne.charAt(p);
+                    p++;
+                }
+                p++;
+                tete = new CelluleMatrice(Integer.parseInt(occurence), Integer.parseInt(indice), tete);
             }
-            T[i] = tete; // remplissage du tableau
-            i++;
+            T[i] = tete;
             ligne = buffer.readLine();
-
+            i++;
         }
         buffer.close();
     }
