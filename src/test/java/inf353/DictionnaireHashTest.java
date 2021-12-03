@@ -19,13 +19,14 @@ public class DictionnaireHashTest {
     }
 
     // impossible d'utiliser ajouterMot sans vérifier contient
+    // test de Contient pour être sûr qu'il renvoie False si le mot n'y ai pas , et True s'il contient le mot
     @Test
     public void contientTest() {
         DictionnaireHash dictio = new DictionnaireHash();
         dictio.T["test".hashCode()%dictio.N] = new CelluleDictio("test", 0, null);
         dictio.nb += 1;
         // le dictionnaire contient bien le mot test et inversement pour pas test
-        assertTrue(dictio.contient("test"));
+        assertTrue(dictio.contient("test")); 
         assertFalse(dictio.contient("pas test"));
     }
 
@@ -89,6 +90,7 @@ public class DictionnaireHashTest {
     }
 
     @Test
+    //Test de MotIndice, voir si il rend bien le mot voulu et le int voulu ( indice )
     public void motIndiceTest() {
         DictionnaireHash dictio = new DictionnaireHash();
         // on ajoute les mots test0, test1, test2 jusqu'à test9
@@ -115,6 +117,7 @@ public class DictionnaireHashTest {
     }
 
     @Test
+    //Vérification Du préfixe vide ainsi que des préfixes au hasard
     public void contientPrefixeTest() {
         DictionnaireHash dictio = new DictionnaireHash();
         String[] mots = { "salut", "je", "fais", "des", "tests" };
@@ -133,6 +136,7 @@ public class DictionnaireHashTest {
     }
 
     @Test
+    //Vérification  de  plusLongPrefixeDeTest() par des préfixes au hasard
     public void plusLongPrefixeDeTest() {
         DictionnaireHash dictio = new DictionnaireHash();
         String[] prefixes = { "prefi", "pre", "pres", "pr", "pp" };

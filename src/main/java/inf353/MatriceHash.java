@@ -92,10 +92,14 @@ public class MatriceHash implements MatriceIndex {
             throw new IOException("Le chemin \"" + chemin + "\" est un dossier.");
 
         // Initialisation du Buffer
+        fichier.createNewFile();
+        
         BufferedWriter buffer = new BufferedWriter(new FileWriter(chemin, false));
 
         // Écriture du contenu de la MatriceHash
         int i = 0;
+        int j = 0;
+        int m = 0;
         
         CelluleMatrice cc = T[i];
         String ligne = "";
@@ -103,6 +107,7 @@ public class MatriceHash implements MatriceIndex {
             while (cc != null) {
                 ligne += cc.ind + ":" + cc.elt + ",";
                 cc = cc.suiv;
+                j ++;
             }
             if (ligne != "")
                 ligne = ligne.substring(0, ligne.length() - 1);
@@ -111,6 +116,13 @@ public class MatriceHash implements MatriceIndex {
             i++;
             cc = T[i];
             ligne = "";
+            j ++;
+            if (j > 1000){
+                m ++;
+                System.out.println("" + 1000 * m);
+                j = 0;
+            }
+
         }
 
         // Enregistrement et fermeture du Buffer

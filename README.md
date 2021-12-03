@@ -155,9 +155,14 @@ Par Fabien
 - Première version fonctionnelle meme sur le corpus complet. Recherche d'environ 25 Seconde dependant de la recherche.
 - Nécessité de re-Indexer pour prendre en compte la nouvelle version du lecteur
 
+### Commentaire et specification
+
+Ajout des commentaires  détailés pour tous les testes , ainsi que specifier tous les méthodes déja faites .
+
 ### Faits marquants
 
 Très bonne communication, la répartition semble bonne.
+<<<<<<< HEAD
 
 #### A FAIRE
 - S'assurer que le programme actuel FONTIONNE a 100%
@@ -165,3 +170,5 @@ Très bonne communication, la répartition semble bonne.
     - nnn (actuel)
 - Plus de nécésité de stoplist
 - Rajouter des tests
+=======
+>>>>>>> dd1d4207027762782b30e9273ffd69cdd628b025
