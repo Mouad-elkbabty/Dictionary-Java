@@ -73,7 +73,7 @@ public class DictionnaireHashTest {
     }
 
     @Test
-    public void constructeurTest() throws IOException {
+    public void constructeursTest() throws IOException {
         // dictionnaire par défaut avec un tableau de longueur 2000 et sans mots
         DictionnaireHash dictio1 = new DictionnaireHash();
         assertEquals(2000, dictio1.T.length);

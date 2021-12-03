@@ -37,14 +37,15 @@ public class MatriceHash implements MatriceIndex {
 
     @Override
     public int val(int ndoc, int nterm) {
+        int v = -1;
         CelluleMatrice cc = T[ndoc];
-        while (cc != null && cc.ind == nterm) {
+        while (cc != null && cc.ind != nterm) {
             cc = cc.suiv;
         }
-        if (cc == null) {
-            return 0;
+        if (cc != null) {
+            v = cc.elt;
         }
-        return cc.elt;
+        return v;
     }
 
     @Override
@@ -54,7 +55,9 @@ public class MatriceHash implements MatriceIndex {
             cc = cc.suiv;
         }
         if (cc != null) {
-            cc.elt++;
+            cc.elt += 1;
+        } else {
+            T[ndoc] = new CelluleMatrice(1, nterm, T[ndoc]);
         }
 
     }
@@ -67,10 +70,8 @@ public class MatriceHash implements MatriceIndex {
         }
         if (cc != null) {
             cc.elt = val;
-        }
-        else
-        {
-            T[ndoc] = (cc = new CelluleMatrice(val,nterm, cc));
+        } else {
+            T[ndoc] = new CelluleMatrice(val, nterm, T[ndoc]);
         }
     }
 
@@ -96,16 +97,20 @@ public class MatriceHash implements MatriceIndex {
         int i = 0;
         
         CelluleMatrice cc = T[i];
-        System.out.println()
-        
+        String ligne = "";
         while (i < N && T[i] != null ) {
             while (cc != null) {
-                buffer.write(cc.elt + "," + cc.ind + " ");
+                ligne += cc.ind + ":" + cc.elt + ",";
                 cc = cc.suiv;
             }
+            if (ligne != "")
+                ligne = ligne.substring(0, ligne.length() - 1);
+            buffer.write(ligne);
+            System.out.println(ligne);
             buffer.newLine();
             i++;
             cc = T[i];
+            ligne = "";
         }
 
         // Enregistrement et fermeture du Buffer
@@ -124,34 +129,18 @@ public class MatriceHash implements MatriceIndex {
         int i = 0;
         String ligne = buffer.readLine();
         while (i < this.N && ligne != null ) {
-            CelluleMatrice matrice = null;
+            CelluleMatrice tete = null;
+            String[] cellules = ligne.split(",");
             int j = 0;
-            String nombre = "";
-            while (j < ligne.length()) // Lecture de la ligne
+            while (j < cellules.length) // Lecture de la ligne
             {
-                int occurence = 0;
-                int indice = 0;
-
-                nombre = "";
-                while (ligne.charAt(j) != ',')// lecture du nombre d'occurence
-                {
-                    nombre += ligne.charAt(j);
-                    j++;
-                }
-                occurence = Integer.parseInt(nombre);
-
-                nombre = "";
-                while (ligne.charAt(j) != ' ') // Lecture de l'indice
-                {
-                    nombre += ligne.charAt(j);
-                    j++;
-                }
-                indice = Integer.parseInt(nombre);
-
-                matrice = new CelluleMatrice(occurence, indice, matrice); // Creation de la sequence chainee
+                String[] data = cellules[j].split(":");
+                int indice = Integer.parseInt(data[0]);
+                int occurence = Integer.parseInt(data[1]);
+                tete = new CelluleMatrice(occurence, indice, tete); // Creation de la sequence chainee
                 j++;
             }
-            T[i] = matrice;// remplissage du tableau
+            T[i] = tete; // remplissage du tableau
             i++;
             ligne = buffer.readLine();
 
