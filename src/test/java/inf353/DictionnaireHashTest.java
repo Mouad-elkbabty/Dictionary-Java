@@ -89,6 +89,7 @@ public class DictionnaireHashTest {
     }
 
     @Test
+    //Test de MotIndice, voir si il rend bien le mot voulu et le int voulu ( indice )
     public void motIndiceTest() {
         DictionnaireHash dictio = new DictionnaireHash();
         // on ajoute les mots test0, test1, test2 jusqu'à test9
@@ -115,6 +116,7 @@ public class DictionnaireHashTest {
     }
 
     @Test
+    //Vérification Du préfixe vide ainsi que des préfixes au hasard
     public void contientPrefixeTest() {
         DictionnaireHash dictio = new DictionnaireHash();
         String[] mots = { "salut", "je", "fais", "des", "tests" };
@@ -133,6 +135,7 @@ public class DictionnaireHashTest {
     }
 
     @Test
+    //Vérification  de  plusLongPrefixeDeTest() par des préfixes au hasard
     public void plusLongPrefixeDeTest() {
         DictionnaireHash dictio = new DictionnaireHash();
         String[] prefixes = { "prefi", "pre", "pres", "pr", "pp" };
