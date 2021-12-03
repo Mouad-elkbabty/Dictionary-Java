@@ -158,7 +158,7 @@ Par Fabien
 
 ### Commentaire et specification
 
-Ajout des commentaire  détailé pour tous les testes , ainsi que specifier tous les méthodes déja faites .
+Ajout des commentaires  détailés pour tous les testes , ainsi que specifier tous les méthodes déja faites .
 
 ### Faits marquants
 
