@@ -36,11 +36,9 @@ public class Recherche {
     }
 
     /**
-     * Trie les résultats du meilleur au pire score
+     * Trie les résultats du meilleur au pire score et affiche les resultat
      */
-    public String[] presentation() {
-        
-        String[] liste = new String[10];
+    public void presentation() {
         int[] valeurs = score(); 
         int[] tab = new int[10];
         int i = 0;
@@ -48,7 +46,7 @@ public class Recherche {
         int k = 0;
         int max = 0;
         int indicemax = 0;
-        while (j < 10)
+        while (j < 10 && j < valeurs.length)
         {
             indicemax =0;
             i = 0;
@@ -66,12 +64,11 @@ public class Recherche {
             j++;
         }
         
-        while(k < 10)
+        while(k < 10 && k < valeurs.length) 
         {
-            liste[k] = index.dictioDocuments.motIndice(tab[k]);
+            System.out.println(index.dictioDocuments.motIndice(tab[k]));
             k++;
         }
-        return liste;
     } 
 
 }

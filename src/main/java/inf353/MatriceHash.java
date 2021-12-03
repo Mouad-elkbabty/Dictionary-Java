@@ -90,15 +90,15 @@ public class MatriceHash implements MatriceIndex {
 
         // Écriture du contenu de la MatriceHash
         int i = 0;
-        CelluleMatrice cc;
-        while (i < N && T[i] != null) {
-            cc = T[i];
+        CelluleMatrice cc = T[i];
+        while (i < N && T[i] != null ) {
             while (cc != null) {
                 buffer.write(cc.elt + "," + cc.ind + " ");
                 cc = cc.suiv;
             }
             buffer.newLine();
             i++;
+            cc = T[i];
         }
 
         // Enregistrement et fermeture du Buffer
@@ -115,9 +115,9 @@ public class MatriceHash implements MatriceIndex {
             throw new FileNotFoundException("Aucun fichier du nom de " + chemin + " n'a été trouvé.");
         BufferedReader buffer = new BufferedReader(new FileReader(fichier));
         int i = 0;
-        while (i < this.N) {
+        String ligne = buffer.readLine();
+        while (i < this.N && ligne != null ) {
             CelluleMatrice matrice = null;
-            String ligne = buffer.readLine();
             int j = 0;
             String nombre = "";
             while (j < ligne.length()) // Lecture de la ligne
@@ -146,6 +146,7 @@ public class MatriceHash implements MatriceIndex {
             }
             T[i] = matrice;// remplissage du tableau
             i++;
+            ligne = buffer.readLine();
 
         }
         buffer.close();

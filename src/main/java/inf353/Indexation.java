@@ -30,7 +30,7 @@ public class Indexation {
      * DictionnaireDocuments, DictionnaireMots et MatriceOccurences avec l'extension
      * txt
      * 
-     * @param chemin Le chemin vers le fichier
+     * @param chemin Le chemin vers le dossier
      */
     public Indexation(String chemin) throws IOException {
         this();
