@@ -140,9 +140,9 @@ public class Indexation {
     }
 
     /**
-     * Charge l'Indexation contenu dans un certain dossier
-     * Les noms des fichiers contenant les documents, les mots et la matrice seront
-     * respectivement
+     * Charge l'Indexation contenu dans un certain dossier8,2 5,3 6,2
+8,5 6,5
+
      * DictionnaireDocuments, DictionnaireMots et MatriceOccurences avec l'extension
      * txt
      * 

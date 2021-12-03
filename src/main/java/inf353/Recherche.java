@@ -50,6 +50,7 @@ public class Recherche {
         {
             indicemax =0;
             i = 0;
+            max = 0;
             while(i < valeurs.length)
             {
                 if(valeurs[i] > max)

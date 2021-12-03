@@ -68,6 +68,10 @@ public class MatriceHash implements MatriceIndex {
         if (cc != null) {
             cc.elt = val;
         }
+        else
+        {
+            T[ndoc] = (cc = new CelluleMatrice(val,nterm, cc));
+        }
     }
 
     /**
@@ -86,11 +90,14 @@ public class MatriceHash implements MatriceIndex {
             throw new IOException("Le chemin \"" + chemin + "\" est un dossier.");
 
         // Initialisation du Buffer
-        BufferedWriter buffer = new BufferedWriter(new FileWriter(chemin, false));
+        BufferedWriter buffer = new BufferedWriter(new FileWriter(chemin, true));
 
         // Écriture du contenu de la MatriceHash
         int i = 0;
+        
         CelluleMatrice cc = T[i];
+        System.out.println()
+        
         while (i < N && T[i] != null ) {
             while (cc != null) {
                 buffer.write(cc.elt + "," + cc.ind + " ");
