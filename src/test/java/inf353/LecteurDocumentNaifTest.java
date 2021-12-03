@@ -45,6 +45,9 @@ public class LecteurDocumentNaifTest {
         assertTrue(LecteurDocumentNaif.estSeparateur('('));
         assertTrue(LecteurDocumentNaif.estSeparateur('-'));
         assertTrue(LecteurDocumentNaif.estSeparateur('.'));
+        assertTrue(LecteurDocumentNaif.estSeparateur('{'));
+        assertTrue(LecteurDocumentNaif.estSeparateur('&'));
+
         // puis on teste des lettres qui composent nos mots
         assertFalse(LecteurDocumentNaif.estSeparateur('a'));
         assertFalse(LecteurDocumentNaif.estSeparateur('E'));
