@@ -31,9 +31,9 @@ public class CelluleMatrice {
     /**
      * Constructeur à partir d'un élément, d'une valeur et d'un suivant
      */
-    public CelluleMatrice(int val, int n, CelluleMatrice suiv) {
+    public CelluleMatrice(int val, int i, CelluleMatrice suiv) {
         this.elt = val;
-        this.ind = n;
+        this.ind = i;
         this.suiv = suiv;
     }
     

@@ -61,7 +61,6 @@ public class Indexation {
         while (!lecteur.finDeSequence()) {
             this.ajouterMot(lecteur.elementCourant());
             this.incremente(lecteur.elementCourant(), fichier.getName());
-            System.out.println(fichier.getName());
             lecteur.avancer();
         }
     }
@@ -107,7 +106,7 @@ public class Indexation {
      * @param document Le document à chercher
      */
     public int val(String mot, String document) {
-        int v = -1;
+        int v = 0;
         int m = this.dictioMots.indiceMot(mot);
         if (m != -1) {
             int d = this.dictioDocuments.indiceMot(document);
