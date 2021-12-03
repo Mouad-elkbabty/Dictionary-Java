@@ -11,7 +11,7 @@ public class Recherche {
      * @param requete La requête à faire
      * @param chemin Le chemin vers l'Indexation à utiliser
      */
-    public Recherche(String[] requete, String chemin) throws IOException{
+    public Recherche(String[] requete, String chemin) throws IOException {
         recherche = requete;
         index = new Indexation(chemin);
     }

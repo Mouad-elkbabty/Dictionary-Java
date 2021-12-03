@@ -150,9 +150,9 @@ public class Indexation {
      * @throws IOException
      */
     public void charger(String chemin) throws IOException {
-        this.dictioDocuments.charger(chemin + "DictionnaireDocumentSave.txt");
-        this.dictioMots.charger(chemin + "DictionnaireDocumentMot.txt");
-        this.matriceOccurences.charger(chemin + "MatriceOccurence.txt");
+        this.dictioDocuments.charger(chemin + "DictionnaireDocuments.txt");
+        this.dictioMots.charger(chemin + "DictionnaireMots.txt");
+        this.matriceOccurences.charger(chemin + "MatriceOccurences.txt");
     }
 
 }
