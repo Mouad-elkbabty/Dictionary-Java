@@ -131,6 +131,11 @@ buildNumber.properties
 .mvn/timing.properties
 # ignore the output files in the test resources folder
 src/test/resources/inf353/output*.txt
+# ignore the save files
+src/main/resources/inf353/DictionnaireDocuments.txt
+src/main/resources/inf353/DictionnaireMots.txt
+src/main/resources/inf353/MatriceOccurences.txt
+
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
 

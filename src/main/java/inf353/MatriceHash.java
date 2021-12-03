@@ -56,6 +56,8 @@ public class MatriceHash implements MatriceIndex {
         }
         if (cc != null) {
             cc.elt += 1;
+        } else {
+            T[ndoc] = new CelluleMatrice(1, nterm, T[ndoc]);
         }
 
     }
@@ -68,6 +70,8 @@ public class MatriceHash implements MatriceIndex {
         }
         if (cc != null) {
             cc.elt = val;
+        } else {
+            T[ndoc] = new CelluleMatrice(val, nterm, T[ndoc]);
         }
     }
 
