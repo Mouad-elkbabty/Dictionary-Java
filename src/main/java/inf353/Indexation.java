@@ -99,7 +99,7 @@ public class Indexation {
     }
 
     /**
-     * Renvoie le nombre d'occurences du mot donné dans le document donné, sinon -1
+     * Renvoie le nombre d'occurences du mot donné dans le document donné, sinon 0
      * si le couple n'est pas trouvé
      * 
      * @param mot      Le mot à chercher
