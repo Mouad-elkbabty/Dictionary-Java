@@ -87,17 +87,21 @@ public class Recherche {
      * Calcule le score des documents en fonction de l'Indexation et de la recherche
      */
     public int[] score() throws IOException {
+        int[] scores = new int[indexation.dictioDocuments.nbMots()];
+        int nbOcc = 0; 
         int i = 0;
         while (i != indexation.dictioDocuments.nbMots()) { // on recherche parmis tous les documents de notre indexation
             CelluleMatrice cc = requete.matriceOccurences.T[0];
             while (cc != null) { // on recherche parmis tous les mots de notre requête
                 if (indexation.val(requete.dictioMots.motIndice(cc.ind), indexation.dictioDocuments.motIndice(i)) != 0) {
-                    // à terminer
+                    nbOcc = indexation.val(requete.dictioMots.motIndice(cc.ind), indexation.dictioDocuments.motIndice(i));
+                    scores[i] = scores[i] + nbOcc*cc.elt;
                 }
+                cc = cc.suiv;
             }
             i++;
         }
-        return new int[1];
+        return scores;
     }
 
 }
