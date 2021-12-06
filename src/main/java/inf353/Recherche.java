@@ -38,6 +38,7 @@ public class Recherche {
         buffer.close();
         this.indexation = new Indexation(chemin);
         this.requete = new Indexation();
+        this.evaluer();
     }
 
     /**
@@ -73,8 +74,10 @@ public class Recherche {
         BufferedWriter buffer = new BufferedWriter(new FileWriter(recherche, true));
         buffer.newLine();
         buffer.newLine();
+        System.out.println("Voici les résultats correspondant à votre requête :");
         for (int r = 0; r < 10 && r < positions.length; r++) {
             String resultat = (r+1) + ". " + indexation.dictioDocuments.motIndice(positions[r]) + " (score: " + valeurs[r] + ")";
+            System.out.println(resultat);
             buffer.write(resultat);
             buffer.newLine();
         }
@@ -88,14 +91,15 @@ public class Recherche {
      */
     public int[] score() throws IOException {
         int[] scores = new int[indexation.dictioDocuments.nbMots()];
-        int nbOcc = 0; 
         int i = 0;
         while (i != indexation.dictioDocuments.nbMots()) { // on recherche parmis tous les documents de notre indexation
             CelluleMatrice cc = requete.matriceOccurences.T[0];
+            String document = indexation.dictioDocuments.motIndice(i);
             while (cc != null) { // on recherche parmis tous les mots de notre requête
-                if (indexation.val(requete.dictioMots.motIndice(cc.ind), indexation.dictioDocuments.motIndice(i)) != 0) {
-                    nbOcc = indexation.val(requete.dictioMots.motIndice(cc.ind), indexation.dictioDocuments.motIndice(i));
-                    scores[i] = scores[i] + nbOcc*cc.elt;
+                String mot = requete.dictioMots.motIndice(cc.ind);
+                int valeur = indexation.val(mot, document);
+                if (valeur != 0) {
+                    scores[i] = scores[i] + valeur * cc.elt;
                 }
                 cc = cc.suiv;
             }

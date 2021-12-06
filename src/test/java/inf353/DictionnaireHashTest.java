@@ -77,7 +77,7 @@ public class DictionnaireHashTest {
     public void constructeursTest() throws IOException {
         // dictionnaire par défaut avec un tableau de longueur 2000 et sans mots
         DictionnaireHash dictio1 = new DictionnaireHash();
-        assertEquals(2000, dictio1.T.length);
+        assertEquals(4000, dictio1.T.length);
         assertEquals(0, dictio1.nb);
         // dictionnaire avec un tableau de longueur 10 et sans mots
         DictionnaireHash dictio2 = new DictionnaireHash(10);
@@ -85,7 +85,7 @@ public class DictionnaireHashTest {
         assertEquals(0, dictio2.nb);
         // dictionnaire avec un tableau de longueur 2000
         DictionnaireHash dictio3 = new DictionnaireHash("./src/test/resources/inf353/test-dictionnaire1.txt");
-        assertEquals(2000, dictio1.T.length);
+        assertEquals(4000, dictio1.T.length);
         assertEquals(8, dictio3.nb);
     }
 

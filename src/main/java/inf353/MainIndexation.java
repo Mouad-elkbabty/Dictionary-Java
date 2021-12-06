@@ -10,7 +10,7 @@ public class MainIndexation {
         Indexation indexation = new Indexation();
         Date debutChargement = new Date();
         System.out.println("Chargement des fichiers en cours...");
-        chargerFichiers("/partage_etu/Science/INF/353_projet/echantillon_100", indexation);
+        chargerFichiers("C:\\Users\\val0u\\Desktop\\echantillon_5000", indexation);
         System.out.println("Chargement terminé.");
         System.out.println(indexation.dictioDocuments.nbMots() + " documents chargés.");
         System.out.println(indexation.dictioMots.nbMots() + " mots différents comptés.");
@@ -38,6 +38,7 @@ public class MainIndexation {
             if(suivant.isDirectory()) {
                 chargerFichiers(suivant.getPath(), indexation);
             } else {
+                System.out.println("Chargement de " + suivant.getName());
                 indexation.ajouterDocument(suivant.getPath());
             }
         }
