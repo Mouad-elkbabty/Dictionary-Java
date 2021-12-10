@@ -41,6 +41,15 @@ public class Recherche {
         this.evaluer();
     }
 
+    public Recherche(Strng chemin){
+        this.indexation = new Indexation("./src/main/resources/inf353/");
+        this.requete = new Indexation();
+        this.recherche = new File("./home/combegae/ubuntu/requete/inf353-tests/C091");
+        this.evaluer();
+    }
+
+
+
     /**
      * Évaluer l'entrée donnée
      */
@@ -140,7 +149,6 @@ public class Recherche {
         return res;
     }
 
-    
     /**
      * Renvoie la valeur de la pondération dans le corpus
      * Cette pondération est de niveau N (pas de pondération)
