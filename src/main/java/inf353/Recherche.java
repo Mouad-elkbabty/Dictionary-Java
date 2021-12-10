@@ -106,7 +106,7 @@ public class Recherche {
                 }
                 cc = cc.suiv;
             }
-            scores[i] *= (ponderationGlobaleDocument() * ponderationGlobaleRequete()) / (normalisationDocument() * normalisationRequete());
+            scores[i] *= (ponderationGlobaleDocument("") * ponderationGlobaleRequete()) / (normalisationDocument() * normalisationRequete());
             i++;
         }
         return scores;
