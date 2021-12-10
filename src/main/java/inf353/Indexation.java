@@ -18,7 +18,7 @@ public class Indexation {
      * Crée une Indexation vierge
      */
     public Indexation() {
-        this(20000, 50000, 50000);
+        this(20000, 100000, 100000);
     }
 
     /**
