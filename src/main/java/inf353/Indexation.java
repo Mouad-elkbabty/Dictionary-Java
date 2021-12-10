@@ -18,8 +18,8 @@ public class Indexation {
      * Crée une Indexation vierge
      */
     public Indexation() throws IOException {
-        this.dictioMots = new DictionnaireHash();
-        this.dictioDocuments = new DictionnaireHash();
+        this.dictioMots = new DictionnaireHash(50000);
+        this.dictioDocuments = new DictionnaireHash(50000);
         this.matriceOccurences = new MatriceHash();
     }
 
@@ -118,6 +118,44 @@ public class Indexation {
     }
 
     /**
+     * Renvoie l'occurence maximale trouvée dans le document
+     * Si null ou "" est donné, cherche dans l'entièreté de l'Indexation
+     * Renvoie -1 si le document n'est pas trouvé
+     * @param document le document dans lequel faire la recherche ou null ou ""
+     */
+    public int maxOccurrence(String document) {
+        int val = -1;
+        CelluleMatrice cc = null;
+        int index = 0;
+        if (document == null || document == "") {
+            index = this.dictioDocuments.indiceMot(document);
+            if (index != -1) {
+                val = 0;
+                cc = this.matriceOccurences.T[index];
+                while (cc != null) {
+                    if (cc.elt > val) {
+                        val = cc.elt;
+                    }
+                    cc = cc.suiv;
+                }
+            }
+        } else {
+            val = 0;
+            while (index != this.dictioDocuments.nbMots()) {
+                cc = this.matriceOccurences.T[index];
+                while (cc != null) {
+                    if (cc.elt > val) {
+                        val = cc.elt;
+                    }
+                    cc = cc.suiv;
+                }
+                index++;
+            }
+        }
+        return val;
+    }
+
+    /**
      * Sauvegarde l'Indexation dans un certain dossier
      * Les noms des fichiers contenant les documents, les mots et la matrice seront
      * respectivement
@@ -129,8 +167,7 @@ public class Indexation {
      */
     public void sauver(String chemin) throws IOException {
         File dossier = new File(chemin);
-        if(!dossier.isDirectory())
-        {
+        if (!dossier.isDirectory()) {
             dossier.mkdirs();
         }
         this.dictioDocuments.sauver(chemin + "DictionnaireDocuments.txt");
@@ -139,9 +176,9 @@ public class Indexation {
     }
 
     /**
-     * Charge l'Indexation contenu dans un certain dossier8,2 5,3 6,2
-8,5 6,5
-
+     * Charge l'Indexation contenu dans un certain dossier
+     * Les noms des fichiers contenant les documents, les mots et la matrice seront
+     * respectivement
      * DictionnaireDocuments, DictionnaireMots et MatriceOccurences avec l'extension
      * txt
      * 

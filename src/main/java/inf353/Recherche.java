@@ -108,4 +108,57 @@ public class Recherche {
         return scores;
     }
 
+    /**
+     * Renvoie la valeur de la pondération du mot dans le document
+     * Cette pondération est de niveau M (facteur fréquentiel normalisé)
+     * @param mot le mot à chercher
+     * @param document le document à chercher
+     */
+    public double ponderationLocaleDocument(String mot, String document) {
+        return indexation.val(mot, document) / indexation.maxOccurrence(document);
+    }
+
+    /**
+     * Renvoie la valeur de la pondération du mot dans le corpus
+     * Cette pondération est de niveau M (facteur fréquentiel normalisé)
+     * @param mot
+     * @param document
+     */
+    public int ponderationGlobaleDocument(String mot, String document) {
+        return 1;
+    }
+
+    /**
+     * Renvoie la normalisation du document
+     * @param document
+     */
+    public int normalisationDocument(String document) {
+        return 1;
+    }
+
+    /**
+     * Renvoie la valeur de la pondération locale du mot dans la requête
+     * Cette pondération est de niveau M (facteur fréquentiel normalisé)
+     * @param mot le mot à chercher
+     */
+    public double ponderationLocaleRequete(String mot) {
+        return requete.val(mot, this.recherche.getPath()) / requete.maxOccurrence(this.recherche.getPath());
+    }
+
+    /**
+    * Renvoie la valeur de la pondération locale du mot dans la requête
+     * Cette pondération est de niveau M (facteur fréquentiel normalisé)
+     * @param mot
+     */
+    public int ponderationGlobaleRequete(String mot) {
+        return 1;
+    }
+
+    /**
+     * 
+     */
+    public int normalisationRequete() {
+        return 1;
+    }
+
 }
