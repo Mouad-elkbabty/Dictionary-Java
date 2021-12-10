@@ -7,6 +7,7 @@ public class CelluleDictio{
      */
     public String elt;
     public int ind;
+    public double avg;
     public CelluleDictio suiv;
 
     /**

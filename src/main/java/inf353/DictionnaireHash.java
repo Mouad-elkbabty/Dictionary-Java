@@ -69,6 +69,15 @@ public class DictionnaireHash implements Dictionnaire {
         }
     }
 
+    public void ajouterMot(String m, double d) {
+        if (!contient(m)) {
+            int n = Math.abs(m.hashCode() % N);
+            T[n] = new CelluleDictio(m, nb, T[n]);
+            T[n].avg = d;
+            this.nb += 1;
+        }
+    }
+
     /**
      * Retourne l'indice du mot dans le DictionnaireHash ou -1 s'il n'est pas trouvé
      * 
@@ -187,11 +196,13 @@ public class DictionnaireHash implements Dictionnaire {
         // Chargement du tableau pour garder l'index des mots
         fichier.createNewFile();
         String[] mots = new String[this.nbMots()];
+        double[] avgs = new double[this.nbMots()];
         int i = 0;
         while (i < this.N) {
             CelluleDictio cc = this.T[i];
             while (cc != null) {
                 mots[cc.ind] = cc.elt;
+                avgs[cc.ind] = cc.avg;
                 cc = cc.suiv;
             }
             i++;
@@ -208,8 +219,21 @@ public class DictionnaireHash implements Dictionnaire {
         if (ligne != "")
             ligne = ligne.substring(0, ligne.length() - 1);
         buffer.write(ligne);
+        buffer.newLine();
+
+        String ligne = "";
+        for (int j = 0; j < this.nbMots(); j++) {
+            ligne += avgs[j] + ",";
+        }
+        if (ligne != "")
+            ligne = ligne.substring(0, ligne.length() - 1);
+
 
         // Enregistrement et fermeture du Buffer
+       
+       
+       
+       
         buffer.flush();
         buffer.close();
     }
@@ -232,11 +256,12 @@ public class DictionnaireHash implements Dictionnaire {
         // Remplissage du Dictionnaire
         String ligne = buffer.readLine();
         String[] mots = ligne.split(",");
-        for (int m = 0; m < mots.length; m++) {
-            this.ajouterMot(mots[m]);
-        }
+        String ligne = buffer.readLine();
+        String[] avgString = ligne.split(",");
 
-        // Fermeture du Buffer
+        for(int m = 0; m < mots.length; m++) {
+            this.ajouterMot(mots[m],Double.parseDouble(avgString[m]));
+        }
         buffer.close();
     }
 

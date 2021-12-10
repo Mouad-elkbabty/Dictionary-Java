@@ -191,4 +191,19 @@ public class Indexation {
         this.matriceOccurences.charger(chemin + "MatriceOccurences.txt");
     }
 
+    public double motavg(String mot,String chemin){
+        int indice = dictioMots.indiceMot(mot);
+        int i = 0;
+        int somme = 0;
+        while(i< dictioDocuments.nbMots()){
+            somme = somme + matriceOccurences.val(i,indice)
+            i++;
+        }
+        return (double)(somme/(dictioDocuments.nbMots));
+
+
+
+
+    }
+
 }

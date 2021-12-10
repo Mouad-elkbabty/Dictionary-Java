@@ -118,6 +118,21 @@ public class Recherche {
         return indexation.val(mot, document) / indexation.maxOccurrence(document);
     }
 
+
+    /**
+     * Renvoie la valeur de la pondération du mot dans le document
+     * Cette pondération est de niveau l (facteur Logarithmique)
+     * @param mot le mot à chercher
+     * @param document le document à chercher
+     */
+    public double facteurLogDoc(String mot, String document){
+        double res =0;
+        if(indexation.val(mot, document) != 0)
+        {
+            res = 1+ Math.log(indexation.val(mot, document));
+        }
+        return res;
+    }
     /**
      * Renvoie la valeur de la pondération du mot dans le corpus
      * Cette pondération est de niveau M (facteur fréquentiel normalisé)
