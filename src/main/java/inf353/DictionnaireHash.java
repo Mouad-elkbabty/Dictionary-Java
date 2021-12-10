@@ -328,11 +328,11 @@ public class DictionnaireHash implements Dictionnaire {
 
         // Remplissage du Dictionnaire
         String ligne = buffer.readLine();
-        String[] mots = new String[this.nbMots()];
+        String[] mots = new String[this.N];
         String motCourant = "";
         int i = 0;
         int j = 0;
-        while (i <  ligne.length()){
+        while (i <  ligne.length() && j < mots.length) {
             if (ligne.charAt(i) != ','){
                 motCourant = motCourant + ligne.charAt(i);
             }   
@@ -348,8 +348,8 @@ public class DictionnaireHash implements Dictionnaire {
         i = 0;
         j = 0;
         motCourant = "";
-        String[] occString = new String[this.nbMots()];
-        while ( i <  ligne.length()){
+        String[] occString = new String[this.N];
+        while ( i <  ligne.length() && j < mots.length){
             if (ligne.charAt(i) != ','){
                 motCourant = motCourant + ligne.charAt(i);
             }   
@@ -379,8 +379,9 @@ public class DictionnaireHash implements Dictionnaire {
             i++;
         }
 
-        for(int m = 0; m < mots.length; m++) {
-            this.ajouterMot(mots[m], Integer.parseInt(occString[m]), Integer.parseInt(nbDocString[m]));
+        for(int m = 0; m < mots.length && mots[m] != null; m++) {
+            this.ajouterMot(mots[m], Integer.parseInt(occString[m]),Integer.parseInt(nbDocString[m]));
+
         }
         buffer.close();
     }
