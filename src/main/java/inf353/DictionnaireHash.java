@@ -264,13 +264,43 @@ public class DictionnaireHash implements Dictionnaire {
 
         // Remplissage du Dictionnaire
         String ligne = buffer.readLine();
-        String[] mots = ligne.split(",");
+        String[] mots = new mots[this.nbMots()];
+        String motCourant = "";
+        int i = 0;
+        int j = 0;
+        while (i <  ligne.length()){
+            if (ligne.charAt(i) != ','){
+                motCourant = motCourant + ligne.charAt(i);
+            }   
+            else{
+                mots[j] = motCourant;
+                motCourant = "";
+                j++;
+            }
+            i++;
+        }
+
         ligne = buffer.readLine();
-        String[] occString = ligne.split(",");
+        i = 0;
+        j = 0;
+        motCourant = "";
+        String[] occString = new String[this.nbMots()];
+        while ( i <  ligne.length()){
+            if (ligne.charAt(i) != ','){
+                motCourant = motCourant + ligne.charAt(i);
+            }   
+            else{
+                occString[j] = motCourant;
+                motCourant = "";
+                j++;
+            }
+            i++;
+        }
 
         for(int m = 0; m < mots.length; m++) {
             this.ajouterMot(mots[m], Integer.parseInt(occString[m]));
         }
+        buffer.flush();
         buffer.close();
     }
 
