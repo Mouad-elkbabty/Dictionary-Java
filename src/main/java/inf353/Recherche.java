@@ -100,7 +100,7 @@ public class Recherche {
             String document = indexation.dictioDocuments.motIndice(i);
             while (cc != null) { // on parcours tous les mots de notre requete
                 String mot = requete.dictioMots.motIndice(cc.ind);
-                double pondLocaleDoc = ponderationLocaleDocument(mot, document);
+                double pondLocaleDoc = facteurLogDoc(mot, document);
                 if (pondLocaleDoc > 0) {
                     scores[i] += pondLocaleDoc * ponderationLocaleRequete(mot);
                 }

@@ -7,19 +7,20 @@ public class CelluleDictio{
      */
     public String elt;
     public int ind;
-    public double avg;
+    public int occ;
     public CelluleDictio suiv;
 
     /**
      * Constructeur vide (élément null, indice 0 et suivant null)
      */
-    public CelluleDictio() {}
+    public CelluleDictio() { this.occ = 0;}
 
     /**
      * Constructeur à partir d'un élément (indice 0 et suivant null)
      */
     public CelluleDictio(String val) {
         this(val, 0, null);
+        this.occ = 0;
     }
 
     /**
@@ -27,6 +28,7 @@ public class CelluleDictio{
      */
     public CelluleDictio(CelluleDictio suiv) {
         this(null, 0, suiv);
+        this.occ = 0;
     }
 
     /**
@@ -36,6 +38,7 @@ public class CelluleDictio{
         this.elt = val;
         this.ind = n;
         this.suiv = suiv;
+        this.occ = 0;
     }
 
 }
