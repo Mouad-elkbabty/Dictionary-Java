@@ -77,10 +77,7 @@ public class MatriceHash implements MatriceIndex {
 
     /**
      * Sauvegarde la matrice dans un fichier formatté de la manière suivante :
-     * indiceMot1:occurenceMot1Doc1,indiceMot2:occurenceMot2Doc1,...
-     * indiceMot1:occurenceMot1Doc2,indiceMot3:occurenceMot3Doc2,...
-     * ...
-     * 
+     * indiceMot1:occurenceMot1Doc1,indiceMot2:occurenceMot2Doc1,... mota
      * @param chemin Le chemin
      * @throws IOException
      */

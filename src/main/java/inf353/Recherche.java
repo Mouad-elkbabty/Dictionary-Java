@@ -100,7 +100,7 @@ public class Recherche {
             String document = indexation.dictioDocuments.motIndice(i);
             while (cc != null) { // on parcours tous les mots de notre requete
                 String mot = requete.dictioMots.motIndice(cc.ind);
-                double pondLocaleDoc = ponderationLocaleDocument(mot, document);
+                double pondLocaleDoc = facteurLogDoc(mot, document);
                 if (pondLocaleDoc > 0) {
                     scores[i] += pondLocaleDoc * ponderationLocaleRequete(mot);
                 }
@@ -124,6 +124,23 @@ public class Recherche {
         return val / maxOccurrence;
     }
 
+
+    /**
+     * Renvoie la valeur de la pondération du mot dans le document
+     * Cette pondération est de niveau l (facteur Logarithmique)
+     * @param mot le mot à chercher
+     * @param document le document à chercher
+     */
+    public double facteurLogDoc(String mot, String document){
+        double res =0;
+        if(indexation.val(mot, document) != 0)
+        {
+            res = 1+ Math.log(indexation.val(mot, document));
+        }
+        return res;
+    }
+
+    
     /**
      * Renvoie la valeur de la pondération dans le corpus
      * Cette pondération est de niveau N (pas de pondération)

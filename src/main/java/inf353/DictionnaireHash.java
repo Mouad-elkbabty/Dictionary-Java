@@ -65,6 +65,29 @@ public class DictionnaireHash implements Dictionnaire {
         if (!contient(m)) {
             int n = Math.abs(m.hashCode() % N);
             T[n] = new CelluleDictio(m, nb, T[n]);
+            T[n].occ ++;
+            this.nb += 1;
+        }else{
+            int n = Math.abs(m.hashCode() % N);
+            CelluleDictio cc =T[n];
+            while(cc != null && !cc.elt.equals(m))
+            {
+                cc =cc.suiv;
+            }
+            if(cc != null)
+            {
+                cc.occ ++;
+            }
+
+        }
+    }
+
+    public void ajouterMot(String m, int occ)
+    {
+        if (!contient(m)) {
+            int n = Math.abs(m.hashCode() % N);
+            T[n] = new CelluleDictio(m, nb, T[n]);
+            T[n].occ  = occ;
             this.nb += 1;
         }
     }
@@ -156,7 +179,6 @@ public class DictionnaireHash implements Dictionnaire {
         }
         return trouve;
     }
-
     /**
      * Retourne le préfixe le plus long du mot contenu dans le DictionnaireHash
      * 
@@ -172,6 +194,7 @@ public class DictionnaireHash implements Dictionnaire {
         return mot;
     }
 
+
     /**
      * Enregistre le dictionnaire dans le chemin demandé
      * 
@@ -183,23 +206,22 @@ public class DictionnaireHash implements Dictionnaire {
         if (fichier.isDirectory()){
             throw new IOException("Le chemin \"" + chemin + "\" est un dossier.");
         }
-
         // Chargement du tableau pour garder l'index des mots
         fichier.createNewFile();
         String[] mots = new String[this.nbMots()];
+        int[] occ = new int[this.nbMots()];
         int i = 0;
         while (i < this.N) {
             CelluleDictio cc = this.T[i];
             while (cc != null) {
                 mots[cc.ind] = cc.elt;
+                occ[cc.ind] = cc.occ;
                 cc = cc.suiv;
             }
             i++;
         }
-
         // Initialisation du Buffer
         BufferedWriter buffer = new BufferedWriter(new FileWriter(chemin, false));
-
         // Écriture du contenu du DictionnaireHash
         String ligne = "";
         for (int j = 0; j < this.nbMots(); j++) {
@@ -208,11 +230,22 @@ public class DictionnaireHash implements Dictionnaire {
         if (ligne != "")
             ligne = ligne.substring(0, ligne.length() - 1);
         buffer.write(ligne);
+        buffer.newLine();
 
+        ligne = "";
+        for (int j = 0; j < this.nbMots(); j++) {
+            ligne += occ[j] + ",";
+        }
+        if (ligne != "")
+        {
+            ligne = ligne.substring(0, ligne.length() - 1);
+        }
+        buffer.write(ligne);
         // Enregistrement et fermeture du Buffer
         buffer.flush();
         buffer.close();
     }
+
 
     /**
      * Charge le DictionnaireHash stocké dans le chemin demandé
@@ -226,16 +259,16 @@ public class DictionnaireHash implements Dictionnaire {
             throw new FileNotFoundException("Aucun fichier du nom de " + chemin + " n'a été trouvé.");
         BufferedReader buffer = new BufferedReader(new FileReader(fichier));
 
-        // Vide du Dictionnaire
+        // Vide du Dictionnaire209,60
         this.vider();
 
         // Remplissage du Dictionnaire
         String ligne = buffer.readLine();
-        String[] mots;
+        String[] mots = new String[this.nbMots()];
         String motCourant = "";
         int i = 0;
         int j = 0;
-        while (ligne.charAt(i) <  ligne.length()){
+        while (i <  ligne.length()){
             if (ligne.charAt(i) != ','){
                 motCourant = motCourant + ligne.charAt(i);
             }   
@@ -247,11 +280,26 @@ public class DictionnaireHash implements Dictionnaire {
             i++;
         }
 
-        for (int m = 0; m < mots.length; m++) {
-            this.ajouterMot(mots[m]);
+        ligne = buffer.readLine();
+        i = 0;
+        j = 0;
+        motCourant = "";
+        String[] occString = new String[this.nbMots()];
+        while ( i <  ligne.length()){
+            if (ligne.charAt(i) != ','){
+                motCourant = motCourant + ligne.charAt(i);
+            }   
+            else{
+                occString[j] = motCourant;
+                motCourant = "";
+                j++;
+            }
+            i++;
         }
 
-        // Fermeture du Buffer
+        for(int m = 0; m < mots.length; m++) {
+            this.ajouterMot(mots[m], Integer.parseInt(occString[m]));
+        }
         buffer.close();
     }
 
