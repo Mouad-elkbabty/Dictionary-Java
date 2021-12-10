@@ -264,7 +264,7 @@ public class DictionnaireHash implements Dictionnaire {
 
         // Remplissage du Dictionnaire
         String ligne = buffer.readLine();
-        String[] mots = new mots[this.nbMots()];
+        String[] mots = new String[this.nbMots()];
         String motCourant = "";
         int i = 0;
         int j = 0;
@@ -300,7 +300,6 @@ public class DictionnaireHash implements Dictionnaire {
         for(int m = 0; m < mots.length; m++) {
             this.ajouterMot(mots[m], Integer.parseInt(occString[m]));
         }
-        buffer.flush();
         buffer.close();
     }
 
