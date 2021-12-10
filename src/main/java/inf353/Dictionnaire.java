@@ -34,6 +34,13 @@ public interface Dictionnaire {
     public int indiceMot(String m);
 
     /**
+     * renvoie l'entier associé au nombre de documents contenant m;
+     * @param m
+     * @return
+     */
+    public int nbDocMot(String m);
+
+    /**
      * renvoie le mot associé à l'entier i;
      * @param i l'indice du mot à renvoyer
      * @return

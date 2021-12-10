@@ -82,15 +82,41 @@ public class DictionnaireHash implements Dictionnaire {
         }
     }
 
-    public void ajouterMot(String m, int occ)
+
+    /**
+     * Ajoute un mot au dictionnaire si il n'y est pas déjà présent
+     * 
+     * @param m Le mot à ajouter
+     * @param occ l'occurence du mot à ajouter
+     * @param doc l'occurence des documents contenant ce mot
+     */
+    public void ajouterMot(String m, int occ, int doc)
     {
         if (!contient(m)) {
             int n = Math.abs(m.hashCode() % N);
             T[n] = new CelluleDictio(m, nb, T[n]);
             T[n].occ  = occ;
+            T[n].nbDoc = doc;
             this.nb += 1;
         }
     }
+
+    /**
+     * incrémente le nombre de documents contenant le mot en paramètre
+     * 
+     * @param m Le mot à incrémenter
+     */
+    public void ajoutenbDoc(String m){
+        if(contient(m)){
+            int n = Math.abs(m.hashCode() % N);
+            CelluleDictio cc = T[n];
+            while(!cc.elt.equals(m)){
+                cc = cc.suiv;
+            }
+            cc.nbDoc++;
+        }
+    }
+
 
     /**
      * Retourne l'indice du mot dans le DictionnaireHash ou -1 s'il n'est pas trouvé
@@ -107,6 +133,26 @@ public class DictionnaireHash implements Dictionnaire {
         }
         if (cc != null) {
             n = cc.ind;
+        }
+        return n;
+    }
+
+
+        /**
+     * Retourne le nombre de document contennant le mot m ou 0 s'il n'est pas trouvé
+     * 
+     * @param m Le mot à tester
+     */
+    @Override
+    public int nbDocMot(String m) {
+        int n = 0;
+        int i = Math.abs(m.hashCode() % N);
+        CelluleDictio cc = T[i];
+        while (cc != null && !cc.elt.equals(m)) {
+            cc = cc.suiv;
+        }
+        if (cc != null) {
+            n = cc.nbDoc;
         }
         return n;
     }
@@ -210,12 +256,14 @@ public class DictionnaireHash implements Dictionnaire {
         fichier.createNewFile();
         String[] mots = new String[this.nbMots()];
         int[] occ = new int[this.nbMots()];
+        int[] nbDoc = new int[this.nbMots()];
         int i = 0;
         while (i < this.N) {
             CelluleDictio cc = this.T[i];
             while (cc != null) {
                 mots[cc.ind] = cc.elt;
                 occ[cc.ind] = cc.occ;
+                nbDoc[cc.ind] = cc.nbDoc;
                 cc = cc.suiv;
             }
             i++;
@@ -223,15 +271,19 @@ public class DictionnaireHash implements Dictionnaire {
         // Initialisation du Buffer
         BufferedWriter buffer = new BufferedWriter(new FileWriter(chemin, false));
         // Écriture du contenu du DictionnaireHash
+        //Ecriture de la ligne contennant les mots
         String ligne = "";
         for (int j = 0; j < this.nbMots(); j++) {
             ligne += mots[j] + ",";
         }
         if (ligne != "")
+        {
             ligne = ligne.substring(0, ligne.length() - 1);
+        }
         buffer.write(ligne);
         buffer.newLine();
 
+        //Ecriture de la ligne contennant les occurence des mots
         ligne = "";
         for (int j = 0; j < this.nbMots(); j++) {
             ligne += occ[j] + ",";
@@ -241,6 +293,18 @@ public class DictionnaireHash implements Dictionnaire {
             ligne = ligne.substring(0, ligne.length() - 1);
         }
         buffer.write(ligne);
+        buffer.newLine();
+
+        //Ecriture de la ligne contennant le nombre de document contenants les mots
+        ligne = "";
+        for (int j = 0; j < this.nbMots(); j++) {
+            ligne += nbDoc[j] + ",";
+        }
+        if (ligne != "")
+            ligne = ligne.substring(0, ligne.length() - 1);
+        buffer.write(ligne);
+
+
         // Enregistrement et fermeture du Buffer
         buffer.flush();
         buffer.close();
@@ -297,8 +361,26 @@ public class DictionnaireHash implements Dictionnaire {
             i++;
         }
 
+
+        ligne = buffer.readLine();
+        i = 0;
+        j = 0;
+        motCourant = "";
+        String[] nbDocString = new String[this.nbMots()];
+        while ( i <  ligne.length()){
+            if (ligne.charAt(i) != ','){
+                motCourant = motCourant + ligne.charAt(i);
+            }   
+            else{
+                nbDocString[j] = motCourant;
+                motCourant = "";
+                j++;
+            }
+            i++;
+        }
+
         for(int m = 0; m < mots.length; m++) {
-            this.ajouterMot(mots[m], Integer.parseInt(occString[m]));
+            this.ajouterMot(mots[m], Integer.parseInt(occString[m]), Integer.parseInt(nbDocString[m]));
         }
         buffer.close();
     }

@@ -146,22 +146,11 @@ public class Recherche {
      * Cette pondération est de niveau N (pas de pondération)
      */
     public double ponderationGlobaleDocument(String mot) {
-        double nb = 0.;
-        int i = 0;
-        int val = 0;
+
         double idf = 0.;
+        int nb = indexation.dictioMots.nbDocMot(mot);
 
-        //affecte à nb le nombre de documents contennants mot
-        while (i < indexation.dictioDocuments.nbMots()){
-        val = indexation.val(mot, indexation.dictioDocuments[i]);
-        if (val > 0){
-            nb++;
-        }
-        i++;
-        }
-
-        //calcul le facteur idf de ponderation global 
-        idf = Math.log(indexation.dictioDocuments.nbMots()/nb)
+        idf = Math.log(indexation.dictioDocuments.nbMots()/nb);
         return idf;
     }
 
@@ -189,6 +178,7 @@ public class Recherche {
      * Cette pondération est de niveau N (pas de pondération)
      */
     public int ponderationGlobaleRequete() {
+        return 0;
 
     }
 
