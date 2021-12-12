@@ -349,7 +349,7 @@ public class DictionnaireHash implements Dictionnaire {
         j = 0;
         motCourant = "";
         String[] occString = new String[this.N];
-        while ( i <  ligne.length() && j < mots.length){
+        while ( i <  ligne.length() && j < occString.length){
             if (ligne.charAt(i) != ','){
                 motCourant = motCourant + ligne.charAt(i);
             }   
@@ -360,14 +360,18 @@ public class DictionnaireHash implements Dictionnaire {
             }
             i++;
         }
+        if (i < ligne.length()) {
+            buffer.close();
+            throw new Error("Tous les mots n'ont pas pu etre ajoutes au dictionnaire lors de son chargement.");
+        }
 
 
         ligne = buffer.readLine();
         i = 0;
         j = 0;
         motCourant = "";
-        String[] nbDocString = new String[this.nbMots()];
-        while ( i <  ligne.length()){
+        String[] nbDocString = new String[this.N];
+        while ( i <  ligne.length() && j < nbDocString.length){
             if (ligne.charAt(i) != ','){
                 motCourant = motCourant + ligne.charAt(i);
             }   
@@ -377,6 +381,10 @@ public class DictionnaireHash implements Dictionnaire {
                 j++;
             }
             i++;
+        }
+        if (i < ligne.length()) {
+            buffer.close();
+            throw new Error("Tous les documents n'ont pas pu etre ajoutes au dictionnaire lors de son chargement.");
         }
 
         for(int m = 0; m < mots.length && mots[m] != null; m++) {

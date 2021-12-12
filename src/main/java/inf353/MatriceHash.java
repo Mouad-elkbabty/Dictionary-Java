@@ -59,7 +59,6 @@ public class MatriceHash implements MatriceIndex {
         } else {
             T[ndoc] = new CelluleMatrice(1, nterm, T[ndoc]);
         }
-
     }
 
     @Override
@@ -77,7 +76,8 @@ public class MatriceHash implements MatriceIndex {
 
     /**
      * Sauvegarde la matrice dans un fichier formatté de la manière suivante :
-     * indiceMot1:occurenceMot1Doc1,indiceMot2:occurenceMot2Doc1,... mota
+     * indiceMotX:occurenceMotXDoc1,indiceMotY:occurenceMotXDoc1,...
+     * indiceMotZ:occurenceMotZDoc2,indiceMotY:occurenceMotYDoc2,...
      * @param chemin Le chemin
      * @throws IOException
      */

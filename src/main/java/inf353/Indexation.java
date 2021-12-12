@@ -43,7 +43,7 @@ public class Indexation {
      * @param chemin Le chemin vers le dossier
      */
     public Indexation(String chemin) throws IOException {
-        this();
+        this(250000, 100000, 100000);
         this.charger(chemin);
     }
 
