@@ -9,7 +9,7 @@ public class MainEval {
         
 
         int doc = 91;
-        String chemin = "/home/vialf/ubuntu/requete/inf353-tests/C";
+        String chemin = "/home/segurat/ubuntu/requete/inf353-tests/C";
         while (doc < 140)
         {
 

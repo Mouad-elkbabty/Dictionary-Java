@@ -103,9 +103,10 @@ public class Recherche {
             // tant qu'on a pas traite tous les scores
             while (i != scores.length) {
                 String document = this.indexation.dictioDocuments.motIndice(i);
+                double normalisationDocument = normalisationDocumentL1 (document);
                 double ponderationLocaleDocument = this.ponderationLocaleDocumentl(cc.elt, document);
                 double ponderationGlobaleDocument = ponderationGlobaleDocumentT(cc.elt);
-                scores[i] += ponderationLocaleDocument * ponderationLocaleDocument * ponderationGlobaleDocument * ponderationGlobaleRequete / (normalisationDocument() * normalisationRequete());
+                scores[i] += ponderationLocaleDocument * ponderationLocaleDocument * ponderationGlobaleDocument * ponderationGlobaleRequete / (normalisationDocument * normalisationRequete());
                 i++;
             }
             cc = cc.suiv;
@@ -135,12 +136,14 @@ public class Recherche {
      * @param mot le mot à chercher
      * @param document le document à chercher
      */
+    //marche pas renvoit 0.0
     public double ponderationLocaleDocumentL(String mot, String document) {
         double res = 0;
         int val = this.indexation.val(mot, document);
+        System.out.println("" + val);
         double avg = this.indexation.dictioMots.nbOccMot(mot)/this.indexation.dictioDocuments.nbMots();
         if(val > 0) {
-            res = (1 + Math.log(val))/(1+Math.log(avg));
+            res = Math.abs((1 + Math.log(val))/(1+Math.log(avg)));
         }
         return res;
     }
@@ -151,9 +154,9 @@ public class Recherche {
     
     public double ponderationGlobaleDocumentT(String mot) {
         double res = 0;
-        int df = this.indexation.dictioMots.nbDocMot(mot);
+        double df = this.indexation.dictioMots.nbDocMot(mot);
         if(df != 0){
-            res = 1 + Math.log(this.indexation.dictioDocuments.nbMots() / df);
+            res = 1 + Math.log((double)(this.indexation.dictioDocuments.nbMots()) / df);
             return res;
         }
         else{
@@ -181,10 +184,20 @@ public class Recherche {
 
     /**
      * Renvoie la normalisation du document
-     * Cette normalisation est de niveau N (pas de normalisation)
+     * Cette normalisation est de niveau L1 (pas de normalisation)
      */
-    public int normalisationDocument() {
-        return 1;
+    public int normalisationDocumentL1(String document) {
+        int res = 0;
+        int i = this.indexation.dictioDocuments.indiceMot(document);
+        CelluleMatrice cc = this.indexation.matriceOccurrences.T[i];
+        while(cc != null){
+            res = res + cc.elt;
+            cc = cc.suiv;
+        }
+        if( res == 0){
+            res = 1;
+        }
+        return res;
     }
 
     /**
