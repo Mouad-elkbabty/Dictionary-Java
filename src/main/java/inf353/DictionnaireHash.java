@@ -65,9 +65,9 @@ public class DictionnaireHash implements Dictionnaire {
         if (!contient(m)) {
             int n = Math.abs(m.hashCode() % N);
             T[n] = new CelluleDictio(m, nb, T[n]);
-            T[n].occ ++;
+            T[n].occ = 1;
             this.nb += 1;
-        }else{
+        } else {
             int n = Math.abs(m.hashCode() % N);
             CelluleDictio cc =T[n];
             while(cc != null && !cc.elt.equals(m))
@@ -78,7 +78,6 @@ public class DictionnaireHash implements Dictionnaire {
             {
                 cc.occ ++;
             }
-
         }
     }
 
@@ -259,11 +258,13 @@ public class DictionnaireHash implements Dictionnaire {
     public void sauver(String chemin) throws IOException {
         // Chargement du fichier
         File fichier = new File(chemin);
-        if (fichier.isDirectory()){
+        if (fichier.isDirectory())
             throw new IOException("Le chemin \"" + chemin + "\" est un dossier.");
-        }
-        // Chargement du tableau pour garder l'index des mots
+        File dossier = new File(fichier.getParent());
+        if (dossier != null && !dossier.isDirectory()) dossier.mkdir();
         fichier.createNewFile();
+
+        // Chargement du tableau pour garder l'index des mots
         String[] mots = new String[this.nbMots()];
         int[] occ = new int[this.nbMots()];
         int[] nbDoc = new int[this.nbMots()];
