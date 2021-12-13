@@ -199,6 +199,11 @@ public class Indexation {
      * @throws IOException
      */
     public void charger(String chemin) throws IOException {
+        File dossier  = new File(chemin);
+        if(!dossier.isDirectory())
+        {
+            dossier.mkdirs();
+        }
         this.dictioDocuments.charger(chemin + "DictionnaireDocuments.txt");
         this.dictioMots.charger(chemin + "DictionnaireMots.txt");
         this.matriceOccurrences.charger(chemin + "MatriceOccurrences.txt");
