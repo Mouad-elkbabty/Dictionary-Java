@@ -10,7 +10,7 @@ public class MainIndexation {
         Indexation indexation = new Indexation();
         Date debutChargement = new Date();
         System.out.println("Chargement des fichiers en cours...");
-        chargerFichiers("/partage_etu/Science/INF/353_projet/echantillon_5000/", indexation);
+        chargerFichiers("/partage_etu/Science/INF/353_projet/echantillon_100/", indexation);
         System.out.println("Chargement terminé.");
         System.out.println(indexation.dictioDocuments.nbMots() + " documents chargés.");
         System.out.println(indexation.dictioMots.nbMots() + " mots différents comptés.");
@@ -19,7 +19,7 @@ public class MainIndexation {
         if (!sauvegarde.isDirectory()) sauvegarde.mkdir();
         Date debutSauvegarde = new Date();
         System.out.println("Sauvegarde en cours...");
-        indexation.sauver("./src/main/resources/inf353/");
+        indexation.sauver("./src/main/resources/inf353/indexation/");
         System.out.println("Sauvegarde terminée.");
         System.out.println("Temps écoulé : " + ((new Date()).getTime() - debutSauvegarde.getTime()) + "ms.");
         System.out.println("Temps total écoulé : " + ((new Date()).getTime() - debutChargement.getTime()) + "ms.");

@@ -9,28 +9,22 @@ public class MainEval {
         
 
         int doc = 91;
+        String num = "";
         String chemin = "/home/vialf/ubuntu/requete/inf353-tests/C";
         while (doc < 140)
         {
-
+            if(doc < 100)
+            {
+                num = "0"+doc;
+            }
+            else
+            {
+                num = ""+doc;
+            }
+            calcul((chemin + num) );
+            doc ++;
             
         }
-        
-        
-        String[] requete = lecture(chemin);
-        int i = 0;
-        while(i < requete.length)
-        {
-            System.out.println(requete[i]);
-            i++;
-        }
-        if(requete.length <= 0)
-        {
-            System.out.println("La requete est vide!!");
-            System.exit(0);
-        }
-        Recherche recherche = new Recherche(requete,"./src/main/resources/inf353/");
-        recherche.presentationFichiers(20);
     }
 
     public static String[] lecture (String chemin) throws IOException{
@@ -56,5 +50,17 @@ public class MainEval {
             return null;
         }
         return res;
+    }
+
+    public static void calcul(String chemin) throws IOException
+    {
+        String[] requete = lecture(chemin);
+        if(requete.length <= 0)
+        {
+            System.out.println("La requete est vide!!");
+            System.exit(0);
+        }
+        Recherche recherche = new Recherche(requete,"./src/main/resources/inf353/indexation/");
+        recherche.presentationFichiers(20);
     }
 }

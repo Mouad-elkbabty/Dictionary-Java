@@ -17,7 +17,7 @@ public class Recherche {
      * @param chemin Le chemin vers l'Indexation à utiliser
      */
     public Recherche(String[] entree, String chemin) throws IOException {
-        File dossier = new File("./src/main/resources/inf353/");
+        File dossier = new File("./src/main/resources/inf353/requete/");
         if (!dossier.isDirectory()) {
             dossier.mkdir();
         }
@@ -25,7 +25,7 @@ public class Recherche {
         if (dossier.list() != null) {
             numero = dossier.list().length;
         }
-        this.recherche = new File("./src/main/resources/inf353/requete-" + numero);
+        this.recherche = new File("./src/main/resources/inf353/requete/requete-" + numero);
         BufferedWriter buffer = new BufferedWriter(new FileWriter(recherche.getPath(), false));
         String ligne = "";
         int i = 0;

@@ -62,6 +62,7 @@ public class MatriceHash implements MatriceIndex {
         // si on est pas a la fin et qu'on a trouve le terme, alors on incremente
         // sinon, on ajoute une nouvelle cellule
         if (cc != null && cc.ind == nterm) {
+            
             cc.elt += 1;
         } else {
             cp.suiv = new CelluleMatrice(1, nterm, cc);
