@@ -50,35 +50,46 @@ public class MatriceHash implements MatriceIndex {
 
     @Override
     public void incremente(int ndoc, int nterm) {
+        // initialisation avec fictif
         CelluleMatrice cc = T[ndoc];
         CelluleMatrice cp = new CelluleMatrice(cc);
         T[ndoc] = cp;
+        // tant qu'on est pas a la fin et que l'indice est plus grand que le terme donne (car ordre decroissant)
         while (cc != null && cc.ind > nterm) {
             cp = cc;
             cc = cc.suiv;
         }
+        // si on est pas a la fin et qu'on a trouve le terme, alors on incremente
+        // sinon, on ajoute une nouvelle cellule
         if (cc != null && cc.ind == nterm) {
             
             cc.elt += 1;
         } else {
             cp.suiv = new CelluleMatrice(1, nterm, cc);
         }
+        // suppression du fictif
         T[ndoc] = T[ndoc].suiv;
     }
 
     @Override
     public void affecte(int ndoc, int nterm, int val) {
+        // initialisation
         CelluleMatrice cc = T[ndoc];
         CelluleMatrice cp = new CelluleMatrice(cc);
         T[ndoc] = cp;
+        // tant qu'on est pas a la fin et que l'indice est plus grand que le terme donne (car ordre decroissant)
         while (cc != null && cc.ind > nterm) {
+            cp = cc;
             cc = cc.suiv;
         }
+        // si on est pas a la fin et qu'on a trouve le terme, alors on affecte
+        // sinon, on ajoute une nouvelle cellule
         if (cc != null && cc.ind == nterm) {
             cc.elt = val;
         } else {
             cp.suiv = new CelluleMatrice(val, nterm, cc);
         }
+        // suppression du fictif
         T[ndoc] = T[ndoc].suiv;
     }
 
@@ -95,10 +106,11 @@ public class MatriceHash implements MatriceIndex {
         File fichier = new File(chemin);
         if (fichier.isDirectory())
             throw new IOException("Le chemin \"" + chemin + "\" est un dossier.");
+        File dossier = new File(fichier.getParent());
+        if (dossier != null && !dossier.isDirectory()) dossier.mkdir();
+        fichier.createNewFile();
 
         // Initialisation du Buffer
-        fichier.createNewFile();
-        
         BufferedWriter buffer = new BufferedWriter(new FileWriter(chemin, false));
 
         // Écriture du contenu de la MatriceHash
