@@ -19,7 +19,7 @@ public class MainIndexation {
         if (!sauvegarde.isDirectory()) sauvegarde.mkdir();
         Date debutSauvegarde = new Date();
         System.out.println("Sauvegarde en cours...");
-        indexation.sauver("./src/main/resources/inf353/");
+        indexation.sauver("./src/main/resources/inf353/indexation/");
         System.out.println("Sauvegarde terminée.");
         System.out.println("Temps écoulé : " + ((new Date()).getTime() - debutSauvegarde.getTime()) + "ms.");
         System.out.println("Temps total écoulé : " + ((new Date()).getTime() - debutChargement.getTime()) + "ms.");
