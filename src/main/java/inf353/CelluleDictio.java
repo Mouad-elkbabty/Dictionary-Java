@@ -8,6 +8,7 @@ public class CelluleDictio{
     public String elt;
     public int ind;
     public int occ;
+    public int nbDoc;
     public CelluleDictio suiv;
 
     /**
@@ -21,6 +22,7 @@ public class CelluleDictio{
     public CelluleDictio(String val) {
         this(val, 0, null);
         this.occ = 0;
+        this.nbDoc = 0;
     }
 
     /**
@@ -29,6 +31,7 @@ public class CelluleDictio{
     public CelluleDictio(CelluleDictio suiv) {
         this(null, 0, suiv);
         this.occ = 0;
+        this.nbDoc = 0;
     }
 
     /**
@@ -39,6 +42,7 @@ public class CelluleDictio{
         this.ind = n;
         this.suiv = suiv;
         this.occ = 0;
+        this.nbDoc = 0;
     }
 
 }

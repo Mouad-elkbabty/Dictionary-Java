@@ -43,7 +43,7 @@ public class Indexation {
      * @param chemin Le chemin vers le dossier
      */
     public Indexation(String chemin) throws IOException {
-        this();
+        this(250000, 100000, 100000);
         this.charger(chemin);
     }
 
@@ -104,6 +104,9 @@ public class Indexation {
             int d = this.dictioDocuments.indiceMot(document);
             if (d != -1) {
                 this.matriceOccurrences.incremente(d, m);
+                if(this.matriceOccurrences.val(d, m) == 1){
+                    this.dictioMots.ajoutenbDoc(mot);
+                }
             }
         }
     }

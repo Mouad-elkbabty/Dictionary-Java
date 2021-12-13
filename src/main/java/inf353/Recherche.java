@@ -36,8 +36,11 @@ public class Recherche {
         buffer.write(ligne);
         buffer.flush();
         buffer.close();
+        System.out.println("Chargement de l'indexation en cours...");
         this.indexation = new Indexation(chemin);
+        System.out.println("Chargement termine !");
         this.requete = new Indexation();
+<<<<<<< HEAD
         this.evaluer();
     }
 
@@ -54,10 +57,12 @@ public class Recherche {
      * Évaluer l'entrée donnée
      */
     public void evaluer() throws IOException {
+=======
+>>>>>>> d246dafb0f04f371eef6bd5c0ff517fb6b5d5348
         this.requete.dictioMots = new DictionnaireHash(1);
         this.requete.dictioDocuments = new DictionnaireHash(1);
+        this.requete.matriceOccurrences = new MatriceHash(1);
         this.requete.ajouterDocument(this.recherche.getPath());
-        System.out.println(this.requete.dictioDocuments.motIndice(0));
     }
 
     /**
@@ -102,58 +107,52 @@ public class Recherche {
      * Calcule le score des documents en fonction de l'Indexation et de la recherche
      */
     public double[] score() throws IOException {
+        // un element pour un document
         double[] scores = new double[indexation.dictioDocuments.nbMots()];
-        int i = 0;
-        while (i != indexation.dictioDocuments.nbMots()) { // on parcours tous les documents de notre indexation
-            CelluleMatrice cc = requete.matriceOccurrences.T[0];
-            String document = indexation.dictioDocuments.motIndice(i);
-            while (cc != null) { // on parcours tous les mots de notre requete
-                String mot = requete.dictioMots.motIndice(cc.ind);
-                double pondLocaleDoc = facteurLogDoc(mot, document);
-                if (pondLocaleDoc > 0) {
-                    scores[i] += pondLocaleDoc * ponderationLocaleRequete(mot);
-                }
-                cc = cc.suiv;
+        // on veut parcourir tous les mots de notre requete
+        CelluleDictio cc = this.requete.dictioMots.T[0];
+        // tant qu'on a pas traite tous les mots
+        while (cc != null) {
+            System.out.println("Calcul du score avec le mot " + cc.elt);
+            // i = index du document
+            int i = 0;
+            double ponderationLocaleRequete = this.ponderationLocaleRequete(cc.elt);
+            // tant qu'on a pas traite tous les scores
+            while (i != scores.length) {
+                String document = this.indexation.dictioDocuments.motIndice(i);
+                double ponderationLocaleDocument = this.ponderationLocaleDocument(cc.elt, document);
+                scores[i] += ponderationLocaleDocument * ponderationLocaleRequete * ponderationGlobaleDocument() * ponderationGlobaleRequete() / (normalisationDocument() * normalisationRequete());
+                i++;
             }
-            scores[i] *= (ponderationGlobaleDocument() * ponderationGlobaleRequete()) / (normalisationDocument() * normalisationRequete());
-            i++;
+            cc = cc.suiv;
         }
         return scores;
     }
 
     /**
      * Renvoie la valeur de la pondération du mot dans le document
-     * Cette pondération est de niveau M (facteur fréquentiel normalisé)
+     * Cette pondération est de niveau l (facteur logarithmique)
      * @param mot le mot à chercher
      * @param document le document à chercher
      */
     public double ponderationLocaleDocument(String mot, String document) {
-        int val = indexation.val(mot, document);
-        double maxOccurrence = indexation.maxOccurrence(document);
-        return val / maxOccurrence;
-    }
-
-
-    /**
-     * Renvoie la valeur de la pondération du mot dans le document
-     * Cette pondération est de niveau l (facteur Logarithmique)
-     * @param mot le mot à chercher
-     * @param document le document à chercher
-     */
-    public double facteurLogDoc(String mot, String document){
-        double res =0;
-        if(indexation.val(mot, document) != 0)
-        {
-            res = 1+ Math.log(indexation.val(mot, document));
+        double res = 0;
+        int val = this.indexation.val(mot, document);
+        if(val > 0) {
+            res = 1 + Math.log(val);
         }
         return res;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> d246dafb0f04f371eef6bd5c0ff517fb6b5d5348
     /**
      * Renvoie la valeur de la pondération dans le corpus
      * Cette pondération est de niveau N (pas de pondération)
      */
-    public int ponderationGlobaleDocument() {
+    public double ponderationGlobaleDocument() {
         return 1;
     }
 
@@ -167,13 +166,16 @@ public class Recherche {
 
     /**
      * Renvoie la valeur de la pondération locale du mot dans la requête
-     * Cette pondération est de niveau M (facteur fréquentiel normalisé)
+     * Cette pondération est de niveau l (facteur logarithmique)
      * @param mot le mot à chercher
      */
     public double ponderationLocaleRequete(String mot) {
-        int val = requete.val(mot, this.recherche.getName());
-        double maxOccurrence = requete.maxOccurrence(this.recherche.getName());
-        return val / maxOccurrence;
+        double res = 0;
+        int val = this.requete.val(mot, this.recherche.getName());
+        if(val > 0) {
+            res = 1 + Math.log(val);
+        }
+        return res;
     }
 
     /**
@@ -182,6 +184,7 @@ public class Recherche {
      */
     public int ponderationGlobaleRequete() {
         return 1;
+
     }
 
     /**
