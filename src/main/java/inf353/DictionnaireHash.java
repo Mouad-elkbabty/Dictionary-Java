@@ -65,9 +65,9 @@ public class DictionnaireHash implements Dictionnaire {
         if (!contient(m)) {
             int n = Math.abs(m.hashCode() % N);
             T[n] = new CelluleDictio(m, nb, T[n]);
-            T[n].occ ++;
+            T[n].occ = 1;
             this.nb += 1;
-        }else{
+        } else {
             int n = Math.abs(m.hashCode() % N);
             CelluleDictio cc =T[n];
             while(cc != null && !cc.elt.equals(m))
@@ -78,7 +78,6 @@ public class DictionnaireHash implements Dictionnaire {
             {
                 cc.occ ++;
             }
-
         }
     }
 
@@ -139,7 +138,7 @@ public class DictionnaireHash implements Dictionnaire {
 
 
         /**
-     * Retourne le nombre de document contennant le mot m ou 0 s'il n'est pas trouvé
+     * Retourne le nombre de document contennant le mot m
      * 
      * @param m Le mot à tester
      */
@@ -156,7 +155,18 @@ public class DictionnaireHash implements Dictionnaire {
         }
         return n;
     }
-
+    public int nbOccMot(String m){
+    int n = 0;
+    int i = Math.abs(m.hashCode() % N);
+    CelluleDictio cc = T[i];
+    while (cc != null && !cc.elt.equals(m)) {
+        cc = cc.suiv;
+    }
+    if (cc != null) {
+        n = cc.occ;
+    }
+    return n;
+    }
     /**
      * Retourne le mot contenu à l'indice i dans le DictionnaireHash ou null s'il
      * n'existe pas
@@ -249,11 +259,13 @@ public class DictionnaireHash implements Dictionnaire {
     public void sauver(String chemin) throws IOException {
         // Chargement du fichier
         File fichier = new File(chemin);
-        if (fichier.isDirectory()){
+        if (fichier.isDirectory())
             throw new IOException("Le chemin \"" + chemin + "\" est un dossier.");
-        }
-        // Chargement du tableau pour garder l'index des mots
+        File dossier = new File(fichier.getParent());
+        if (dossier != null && !dossier.isDirectory()) dossier.mkdir();
         fichier.createNewFile();
+
+        // Chargement du tableau pour garder l'index des mots
         String[] mots = new String[this.nbMots()];
         int[] occ = new int[this.nbMots()];
         int[] nbDoc = new int[this.nbMots()];
@@ -389,7 +401,6 @@ public class DictionnaireHash implements Dictionnaire {
 
         for(int m = 0; m < mots.length && mots[m] != null; m++) {
             this.ajouterMot(mots[m], Integer.parseInt(occString[m]),Integer.parseInt(nbDocString[m]));
-
         }
         buffer.close();
     }
