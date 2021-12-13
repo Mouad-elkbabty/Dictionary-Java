@@ -72,11 +72,6 @@ public class MainEval {
     {
         String[] requete = lecture(chemin);
         int i = 0;
-        while(i < requete.length)
-        {
-            System.out.println(requete[i]);
-            i++;
-        }
         if(requete.length <= 0)
         {
             System.out.println("La requete est vide!!");
