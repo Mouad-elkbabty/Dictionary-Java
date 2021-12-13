@@ -9,10 +9,20 @@ public class MainEval {
         
 
         int doc = 91;
+        String num = "";
         String chemin = "/home/vialf/ubuntu/requete/inf353-tests/C";
         while (doc < 140)
         {
-
+            if(doc < 100)
+            {
+                num = "0"+doc;
+            }
+            else
+            {
+                num = ""+doc;
+            }
+            calcul((chemin + num) );
+            doc ++;
             
         }
         
@@ -56,5 +66,23 @@ public class MainEval {
             return null;
         }
         return res;
+    }
+
+    public static void calcul(String chemin) throws IOException
+    {
+        String[] requete = lecture(chemin);
+        int i = 0;
+        while(i < requete.length)
+        {
+            System.out.println(requete[i]);
+            i++;
+        }
+        if(requete.length <= 0)
+        {
+            System.out.println("La requete est vide!!");
+            System.exit(0);
+        }
+        Recherche recherche = new Recherche(requete,"./src/main/resources/inf353/");
+        recherche.presentationFichiers(20);
     }
 }
