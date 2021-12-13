@@ -57,27 +57,33 @@ public class Recherche {
         for (int p = 0; p < positions.length; p++) {
             positions[p] = p;
         }
-        for (int i = 0; i < valeurs.length; i++) {
-            for (int j = i + 1; j < valeurs.length; j++) {
-                if (valeurs[i] < valeurs[j]) {
-                    double v = valeurs[i];
-                    valeurs[i] = valeurs[j];
-                    valeurs[j] = v;
-                    int p = positions[i];
-                    positions[i] = positions[j];
-                    positions[j] = p;
-                }
-            }
-        }
+        int longueur = valeurs.length;
+        int i = 0;
         BufferedWriter buffer = new BufferedWriter(new FileWriter(recherche, true));
         buffer.newLine();
         buffer.newLine();
         System.out.println("Voici les résultats correspondant à votre requête :");
-        for (int r = 0; r < 10 && r < positions.length; r++) {
-            String resultat = (r+1) + ". " + indexation.dictioDocuments.motIndice(positions[r]) + " (score: " + valeurs[r] + ")";
+        while (i < longueur && i != 10) {
+            // on cherche la position du max de resultats
+            int position = 0;
+            int j = 1;
+            // parcours de tous les éléments jusqu'à la longueur
+            while (j < longueur) {
+                if (valeurs[j] > valeurs[position]) {
+                    position = j;
+                }
+                j++;
+            }
+            // position contient la position de la plus grande valeur trouvée
+            String resultat = (i+1) + ". " + indexation.dictioDocuments.motIndice(positions[position]) + " (score: " + valeurs[position] + ")";
             System.out.println(resultat);
             buffer.write(resultat);
             buffer.newLine();
+            // on retire 1 à la longueur pour mettre la dernière valeur à sa place
+            longueur -= 1;
+            valeurs[position] = valeurs[longueur];
+            positions[position] = positions[longueur];
+            i++;
         }
         System.out.println("Votre requête a été postée dans le fichier " + recherche.getName());
         buffer.flush();
