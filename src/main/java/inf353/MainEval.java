@@ -7,18 +7,24 @@ public class MainEval {
 
     public static void main(String[] args) throws IOException{
         
-        String chemin = "./home/vialf/ubuntu/requete/inf353-tests/C091";
+        String chemin = "/home/vialf/ubuntu/requete/inf353-tests/C091";
         
         
         
         String[] requete = lecture(chemin);
+        int i = 0;
+        while(i < requete.length)
+        {
+            System.out.println(requete[i]);
+            i++;
+        }
         if(requete.length <= 0)
         {
             System.out.println("La requete est vide!!");
             System.exit(0);
         }
-        Recherche recherche = new Recherche(requete,chemin);
-        recherche.presentation();
+        Recherche recherche = new Recherche(requete,"./src/main/resources/inf353/");
+        recherche.presentationFichier();
     }
 
     public static String[] lecture (String chemin) throws IOException{
