@@ -105,7 +105,7 @@ public class Recherche {
                 String document = this.indexation.dictioDocuments.motIndice(i);
                 double ponderationLocaleDocument = this.ponderationLocaleDocumentl(cc.elt, document);
                 double ponderationGlobaleDocument = ponderationGlobaleDocumentT(cc.elt);
-                scores[i] += ponderationLocaleDocument * ponderationLocaleRequete * ponderationGlobaleDocument * ponderationGlobaleRequete / (normalisationDocument() * normalisationRequete());
+                scores[i] += ponderationLocaleDocument * ponderationLocaleDocument * ponderationGlobaleDocument * ponderationGlobaleRequete / (normalisationDocument() * normalisationRequete());
                 i++;
             }
             cc = cc.suiv;
@@ -210,7 +210,7 @@ public class Recherche {
     }
 
     /**
-     * Renvoie la normalisation de la requête
+     * Renvoie la normaljava -Xmx4G -cp target/inf353-1.0-SNAPSHOT.jar inf353/MainIndexationisation de la requête
      * Cette normalisation est de niveau N (pas de normalisation)
      */
     public int normalisationRequete() {
@@ -252,8 +252,6 @@ public class Recherche {
             positions[position] = positions[longueur];
             i++;
         }
-        System.out.println("Votre requête a été postée dans le fichier " + recherche.getName());
-        buffer.flush();
         buffer.close();
     } 
     
