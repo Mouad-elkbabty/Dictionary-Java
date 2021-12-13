@@ -7,7 +7,7 @@ public class MainEval {
 
     public static void main(String[] args) throws IOException{
         
-        /*String chemin = "./home/combegae/ubuntu/requete/inf353-tests/C091";
+        String chemin = "./home/combegae/ubuntu/requete/inf353-tests/C091";
         
         
         
@@ -16,9 +16,9 @@ public class MainEval {
         {
             System.out.println("La requete est vide!!");
             System.exit(0);
-        }*/
-        Recherche recherche = new Recherche("home/combegae/ubuntu/requete/inf353-tests/C091");
-        recherche.presentation();
+        }
+        Recherche recherche = new Recherche(requete,chemin);
+        recherche.presentationfichier();
     }
 
     public static String[] lecture (String chemin) throws IOException{
