@@ -70,6 +70,7 @@ public class Indexation {
         lecteur.demarrer();
         while (!lecteur.finDeSequence()) {
             this.ajouterMot(lecteur.elementCourant());
+            System.out.println(lecteur.elementCourant());
             this.incremente(lecteur.elementCourant(), fichier.getName());
             lecteur.avancer();
         }

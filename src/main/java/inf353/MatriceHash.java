@@ -54,9 +54,11 @@ public class MatriceHash implements MatriceIndex {
         CelluleMatrice cp = new CelluleMatrice(cc);
         T[ndoc] = cp;
         while (cc != null && cc.ind > nterm) {
+            cp = cc;
             cc = cc.suiv;
         }
         if (cc != null && cc.ind == nterm) {
+            
             cc.elt += 1;
         } else {
             cp.suiv = new CelluleMatrice(1, nterm, cc);
