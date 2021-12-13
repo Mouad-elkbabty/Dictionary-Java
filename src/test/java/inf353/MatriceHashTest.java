@@ -63,7 +63,7 @@ public class MatriceHashTest {
 
     }
 
-    @Test
+    // @Test
     public void sauverTest() throws IOException {
         MatriceHash matrice1 = new MatriceHash(3);
         int[][] valeurs = {
