@@ -86,45 +86,6 @@ public class Recherche {
     } 
 
     /**
-     *     public void presentation(int nbResultats) throws IOException {
-        System.out.println("Calcul du score en cours...");
-        double[] valeurs = score(); 
-        System.out.println("Calcul terminé !");
-        int[] positions = new int[valeurs.length];
-        for (int p = 0; p < positions.length; p++) {
-            positions[p] = p;
-        }
-        int longueur = valeurs.length;
-        int i = 0;
-        BufferedWriter buffer = new BufferedWriter(new FileWriter(recherche, false));
-        while (i != longueur && i != nbResultats) {
-            // on cherche la position du max de resultats
-            int position = 0;
-            int j = 1;
-            // parcours de tous les éléments jusqu'à la longueur
-            while (j < longueur) {
-                if (valeurs[j] > valeurs[position]) {
-                    position = j;
-                }
-                j++;
-            }
-            // position contient la position de la plus grande valeur trouvée
-            String resultat = "91" + '\t' + "Q0" + '\t' + indexation.dictioDocuments.motIndice(positions[position]) + '\t' + (i+1) + '\t' + valeurs[position] + '\t' + "91-lnn-lnn";
-            buffer.write(resultat);
-            buffer.newLine();
-            // on retire 1 à la longueur pour mettre la dernière valeur à sa place
-            longueur -= 1;
-            valeurs[position] = valeurs[longueur];
-            positions[position] = positions[longueur];
-            i++;
-        }
-        System.out.println("Votre requête a été postée dans le fichier " + recherche.getName());
-        buffer.flush();
-        buffer.close();
-    } 
-     */
-
-    /**
      * Calcule le score des documents en fonction de l'Indexation et de la recherche
      */
     public double[] score() throws IOException {
@@ -168,12 +129,36 @@ public class Recherche {
     }
     /**
      * Renvoie la valeur de la pondération dans le corpus
-     * Cette pondération est de niveau N (pas de pondération)
+     * Cette pondération est de niveau t (1 + log (N/df) )
      */
     public double ponderationGlobaleDocument(String mot) {
-        double df = this.indexation.dictioMots.nbDocMot(mot);
-        double res = 1 + Math.log(this.indexation.dictioDocuments.nbMots() / df);
-        return res;
+        double res = 0;
+        int df = this.indexation.dictioMots.nbDocMot(mot);
+        if(df != 0){
+            res = 1 + Math.log(this.indexation.dictioDocuments.nbMots() / df);
+            return res;
+        }
+        else{
+            return 0.;
+        }
+    }
+
+
+       /**
+     * Renvoie la valeur de la pondération dans le corpus
+     * Cette pondération Globale est de niveau P (1+log (N-df/df)  ) 
+     */
+
+    public double ponderationGlobaleDocument1(String mot) {
+        double res = 0;
+        int df = this.indexation.dictioMots.nbDocMot(mot);
+        if(df != 0){
+            res = 1 + Math.log(this.indexation.dictioDocuments.nbMots() - df / df);
+            return res;
+        }
+        else{
+            return 0.;
+        }
     }
 
     /**
@@ -213,5 +198,47 @@ public class Recherche {
     public int normalisationRequete() {
         return 1;
     }
+
+
+
+
+    public void presentationFichiers(int nbResultats) throws IOException {
+        System.out.println("Calcul du score en cours...");
+        double[] valeurs = score(); 
+        System.out.println("Calcul terminé !");
+        int[] positions = new int[valeurs.length];
+        for (int p = 0; p < positions.length; p++) {
+            positions[p] = p;
+        }
+        int longueur = valeurs.length;
+        int i = 0;
+        BufferedWriter buffer = new BufferedWriter(new FileWriter(recherche, false));
+        while (i != longueur && i != nbResultats) {
+            // on cherche la position du max de resultats
+            int position = 0;
+            int j = 1;
+            // parcours de tous les éléments jusqu'à la longueur
+            while (j < longueur) {
+                if (valeurs[j] > valeurs[position]) {
+                    position = j;
+                }
+                j++;
+            }
+            // position contient la position de la plus grande valeur trouvée
+            String resultat = "91" + '\t' + "Q0" + '\t' + indexation.dictioDocuments.motIndice(positions[position]) + '\t' + (i+1) + '\t' + valeurs[position] + '\t' + "91-lnn-lnn";
+            buffer.write(resultat);
+            buffer.newLine();
+            // on retire 1 à la longueur pour mettre la dernière valeur à sa place
+            longueur -= 1;
+            valeurs[position] = valeurs[longueur];
+            positions[position] = positions[longueur];
+            i++;
+        }
+        System.out.println("Votre requête a été postée dans le fichier " + recherche.getName());
+        buffer.flush();
+        buffer.close();
+    } 
+    
+    
 
 }
