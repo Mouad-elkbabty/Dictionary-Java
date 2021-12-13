@@ -128,21 +128,36 @@ public class Recherche {
     }
     /**
      * Renvoie la valeur de la pondération dans le corpus
-     * Cette pondération est de niveau N (pas de pondération)
+     * Cette pondération est de niveau t (1 + log (N/df) )
      */
     public double ponderationGlobaleDocument(String mot) {
         double res = 0;
         int df = this.indexation.dictioMots.nbDocMot(mot);
-        res = 1 + Math.log(this.indexation.dictioDocuments.nbMots() / df);
-        return res;
+        if(df != 0){
+            res = 1 + Math.log(this.indexation.dictioDocuments.nbMots() / df);
+            return res;
+        }
+        else{
+            return 0.;
+        }
     }
 
+
+       /**
+     * Renvoie la valeur de la pondération dans le corpus
+     * Cette pondération Globale est de niveau P (1+log (N-df/df)  ) 
+     */
 
     public double ponderationGlobaleDocument1(String mot) {
         double res = 0;
         int df = this.indexation.dictioMots.nbDocMot(mot);
-        res = 1 + Math.log(this.indexation.dictioDocuments.nbMots() - df / df);
-        return res;
+        if(df != 0){
+            res = 1 + Math.log(this.indexation.dictioDocuments.nbMots() - df / df);
+            return res;
+        }
+        else{
+            return 0.;
+        }
     }
 
     /**
