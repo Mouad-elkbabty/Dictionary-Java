@@ -24,7 +24,7 @@ public class MainEval {
             System.exit(0);
         }
         Recherche recherche = new Recherche(requete,"./src/main/resources/inf353/");
-        recherche.presentationFichier();
+        recherche.presentationFichiers(20);
     }
 
     public static String[] lecture (String chemin) throws IOException{
