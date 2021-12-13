@@ -40,26 +40,6 @@ public class Recherche {
         this.indexation = new Indexation(chemin);
         System.out.println("Chargement termine !");
         this.requete = new Indexation();
-<<<<<<< HEAD
-        this.evaluer();
-    }
-
-    public Recherche(String chemin) throws IOException{
-        this.indexation = new Indexation("./src/main/resources/inf353/");
-        this.requete = new Indexation();
-        this.recherche = new File(chemin);
-        this.evaluer();
-    }
-
-
-
-    /**
-     * Évaluer l'entrée donnée
-     */
-    public void evaluer() throws IOException {
-=======
->>>>>>> d246dafb0f04f371eef6bd5c0ff517fb6b5d5348
-        this.requete.dictioMots = new DictionnaireHash(1);
         this.requete.dictioDocuments = new DictionnaireHash(1);
         this.requete.matriceOccurrences = new MatriceHash(1);
         this.requete.ajouterDocument(this.recherche.getPath());
