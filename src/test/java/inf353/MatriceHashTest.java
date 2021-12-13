@@ -63,7 +63,7 @@ public class MatriceHashTest {
 
     }
 
-    // @Test
+    @Test
     public void sauverTest() throws IOException {
         MatriceHash matrice1 = new MatriceHash(3);
         int[][] valeurs = {
@@ -73,10 +73,17 @@ public class MatriceHashTest {
         };
         for (int i = 0; i < valeurs.length; i++) {
             for (int j = 0; j < valeurs[0].length; j++) {
-                matrice1.affecte(i, j, valeurs[i][j]);
+                if (valeurs[i][j] > 0) matrice1.affecte(i, j, valeurs[i][j]);
             }
         }
         matrice1.sauver("./src/test/resources/inf353/test-matrice-sauver/MatriceOccurrences.txt");
+        MatriceHash resultat1 = new MatriceHash("./src/test/resources/inf353/test-matrice-sauver/MatriceOccurrences.txt");
+        for (int i = 0; i < valeurs.length; i++) {
+            for (int j = 0; j < valeurs[0].length; j++) {
+                assertEquals(valeurs[i][j], resultat1.val(i, j));
+            }
+        }
+
     }
     
 }

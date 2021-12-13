@@ -10,7 +10,7 @@ public class MainIndexation {
         Indexation indexation = new Indexation();
         Date debutChargement = new Date();
         System.out.println("Chargement des fichiers en cours...");
-        chargerFichiers("/partage_etu/Science/INF/353_projet/french/", indexation);
+        chargerFichiers("/partage_etu/Science/INF/353_projet/echantillon_5000/", indexation);
         System.out.println("Chargement terminé.");
         System.out.println(indexation.dictioDocuments.nbMots() + " documents chargés.");
         System.out.println(indexation.dictioMots.nbMots() + " mots différents comptés.");
