@@ -129,11 +129,7 @@ public class Recherche {
         }
         return res;
     }
-<<<<<<< HEAD
-
-=======
     
->>>>>>> d246dafb0f04f371eef6bd5c0ff517fb6b5d5348
     /**
      * Renvoie la valeur de la pondération dans le corpus
      * Cette pondération est de niveau N (pas de pondération)

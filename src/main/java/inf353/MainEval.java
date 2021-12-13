@@ -11,13 +11,13 @@ public class MainEval {
         
         
         
-        String[] requete = lecture("./home/combegae/ubuntu/requete/inf353-tests/C091");
+        String[] requete = lecture("/home/combegae/ubuntu/requete/inf353-tests/C091");
         if(requete.length <= 0)
         {
             System.out.println("La requete est vide!!");
             System.exit(0);
         }
-        Recherche recherche = new Recherche(requete,chemin);
+        Recherche recherche = new Recherche(requete,"./src/main/resources/inf353/");
         recherche.presentation();
     }
 
