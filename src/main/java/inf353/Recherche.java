@@ -41,10 +41,10 @@ public class Recherche {
         this.evaluer();
     }
 
-    public Recherche(Strng chemin){
+    public Recherche(String chemin) throws IOException{
         this.indexation = new Indexation("./src/main/resources/inf353/");
         this.requete = new Indexation();
-        this.recherche = new File("./home/combegae/ubuntu/requete/inf353-tests/C091");
+        this.recherche = new File(chemin);
         this.evaluer();
     }
 

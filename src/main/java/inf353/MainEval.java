@@ -17,11 +17,11 @@ public class MainEval {
             System.out.println("La requete est vide!!");
             System.exit(0);
         }*/
-        Recherche recherche = new Recherche("./home/combegae/ubuntu/requete/inf353-tests/C091", "./src/main/resources/inf353/");
+        Recherche recherche = new Recherche("home/combegae/ubuntu/requete/inf353-tests/C091");
         recherche.presentation();
     }
 
-    public static String[] lecture (String chemin){
+    public static String[] lecture (String chemin) throws IOException{
         int i = 0;
         LecteurDocumentNaif lect = new LecteurDocumentNaif(chemin);
         lect.demarrer();
