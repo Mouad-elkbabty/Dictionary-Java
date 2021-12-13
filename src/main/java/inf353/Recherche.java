@@ -45,7 +45,7 @@ public class Recherche {
     /**
      * Trie les résultats du meilleur au pire score et affiche les resultat
      */
-    public void presentation() throws IOException {
+    public void presentation(int nbResultats) throws IOException {
         System.out.println("Calcul du score en cours...");
         double[] valeurs = score(); 
         System.out.println("Calcul terminé !");
@@ -59,7 +59,7 @@ public class Recherche {
         buffer.newLine();
         buffer.newLine();
         System.out.println("Voici les résultats correspondant à votre requête :");
-        while (i < longueur && i != 10) {
+        while (i < longueur && i != nbResultats) {
             // on cherche la position du max de resultats
             int position = 0;
             int j = 1;
@@ -71,8 +71,7 @@ public class Recherche {
                 j++;
             }
             // position contient la position de la plus grande valeur trouvée
-            String resultat = (i+1) + ". " + indexation.dictioDocuments.motIndice(positions[position]) + " (score: " + valeurs[position] + ")";
-            System.out.println(resultat);
+            String resultat = "91" + '\t' + "Q0" + '\t' + indexation.dictioDocuments.motIndice(positions[position]) + '\t' + (i+1) + '\t' + valeurs[position] + '\t' + "91-lnn-lnn";
             buffer.write(resultat);
             buffer.newLine();
             // on retire 1 à la longueur pour mettre la dernière valeur à sa place
@@ -85,6 +84,7 @@ public class Recherche {
         buffer.flush();
         buffer.close();
     } 
+
     /**
      * Calcule le score des documents en fonction de l'Indexation et de la recherche
      */
@@ -99,12 +99,13 @@ public class Recherche {
             // i = index du document
             int i = 0;
             double ponderationLocaleRequete = this.ponderationLocaleRequete(cc.elt);
+            double ponderationGlobaleRequete = this.ponderationGlobaleRequete(cc.elt);
             // tant qu'on a pas traite tous les scores
             while (i != scores.length) {
                 String document = this.indexation.dictioDocuments.motIndice(i);
-                double ponderationLocaleDocument = this.ponderationLocaleDocument(cc.elt, document);
-                double ponderationGlobaleDocument = ponderationGlobaleDocument(cc.elt);
-                scores[i] += ponderationLocaleDocument * ponderationLocaleRequete * ponderationGlobaleDocument * ponderationGlobaleRequete() / (normalisationDocument() * normalisationRequete());
+                double ponderationLocaleDocument = this.ponderationLocaleDocumentl(cc.elt, document);
+                double ponderationGlobaleDocument = ponderationGlobaleDocumentT(cc.elt);
+                scores[i] += ponderationLocaleDocument * ponderationLocaleRequete * ponderationGlobaleDocument * ponderationGlobaleRequete / (normalisationDocument() * normalisationRequete());
                 i++;
             }
             cc = cc.suiv;
@@ -118,7 +119,7 @@ public class Recherche {
      * @param mot le mot à chercher
      * @param document le document à chercher
      */
-    public double ponderationLocaleDocument(String mot, String document) {
+    public double ponderationLocaleDocumentl(String mot, String document) {
         double res = 0;
         int val = this.indexation.val(mot, document);
         if(val > 0) {
@@ -126,11 +127,29 @@ public class Recherche {
         }
         return res;
     }
+
+     /**
+     * Renvoie la valeur de la pondération du mot dans le document
+     * Cette pondération est de niveau L (facteur logarithmique normalisé)
+     * formule: [ 1 + log(freq(t,d)) ] / [ 1 + log(avg(freq(t,d))) ]  avec freq(t,d) != 0
+     * @param mot le mot à chercher
+     * @param document le document à chercher
+     */
+    public double ponderationLocaleDocumentL(String mot, String document) {
+        double res = 0;
+        int val = this.indexation.val(mot, document);
+        double avg = this.indexation.dictioMots.nbOccMot(mot)/this.indexation.dictioDocuments.nbMots();
+        if(val > 0) {
+            res = (1 + Math.log(val))/(1+Math.log(avg));
+        }
+        return res;
+    }
     /**
      * Renvoie la valeur de la pondération dans le corpus
      * Cette pondération est de niveau t (1 + log (N/df) )
      */
-    public double ponderationGlobaleDocument(String mot) {
+    
+    public double ponderationGlobaleDocumentT(String mot) {
         double res = 0;
         int df = this.indexation.dictioMots.nbDocMot(mot);
         if(df != 0){
@@ -148,7 +167,7 @@ public class Recherche {
      * Cette pondération Globale est de niveau P (1+log (N-df/df)  ) 
      */
 
-    public double ponderationGlobaleDocument1(String mot) {
+    public double ponderationGlobaleDocumentP(String mot) {
         double res = 0;
         int df = this.indexation.dictioMots.nbDocMot(mot);
         if(df != 0){
@@ -186,9 +205,8 @@ public class Recherche {
      * Renvoie la valeur de la pondération dans le corpus
      * Cette pondération est de niveau N (pas de pondération)
      */
-    public int ponderationGlobaleRequete() {
+    public double ponderationGlobaleRequete(String mot) {
         return 1;
-
     }
 
     /**

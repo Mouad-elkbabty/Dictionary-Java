@@ -139,7 +139,7 @@ public class DictionnaireHash implements Dictionnaire {
 
 
         /**
-     * Retourne le nombre de document contennant le mot m ou 0 s'il n'est pas trouvé
+     * Retourne le nombre de document contennant le mot m
      * 
      * @param m Le mot à tester
      */
@@ -156,7 +156,18 @@ public class DictionnaireHash implements Dictionnaire {
         }
         return n;
     }
-
+    public int nbOccMot(String m){
+    int n = 0;
+    int i = Math.abs(m.hashCode() % N);
+    CelluleDictio cc = T[i];
+    while (cc != null && !cc.elt.equals(m)) {
+        cc = cc.suiv;
+    }
+    if (cc != null) {
+        n = cc.occ;
+    }
+    return n;
+    }
     /**
      * Retourne le mot contenu à l'indice i dans le DictionnaireHash ou null s'il
      * n'existe pas
@@ -389,7 +400,6 @@ public class DictionnaireHash implements Dictionnaire {
 
         for(int m = 0; m < mots.length && mots[m] != null; m++) {
             this.ajouterMot(mots[m], Integer.parseInt(occString[m]),Integer.parseInt(nbDocString[m]));
-
         }
         buffer.close();
     }

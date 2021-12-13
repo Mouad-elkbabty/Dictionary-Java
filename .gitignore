@@ -131,6 +131,7 @@ buildNumber.properties
 .mvn/timing.properties
 # ignore the output files in the test resources folder
 src/test/resources/inf353/output*.txt
+src/test/resources/inf353/test-matrice-sauver/
 # ignore the save files
 src/main/resources/inf353/
 
