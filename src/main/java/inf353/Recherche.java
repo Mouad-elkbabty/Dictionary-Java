@@ -39,9 +39,7 @@ public class Recherche {
         System.out.println("Chargement de l'indexation en cours...");
         this.indexation = new Indexation(chemin);
         System.out.println("Chargement termine !");
-        this.requete = new Indexation();
-        this.requete.dictioDocuments = new DictionnaireHash(1);
-        this.requete.matriceOccurrences = new MatriceHash(1);
+        this.requete = new Indexation(1, 1, 1);
         this.requete.ajouterDocument(this.recherche.getPath());
     }
 
