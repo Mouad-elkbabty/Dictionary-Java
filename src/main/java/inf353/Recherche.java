@@ -42,7 +42,6 @@ public class Recherche {
         this.requete = new Indexation(1, 1, 1);
         this.requete.ajouterDocument(this.recherche.getPath());
     }
-
     /**
      * Trie les résultats du meilleur au pire score et affiche les resultat
      */
@@ -86,7 +85,6 @@ public class Recherche {
         buffer.flush();
         buffer.close();
     } 
-
     /**
      * Calcule le score des documents en fonction de l'Indexation et de la recherche
      */
@@ -105,7 +103,8 @@ public class Recherche {
             while (i != scores.length) {
                 String document = this.indexation.dictioDocuments.motIndice(i);
                 double ponderationLocaleDocument = this.ponderationLocaleDocument(cc.elt, document);
-                scores[i] += ponderationLocaleDocument * ponderationLocaleRequete * ponderationGlobaleDocument() * ponderationGlobaleRequete() / (normalisationDocument() * normalisationRequete());
+                double ponderationGlobaleDocument = ponderationGlobaleDocument(cc.elt);
+                scores[i] += ponderationLocaleDocument * ponderationLocaleRequete * ponderationGlobaleDocument * ponderationGlobaleRequete() / (normalisationDocument() * normalisationRequete());
                 i++;
             }
             cc = cc.suiv;
@@ -131,8 +130,11 @@ public class Recherche {
      * Renvoie la valeur de la pondération dans le corpus
      * Cette pondération est de niveau N (pas de pondération)
      */
-    public double ponderationGlobaleDocument() {
-        return 1;
+    public double ponderationGlobaleDocument(String mot) {
+        double res = 0;
+        int df = this.indexation.dictioMots.nbDocMot(mot);
+        res = 1 + Math.log(this.indexation.dictioDocuments.nbMots() / df);
+        return res;
     }
 
     /**

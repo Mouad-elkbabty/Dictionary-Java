@@ -7,8 +7,14 @@ public class MainEval {
 
     public static void main(String[] args) throws IOException{
         
-        String chemin = "/home/vialf/ubuntu/requete/inf353-tests/C091";
-        
+
+        int doc = 91;
+        String chemin = "/home/vialf/ubuntu/requete/inf353-tests/C";
+        while (doc < 140)
+        {
+
+            
+        }
         
         
         String[] requete = lecture(chemin);
