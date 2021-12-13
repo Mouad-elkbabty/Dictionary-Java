@@ -137,6 +137,14 @@ public class Recherche {
         return res;
     }
 
+
+    public double ponderationGlobaleDocument1(String mot) {
+        double res = 0;
+        int df = this.indexation.dictioMots.nbDocMot(mot);
+        res = 1 + Math.log(this.indexation.dictioDocuments.nbMots() - df / df);
+        return res;
+    }
+
     /**
      * Renvoie la normalisation du document
      * Cette normalisation est de niveau N (pas de normalisation)
