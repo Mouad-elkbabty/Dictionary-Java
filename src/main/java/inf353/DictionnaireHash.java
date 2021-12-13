@@ -102,10 +102,9 @@ public class DictionnaireHash implements Dictionnaire {
 
     /**
      * incrémente le nombre de documents contenant le mot en paramètre
-     * 
      * @param m Le mot à incrémenter
      */
-    public void ajoutenbDoc(String m){
+    public void incrementeNbDoc(String m){
         if(contient(m)){
             int n = Math.abs(m.hashCode() % N);
             CelluleDictio cc = T[n];
@@ -138,7 +137,7 @@ public class DictionnaireHash implements Dictionnaire {
 
 
         /**
-     * Retourne le nombre de document contennant le mot m
+     * Retourne le nombre de document contennant le mot m ou 0 s'il n'est pas trouvé
      * 
      * @param m Le mot à tester
      */
@@ -401,6 +400,7 @@ public class DictionnaireHash implements Dictionnaire {
 
         for(int m = 0; m < mots.length && mots[m] != null; m++) {
             this.ajouterMot(mots[m], Integer.parseInt(occString[m]),Integer.parseInt(nbDocString[m]));
+
         }
         buffer.close();
     }
