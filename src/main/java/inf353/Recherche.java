@@ -39,9 +39,7 @@ public class Recherche {
         System.out.println("Chargement de l'indexation en cours...");
         this.indexation = new Indexation(chemin);
         System.out.println("Chargement termine !");
-        this.requete = new Indexation();
-        this.requete.dictioDocuments = new DictionnaireHash(1);
-        this.requete.matriceOccurrences = new MatriceHash(1);
+        this.requete = new Indexation(1, 1, 1);
         this.requete.ajouterDocument(this.recherche.getPath());
     }
 
@@ -129,11 +127,6 @@ public class Recherche {
         }
         return res;
     }
-<<<<<<< HEAD
-
-=======
-    
->>>>>>> d246dafb0f04f371eef6bd5c0ff517fb6b5d5348
     /**
      * Renvoie la valeur de la pondération dans le corpus
      * Cette pondération est de niveau N (pas de pondération)
