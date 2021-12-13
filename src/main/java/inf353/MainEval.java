@@ -7,11 +7,11 @@ public class MainEval {
 
     public static void main(String[] args) throws IOException{
         
-        String chemin = "./home/combegae/ubuntu/requete/inf353-tests/C091";
+        String chemin = "./home/vialf/ubuntu/requete/inf353-tests/C091";
         
         
         
-        String[] requete = lecture("./home/combegae/ubuntu/requete/inf353-tests/C091");
+        String[] requete = lecture(chemin);
         if(requete.length <= 0)
         {
             System.out.println("La requete est vide!!");
