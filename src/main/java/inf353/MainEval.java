@@ -18,7 +18,7 @@ public class MainEval {
             System.exit(0);
         }
         Recherche recherche = new Recherche(requete,chemin);
-        recherche.presentation();
+        recherche.presentation(2500);
     }
 
     public static String[] lecture (String chemin) throws IOException{
