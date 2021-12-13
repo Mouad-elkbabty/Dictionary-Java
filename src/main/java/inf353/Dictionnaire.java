@@ -40,6 +40,13 @@ public interface Dictionnaire {
      */
     public int nbDocMot(String m);
 
+ /**
+     * renvoie l'entier associé au nombre total occurence du mot dans le corpus
+     * @param m
+     * @return
+     */
+    public int nbOccMot(String m);
+
     /**
      * renvoie le mot associé à l'entier i;
      * @param i l'indice du mot à renvoyer
