@@ -1,47 +1,86 @@
 package inf353;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class Recherche {
 
-    File recherche;
     Indexation indexation;
-    Indexation requete;
+    Indexation recherche;
+    File sortie;
 
     /**
      * Crée une Recherche
-     * @param requete La requête faite
      * @param chemin Le chemin vers l'Indexation à utiliser
      */
-    public Recherche(String[] entree, String chemin) throws IOException {
-        File dossier = new File("./src/main/resources/inf353/requete/");
+    public Recherche(String chemin) throws IOException {
+        // Creation du dossier requetes
+        File dossier = new File("./src/main/resources/inf353/requetes/");
         if (!dossier.isDirectory()) {
             dossier.mkdir();
         }
-        int numero = 0;
-        if (dossier.list() != null) {
-            numero = dossier.list().length;
-        }
-        this.recherche = new File("./src/main/resources/inf353/requete/requete-" + numero);
-        BufferedWriter buffer = new BufferedWriter(new FileWriter(recherche.getPath(), false));
-        String ligne = "";
-        int i = 0;
-        while (i < entree.length){
-            ligne += entree[i] + " ";
-            i++;
-        }
-        buffer.write(ligne);
-        buffer.flush();
-        buffer.close();
+
+        // Chargement de l'Indexation
         System.out.println("Chargement de l'indexation en cours...");
         this.indexation = new Indexation(chemin);
         System.out.println("Chargement termine !");
-        this.requete = new Indexation(1, 1, 1);
-        this.requete.ajouterDocument(this.recherche.getPath());
     }
+
+    public void requete(String nomFic, String requete, int nbResultats) throws IOException {
+        // Chargement du fichier
+        String chemin = "./src/main/resources/inf353/requetes/" + nomFic;
+        this.sortie = new File(chemin);
+        if (this.sortie.isDirectory())
+            throw new IOException("Le chemin \"" + chemin + "\" est un dossier.");
+        File dossier = new File(this.sortie.getParent());
+        if (dossier != null && !dossier.isDirectory()) dossier.mkdir();
+        this.sortie.createNewFile();
+        
+        // Initialisation du Buffer
+        BufferedWriter buffer = new BufferedWriter(new FileWriter(this.sortie.getPath(), false));
+        // Ecriture de la requete dans un fichier pour utiliser le Lecteur
+        buffer.write(requete);
+        buffer.flush();
+        buffer.close();
+        // Attribution de la nouvelle recherche
+        this.recherche = new Indexation(1, 1, 1);
+        this.recherche.ajouterDocument(this.sortie.getPath());
+        // Presentation du resultat
+        this.presentation(nbResultats);
+    }
+
+    public void requete(int numeroRequete, int nbResultats) throws IOException {
+        // Verification de l'entier donne
+        if (numeroRequete < 91 || numeroRequete > 140) throw new Error("Veuillez entrer un nombre entre 91 et 140 (inclus)");
+        // Verification du chemin pour voir si tout est en ordre
+        String num = "";
+        if (numeroRequete < 100) num = "0";
+        String chemin = System.getProperty("user.home") + "/ubuntu/requete/inf353-tests/C" + num + numeroRequete;
+        this.sortie = new File(chemin);
+        if (!this.sortie.exists()) throw new IOException("Le chemin \"" + chemin + "\" n'existe pas.");
+        if (this.sortie.isDirectory()) throw new IOException("Le chemin \"" + chemin + "\" est un dossier.");
+
+        // Creation du Buffer
+        BufferedReader buffer = new BufferedReader(new FileReader(this.sortie));
+
+        // Recuperation de la requete stockee
+        String res = "";
+        String ligne = buffer.readLine();
+        while (ligne != null) {
+            res += ligne + "\n";
+            ligne = buffer.readLine();
+        }
+        // Fermeture du Buffer
+        buffer.close();
+
+        // Utilisation de notre autre methode requete()
+        this.requete(numeroRequete + "", res, nbResultats);
+    }
+
     /**
      * Trie les résultats du meilleur au pire score et affiche les resultat
      */
@@ -55,10 +94,8 @@ public class Recherche {
         }
         int longueur = valeurs.length;
         int i = 0;
-        BufferedWriter buffer = new BufferedWriter(new FileWriter(recherche, true));
-        buffer.newLine();
-        buffer.newLine();
-        System.out.println("Voici les résultats correspondant à votre requête :");
+        BufferedWriter buffer = new BufferedWriter(new FileWriter(this.sortie, false));
+        System.out.println("Ecriture des resultats en cours...");
         while (i < longueur && i != nbResultats) {
             // on cherche la position du max de resultats
             int position = 0;
@@ -71,7 +108,7 @@ public class Recherche {
                 j++;
             }
             // position contient la position de la plus grande valeur trouvée
-            String resultat = "91" + '\t' + "Q0" + '\t' + indexation.dictioDocuments.motIndice(positions[position]) + '\t' + (i+1) + '\t' + valeurs[position] + '\t' + "91-lnn-lnn";
+            String resultat = this.sortie.getName() + '\t' + "Q0" + '\t' + indexation.dictioDocuments.motIndice(positions[position]) + '\t' + (i+1) + '\t' + valeurs[position] + '\t' + "lnn-lnn";
             buffer.write(resultat);
             buffer.newLine();
             // on retire 1 à la longueur pour mettre la dernière valeur à sa place
@@ -80,9 +117,9 @@ public class Recherche {
             positions[position] = positions[longueur];
             i++;
         }
-        System.out.println("Votre requête a été postée dans le fichier " + recherche.getName());
         buffer.flush();
         buffer.close();
+        System.out.println("Ecriture terminee dans le fichier " + this.sortie.getName());
     } 
 
     /**
@@ -92,7 +129,7 @@ public class Recherche {
         // un element pour un document
         double[] scores = new double[indexation.dictioDocuments.nbMots()];
         // on veut parcourir tous les mots de notre requete
-        CelluleDictio cc = this.requete.dictioMots.T[0];
+        CelluleDictio cc = this.recherche.dictioMots.T[0];
         // tant qu'on a pas traite tous les mots
         while (cc != null) {
             System.out.println("Calcul du score avec le mot " + cc.elt);
@@ -194,7 +231,7 @@ public class Recherche {
      */
     public double ponderationLocaleRequete(String mot) {
         double res = 0;
-        int val = this.requete.val(mot, this.recherche.getName());
+        int val = this.recherche.val(mot, this.sortie.getName());
         if(val > 0) {
             res = 1 + Math.log(val);
         }
@@ -217,9 +254,6 @@ public class Recherche {
         return 1;
     }
 
-
-
-
     public void presentationFichiers(int nbResultats) throws IOException {
         System.out.println("Calcul du score en cours...");
         double[] valeurs = score(); 
@@ -230,7 +264,7 @@ public class Recherche {
         }
         int longueur = valeurs.length;
         int i = 0;
-        BufferedWriter buffer = new BufferedWriter(new FileWriter(recherche, false));
+        BufferedWriter buffer = new BufferedWriter(new FileWriter(this.sortie, false));
         while (i != longueur && i != nbResultats) {
             // on cherche la position du max de resultats
             int position = 0;
@@ -252,7 +286,7 @@ public class Recherche {
             positions[position] = positions[longueur];
             i++;
         }
-        System.out.println("Votre requête a été postée dans le fichier " + recherche.getName());
+        System.out.println("Votre requête a été postée dans le fichier " + sortie.getPath());
         buffer.flush();
         buffer.close();
     } 
