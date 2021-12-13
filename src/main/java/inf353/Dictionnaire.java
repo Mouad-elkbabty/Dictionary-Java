@@ -33,6 +33,13 @@ public interface Dictionnaire {
      */
     public int indiceMot(String m);
 
+
+     /**
+     * incrémente le nombre de documents contenant le mot en paramètre
+     * @param m Le mot à incrémenter
+     */
+    public void incrementeNbDoc(String m);
+
     /**
      * renvoie l'entier associé au nombre de documents contenant m;
      * @param m
