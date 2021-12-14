@@ -192,7 +192,7 @@ Higo et Mouad ont toujours des problèmes à comprendre le projet, mais grâce �
 
 ### Faits marquants
 
-Cette journée a été l'une des plus productives que nous ayons eu. Chaque problème a été étudié en petit groupe et personne n'est resté sans rien faire. Nous espérons continuer comme cela le reste de la semaine.
+Chaque problème a été étudié en petit groupe et personne n'est resté sans rien faire. Nous espérons continuer comme cela le reste de la semaine.
 Grâce à un calcul ltn-ltn, nous sommes arrivés à une précision d'environ 15%.
 
 ## Semaine de projet - Mardi
@@ -206,13 +206,13 @@ Valentin a maintenu le README (que vous voyez actuellement !).
 Célia s'est intéressée à la stoplist.
 
 
-Mouad et higo'sont plutôt dirigé vers les troncatures,ils ont alors aussi changer quelques méthodes en LecteurDocumentNaif et indexation  apres chacun a fait des testes sur les differents corpus , aprés ils sont dirigé vers les synonymes et  normalisation.
+Mouad et higo se sont plutôt dirigé vers les troncatures,ils ont alors aussi changer quelques méthodes en LecteurDocumentNaif et indexation  apres chacun a fait des testes sur les differents corpus , aprés ils sont dirigé vers les synonymes et  normalisation.
 
-
+Bilan : les troncatures fonctionnent, la recherches fonctionnent. Il reste a mettre en place les autres calculs et les testés.
 ### Difficultés
 
-...
+Complexité sur les calculs de similarité. Le scoring était long ce qui a conduit a une refonte de la methode de score.
 
 ### Faits marquants
  
-...
+Taux de réussite sur le push précedent de 27,8% sur le corpus complet avec 500 element renvoyés par requete.
