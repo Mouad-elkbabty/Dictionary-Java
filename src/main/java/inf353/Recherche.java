@@ -144,7 +144,6 @@ public class Recherche {
         CelluleDictio cc = this.recherche.dictioMots.T[0];
         while (cc != null) {
             System.out.println("Calcul du score avec le mot " + cc.elt);
-<<<<<<< HEAD
             int indiceDoc = 0;
             int indiceMot = this.indexation.dictioMots.indiceMot(cc.elt);
             int df = this.indexation.dictioMots.nbDocMot(cc.elt);
@@ -155,20 +154,6 @@ public class Recherche {
                 double ponderationLocaleRequete = ponderationLocaleRequeteFrequentiel(cc.ind);
                 scores[indiceDoc] += ponderationLocaleDocument * ponderationLocaleRequete * ponderationGlobaleDocument * ponderationGlobaleRequete;
                 indiceDoc++;
-=======
-            // i = index du document
-            int i = 0;
-            double ponderationLocaleRequete = this.ponderationLocaleRequete(cc.elt);
-            double ponderationGlobaleRequete = this.ponderationGlobaleRequete(cc.elt);
-            double ponderationGlobaleDocument = ponderationGlobaleDocumentT(cc.elt);
-            // tant qu'on a pas traite tous les scores
-            while (i != scores.length) {
-                String document = this.indexation.dictioDocuments.motIndice(i);
-                double normalisationDocument = normalisationDocumentL2 (document);
-                double ponderationLocaleDocument = this.ponderationLocaleDocumentl(cc.elt, document);
-                scores[i] += ponderationLocaleDocument * ponderationLocaleDocument * ponderationGlobaleDocument * ponderationGlobaleRequete / (normalisationDocument * normalisationRequete());
-                i++;
->>>>>>> 59944d39f5b6fddb6a38361c400e4079b96f2160
             }
             cc = cc.suiv;
         }
@@ -186,7 +171,6 @@ public class Recherche {
     }
 
     /**
-<<<<<<< HEAD
      * Calcule la pondération locale du document
      * Cette pondération est de niveau a
      */
@@ -259,8 +243,6 @@ public class Recherche {
 
 
     /**
-=======
->>>>>>> 59944d39f5b6fddb6a38361c400e4079b96f2160
      * di X qi
      * @param document
      * @param mot
