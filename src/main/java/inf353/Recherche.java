@@ -122,6 +122,7 @@ public class Recherche {
         System.out.println("Ecriture terminee dans le fichier " + this.sortie.getName());
     } 
 
+
     /**
      * Calcule le score des documents en fonction de l'Indexation et de la recherche
      */
@@ -137,18 +138,53 @@ public class Recherche {
             int i = 0;
             double ponderationLocaleRequete = this.ponderationLocaleRequete(cc.elt);
             double ponderationGlobaleRequete = this.ponderationGlobaleRequete(cc.elt);
+            double ponderationGlobaleDocument = ponderationGlobaleDocumentT(cc.elt);
             // tant qu'on a pas traite tous les scores
             while (i != scores.length) {
                 String document = this.indexation.dictioDocuments.motIndice(i);
-                double normalisationDocument = normalisationDocumentL1 (document);
+                double normalisationDocument = normalisationDocumentL2 (document);
                 double ponderationLocaleDocument = this.ponderationLocaleDocumentl(cc.elt, document);
-                double ponderationGlobaleDocument = ponderationGlobaleDocumentT(cc.elt);
                 scores[i] += ponderationLocaleDocument * ponderationLocaleDocument * ponderationGlobaleDocument * ponderationGlobaleRequete / (normalisationDocument * normalisationRequete());
                 i++;
             }
             cc = cc.suiv;
         }
+        int i = 0;
+        double di;
+        double qi = normalisationDocumentL2(this.recherche.dictioDocuments.motIndice(0));
+        String document;
+        while(i < scores.length){
+            document = this.indexation.dictioDocuments.motIndice(i);
+            di = normalisationDocumentL2(document);
+            scores[i] *= di*qi;
+            i++;
+        }
+        
         return scores;
+    }
+
+    /**
+     * di X qi
+     * @param document
+     * @param mot
+     */
+    public double ponderationLocaleDocumentN(String document,String mot){
+        double res = 0;
+        CelluleMatrice cc = this.indexation.matriceOccurrences.T[this.indexation.dictioDocuments.indiceMot(document)];
+        int ind = this.indexation.dictioMots.indiceMot(mot);
+        if(this.indexation.dictioMots.contient(mot)) //si le mot est dans le document
+        {
+            while(cc!= null && cc.ind > ind )//tant qu'on ne l'a pas trouvé
+            {
+                cc = cc.suiv;
+            }
+            if(cc != null && cc.ind == ind) // si on l'a trouvé
+            {
+                res = cc.elt;
+            }
+        }
+
+        return res;
     }
 
     /**
@@ -173,7 +209,7 @@ public class Recherche {
      * @param mot le mot à chercher
      * @param document le document à chercher
      */
-    //marche pas renvoit 0.0
+
     public double ponderationLocaleDocumentL(String mot, String document) {
         double res = 0;
         int val = this.indexation.val(mot, document);
@@ -184,11 +220,11 @@ public class Recherche {
         }
         return res;
     }
+    
     /**
      * Renvoie la valeur de la pondération dans le corpus
      * Cette pondération est de niveau t (1 + log (N/df) )
-     */
-    
+     */   
     public double ponderationGlobaleDocumentT(String mot) {
         double res = 0;
         double df = this.indexation.dictioMots.nbDocMot(mot);
@@ -202,11 +238,10 @@ public class Recherche {
     }
 
 
-       /**
-     * Renvoie la valeur de la pondération dans le corpus
-     * Cette pondération Globale est de niveau P (1+log (N-df/df)  ) 
-     */
-
+    /**
+    * Renvoie la valeur de la pondération dans le corpus
+    * Cette pondération Globale est de niveau P (1+log (N-df/df)  ) 
+    */
     public double ponderationGlobaleDocumentP(String mot) {
         double res = 0;
         int df = this.indexation.dictioMots.nbDocMot(mot);
@@ -223,7 +258,7 @@ public class Recherche {
      * Renvoie la normalisation du document
      * Cette normalisation est de niveau L1 (pas de normalisation)
      */
-    public int normalisationDocumentL1(String document) {
+    public double normalisationDocumentL1(String document) {
         int res = 0;
         int i = this.indexation.dictioDocuments.indiceMot(document);
         CelluleMatrice cc = this.indexation.matriceOccurrences.T[i];
@@ -237,6 +272,29 @@ public class Recherche {
         return res;
     }
 
+    public double normalisationDocumentL2(String document) {
+        double res = 0;
+        int i = this.indexation.dictioDocuments.indiceMot(document);
+        CelluleMatrice cc = this.indexation.matriceOccurrences.T[i];
+        while(cc != null){
+            res = res + Math.pow(cc.elt,2);
+            cc = cc.suiv;
+        }
+        if( res == 0){
+            res = 1;
+        }
+        return Math.sqrt(res);
+    }
+
+
+    public double normalisationCosinus(String document,String  mot) {
+        double res = 0;
+        double N = this.ponderationLocaleDocumentN(document,mot);
+
+
+
+        return res;
+    }
     /**
      * Renvoie la valeur de la pondération locale du mot dans la requête
      * Cette pondération est de niveau l (facteur logarithmique)
