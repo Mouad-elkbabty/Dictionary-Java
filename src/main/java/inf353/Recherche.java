@@ -132,23 +132,28 @@ public class Recherche {
     public double[] score() throws IOException {
         // un element pour un document
         double[] scores = new double[indexation.dictioDocuments.nbMots()];
-        // on veut parcourir tous les mots de notre requete
+        // on initialise nos valeurs
+        int d = 0;
+        int[] max = new int[indexation.dictioDocuments.nbMots()];
+        while (d != indexation.dictioDocuments.nbMots()) {
+            max[d] = this.indexation.maxOccurrence(d);
+            d++;
+        }
+
+        // schéma atn.ntc
         CelluleDictio cc = this.recherche.dictioMots.T[0];
-        // tant qu'on a pas traite tous les mots
         while (cc != null) {
             System.out.println("Calcul du score avec le mot " + cc.elt);
-            // i = index du document
-            int i = 0;
-            double ponderationLocaleRequete = this.ponderationLocaleRequete(cc.elt);
-            double ponderationGlobaleRequete = this.ponderationGlobaleRequete(cc.elt);
-            double ponderationGlobaleDocument = ponderationGlobaleDocumentT(cc.elt);
-            // tant qu'on a pas traite tous les scores
-            while (i != scores.length) {
-                String document = this.indexation.dictioDocuments.motIndice(i);
-                double normalisationDocument = normalisationDocumentL2 (document);
-                double ponderationLocaleDocument = this.ponderationLocaleDocumentl(cc.elt, document);
-                scores[i] += ponderationLocaleDocument * ponderationLocaleDocument * ponderationGlobaleDocument * ponderationGlobaleRequete / (normalisationDocument * normalisationRequete());
-                i++;
+            int indiceDoc = 0;
+            int indiceMot = this.indexation.dictioMots.indiceMot(cc.elt);
+            int df = this.indexation.dictioMots.nbDocMot(cc.elt);
+            double ponderationGlobaleDocument = ponderationGlobaleIdf(df);
+            double ponderationGlobaleRequete = ponderationGlobaleIdf(df);
+            while (indiceDoc != scores.length) {
+                double ponderationLocaleDocument = ponderationLocaleDocumentl(indiceMot, indiceDoc);
+                double ponderationLocaleRequete = ponderationLocaleRequeteFrequentiel(cc.ind);
+                scores[indiceDoc] += ponderationLocaleDocument * ponderationLocaleRequete * ponderationGlobaleDocument * ponderationGlobaleRequete;
+                indiceDoc++;
             }
             cc = cc.suiv;
         }
@@ -164,6 +169,78 @@ public class Recherche {
         }
         return scores;
     }
+
+    /**
+     * Calcule la pondération locale du document
+     * Cette pondération est de niveau a
+     */
+    public double ponderationLocaleDocumentAugmentee(int indiceMot, int indiceDoc, int max) {
+        double res = 0.5 + 0.5 * this.indexation.matriceOccurrences.val(indiceDoc, indiceMot) / max;
+        return res;
+    }
+
+    /**
+     * Renvoie la pondération globale
+     * Cette pondération est de niveau t
+     */   
+    public double ponderationGlobaleIdf(int df) {
+        double res = 0;
+        if (df != 0){
+            res = 1 + Math.log((double)(this.indexation.dictioDocuments.nbMots()) / df);
+        }
+        return res;
+    }
+
+    /**
+     * Calcule la pondération locale du document
+     * Cette pondération est de niveau n
+     */
+    public int ponderationLocaleRequeteFrequentiel(int indiceMot) {
+        int res = this.recherche.matriceOccurrences.val(0, indiceMot);
+        return res;
+    }
+
+    public double normalisationRequeteCosinus(int indiceMot) {
+        double res = this.indexation.matriceOccurrences.val(0, indiceMot);
+        return res;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * di X qi
@@ -195,10 +272,10 @@ public class Recherche {
      * @param mot le mot à chercher
      * @param document le document à chercher
      */
-    public double ponderationLocaleDocumentl(String mot, String document) {
+    public double ponderationLocaleDocumentl(int indiceMot, int indiceDoc) {
         double res = 0;
-        int val = this.indexation.val(mot, document);
-        if(val > 0) {
+        int val = this.indexation.matriceOccurrences.val(indiceDoc, indiceMot);
+        if(val != 0) {
             res = 1 + Math.log(val);
         }
         return res;
@@ -277,6 +354,15 @@ public class Recherche {
     public double normalisationDocumentL2(String document) {
         double res = 0;
         int i = this.indexation.dictioDocuments.indiceMot(document);
+<<<<<<< HEAD
+        CelluleMatrice cc = this.indexation.matriceOccurrences.T[i];
+        while(cc != null){
+            res = res + Math.pow(cc.elt,2);
+            cc = cc.suiv;
+        }
+        if( res == 0){
+            res = 1;
+=======
         if(i >= 0)
         {
             CelluleMatrice cc = this.indexation.matriceOccurrences.T[i];
@@ -290,10 +376,15 @@ public class Recherche {
         }
         else{
             res =1;
+>>>>>>> 59944d39f5b6fddb6a38361c400e4079b96f2160
         }
         return Math.sqrt(res);
     }
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 59944d39f5b6fddb6a38361c400e4079b96f2160
     public double normalisationCosinus(String document,String  mot) {
         double res = 0;
         double N = this.ponderationLocaleDocumentN(document,mot);
@@ -302,7 +393,10 @@ public class Recherche {
 
         return res;
     }
+<<<<<<< HEAD
+=======
     
+>>>>>>> 59944d39f5b6fddb6a38361c400e4079b96f2160
     /**
      * Renvoie la valeur de la pondération locale du mot dans la requête
      * Cette pondération est de niveau l (facteur logarithmique)
@@ -369,7 +463,5 @@ public class Recherche {
         buffer.flush();
         buffer.close();
     } 
-    
-    
 
 }
