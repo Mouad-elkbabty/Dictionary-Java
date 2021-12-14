@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.File;
 
+
 public class Indexation {
 
     /**
@@ -13,6 +14,7 @@ public class Indexation {
     public DictionnaireHash dictioMots;
     public DictionnaireHash dictioDocuments;
     public MatriceHash matriceOccurrences;
+    public Troncature troncature = new Troncature();
 
     /**
      * Crée une Indexation vierge
@@ -53,7 +55,7 @@ public class Indexation {
      * @param mot le mot à ajouter
      */
     public void ajouterMot(String mot) {
-        this.dictioMots.ajouterMot(mot);
+        this.dictioMots.ajouterMot(troncature.stem(mot));
     }
 
     /**

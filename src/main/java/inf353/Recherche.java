@@ -12,6 +12,7 @@ public class Recherche {
     Indexation indexation;
     Indexation recherche;
     File sortie;
+    File save; //indique le fichier de sauvegarde
 
     /**
      * Crée une Recherche
@@ -23,11 +24,12 @@ public class Recherche {
         if (!dossier.isDirectory()) {
             dossier.mkdir();
         }
-
         // Chargement de l'Indexation
         System.out.println("Chargement de l'indexation en cours...");
         this.indexation = new Indexation(chemin);
         System.out.println("Chargement termine !");
+        //changement Fabien tests
+        save = new File("./src/main/resources/inf353/requetes/requete");
     }
 
     public void requete(String nomFic, String requete, int nbResultats) throws IOException {
@@ -39,9 +41,8 @@ public class Recherche {
         File dossier = new File(this.sortie.getParent());
         if (dossier != null && !dossier.isDirectory()) dossier.mkdir();
         this.sortie.createNewFile();
-        
         // Initialisation du Buffer
-        BufferedWriter buffer = new BufferedWriter(new FileWriter(this.sortie.getPath(), false));
+        BufferedWriter buffer = new BufferedWriter(new FileWriter(this.sortie.getPath(),false));
         // Ecriture de la requete dans un fichier pour utiliser le Lecteur
         buffer.write(requete);
         buffer.flush();
@@ -59,7 +60,7 @@ public class Recherche {
         // Verification du chemin pour voir si tout est en ordre
         String num = "";
         if (numeroRequete < 100) num = "0";
-        String chemin = System.getProperty("user.home") + "/ubuntu/requete/inf353-tests/C" + num + numeroRequete;
+        String chemin = System.getProperty("user.home") + "/requete/inf353-tests/C" + num + numeroRequete;
         this.sortie = new File(chemin);
         if (!this.sortie.exists()) throw new IOException("Le chemin \"" + chemin + "\" n'existe pas.");
         if (this.sortie.isDirectory()) throw new IOException("Le chemin \"" + chemin + "\" est un dossier.");
@@ -78,7 +79,8 @@ public class Recherche {
         buffer.close();
 
         // Utilisation de notre autre methode requete()
-        this.requete(numeroRequete + "", res, nbResultats);
+        //changement Fabien test
+        this.requete(num + numeroRequete, res, nbResultats);
     }
 
     /**
@@ -94,7 +96,8 @@ public class Recherche {
         }
         int longueur = valeurs.length;
         int i = 0;
-        BufferedWriter buffer = new BufferedWriter(new FileWriter(this.sortie, false));
+        //changement Fabien tests
+        BufferedWriter buffer = new BufferedWriter(new FileWriter(this.save, true));
         System.out.println("Ecriture des resultats en cours...");
         while (i < longueur && i != nbResultats) {
             // on cherche la position du max de resultats
@@ -141,6 +144,7 @@ public class Recherche {
         CelluleDictio cc = this.recherche.dictioMots.T[0];
         while (cc != null) {
             System.out.println("Calcul du score avec le mot " + cc.elt);
+<<<<<<< HEAD
             int indiceDoc = 0;
             int indiceMot = this.indexation.dictioMots.indiceMot(cc.elt);
             int df = this.indexation.dictioMots.nbDocMot(cc.elt);
@@ -151,13 +155,38 @@ public class Recherche {
                 double ponderationLocaleRequete = ponderationLocaleRequeteFrequentiel(cc.ind);
                 scores[indiceDoc] += ponderationLocaleDocument * ponderationLocaleRequete * ponderationGlobaleDocument * ponderationGlobaleRequete;
                 indiceDoc++;
+=======
+            // i = index du document
+            int i = 0;
+            double ponderationLocaleRequete = this.ponderationLocaleRequete(cc.elt);
+            double ponderationGlobaleRequete = this.ponderationGlobaleRequete(cc.elt);
+            double ponderationGlobaleDocument = ponderationGlobaleDocumentT(cc.elt);
+            // tant qu'on a pas traite tous les scores
+            while (i != scores.length) {
+                String document = this.indexation.dictioDocuments.motIndice(i);
+                double normalisationDocument = normalisationDocumentL2 (document);
+                double ponderationLocaleDocument = this.ponderationLocaleDocumentl(cc.elt, document);
+                scores[i] += ponderationLocaleDocument * ponderationLocaleDocument * ponderationGlobaleDocument * ponderationGlobaleRequete / (normalisationDocument * normalisationRequete());
+                i++;
+>>>>>>> 59944d39f5b6fddb6a38361c400e4079b96f2160
             }
             cc = cc.suiv;
+        }
+        int i = 0;
+        double di;
+        double qi = normalisationDocumentL2(this.recherche.dictioDocuments.motIndice(0));
+        String document;
+        while(i < scores.length){
+            document = this.indexation.dictioDocuments.motIndice(i);
+            di = normalisationDocumentL2(document);
+            scores[i] *= di*qi;
+            i++;
         }
         return scores;
     }
 
     /**
+<<<<<<< HEAD
      * Calcule la pondération locale du document
      * Cette pondération est de niveau a
      */
@@ -230,6 +259,8 @@ public class Recherche {
 
 
     /**
+=======
+>>>>>>> 59944d39f5b6fddb6a38361c400e4079b96f2160
      * di X qi
      * @param document
      * @param mot
@@ -341,6 +372,7 @@ public class Recherche {
     public double normalisationDocumentL2(String document) {
         double res = 0;
         int i = this.indexation.dictioDocuments.indiceMot(document);
+<<<<<<< HEAD
         CelluleMatrice cc = this.indexation.matriceOccurrences.T[i];
         while(cc != null){
             res = res + Math.pow(cc.elt,2);
@@ -348,11 +380,29 @@ public class Recherche {
         }
         if( res == 0){
             res = 1;
+=======
+        if(i >= 0)
+        {
+            CelluleMatrice cc = this.indexation.matriceOccurrences.T[i];
+            while(cc != null){
+                res = res + Math.pow(cc.elt,2);
+                cc = cc.suiv;
+            }
+            if( res == 0){
+                res = 1;
+            }
+        }
+        else{
+            res =1;
+>>>>>>> 59944d39f5b6fddb6a38361c400e4079b96f2160
         }
         return Math.sqrt(res);
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 59944d39f5b6fddb6a38361c400e4079b96f2160
     public double normalisationCosinus(String document,String  mot) {
         double res = 0;
         double N = this.ponderationLocaleDocumentN(document,mot);
@@ -361,6 +411,10 @@ public class Recherche {
 
         return res;
     }
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 59944d39f5b6fddb6a38361c400e4079b96f2160
     /**
      * Renvoie la valeur de la pondération locale du mot dans la requête
      * Cette pondération est de niveau l (facteur logarithmique)
