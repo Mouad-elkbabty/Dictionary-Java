@@ -30,6 +30,7 @@ public class Recherche {
         System.out.println("Chargement termine !");
         //changement Fabien tests
         save = new File("./src/main/resources/inf353/requetes/requete");
+        save.delete();
     }
 
     public void requete(String nomFic, String requete, int nbResultats) throws IOException {
@@ -156,16 +157,6 @@ public class Recherche {
                 indiceDoc++;
             }
             cc = cc.suiv;
-        }
-        int i = 0;
-        double di;
-        double qi = normalisationDocumentL2(this.recherche.dictioDocuments.motIndice(0));
-        String document;
-        while(i < scores.length){
-            document = this.indexation.dictioDocuments.motIndice(i);
-            di = normalisationDocumentL2(document);
-            scores[i] *= di*qi;
-            i++;
         }
         return scores;
     }
