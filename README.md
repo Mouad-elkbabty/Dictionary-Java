@@ -208,13 +208,15 @@ Valentin a maintenu le README (que vous voyez actuellement !).
 
 Célia s'est intéressée à la stoplist.
 
-Mouad s'est plutôt dirigé vers les synonymes.
+
+Mouad et higo'sont plutôt dirigé vers les troncatures,ils ont alors aussi changer quelques méthodes en LecteurDocumentNaif et indexation  apres chacun a fait des testes sur les differents corpus , aprés ils sont dirigé vers les synonymes et  normalisation.
+
 
 ### Difficultés
 
 ...
 
 ### Faits marquants
-
+ 
 ...
 >>>>>>> 59944d39f5b6fddb6a38361c400e4079b96f2160
