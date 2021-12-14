@@ -9,13 +9,9 @@ public class MainEval {
         
 
         int doc = 91;
-<<<<<<< HEAD
-        String chemin = "/home/segurat/ubuntu/requete/inf353-tests/C";
-=======
         String num = "";
         String chemin = "/home/vialf/ubuntu/requete/inf353-tests/C";
->>>>>>> d568118f08b9cf29ba0d5becbf5d86118020aa63
-        while (doc < 140)
+        while (doc <= 140)
         {
             if(doc < 100)
             {
