@@ -205,43 +205,6 @@ public class Recherche {
         return res;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
      * di X qi
      * @param document
@@ -354,7 +317,6 @@ public class Recherche {
     public double normalisationDocumentL2(String document) {
         double res = 0;
         int i = this.indexation.dictioDocuments.indiceMot(document);
-<<<<<<< HEAD
         CelluleMatrice cc = this.indexation.matriceOccurrences.T[i];
         while(cc != null){
             res = res + Math.pow(cc.elt,2);
@@ -362,29 +324,10 @@ public class Recherche {
         }
         if( res == 0){
             res = 1;
-=======
-        if(i >= 0)
-        {
-            CelluleMatrice cc = this.indexation.matriceOccurrences.T[i];
-            while(cc != null){
-                res = res + Math.pow(cc.elt,2);
-                cc = cc.suiv;
-            }
-            if( res == 0){
-                res = 1;
-            }
-        }
-        else{
-            res =1;
->>>>>>> 59944d39f5b6fddb6a38361c400e4079b96f2160
         }
         return Math.sqrt(res);
     }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 59944d39f5b6fddb6a38361c400e4079b96f2160
     public double normalisationCosinus(String document,String  mot) {
         double res = 0;
         double N = this.ponderationLocaleDocumentN(document,mot);
@@ -393,10 +336,6 @@ public class Recherche {
 
         return res;
     }
-<<<<<<< HEAD
-=======
-    
->>>>>>> 59944d39f5b6fddb6a38361c400e4079b96f2160
     /**
      * Renvoie la valeur de la pondération locale du mot dans la requête
      * Cette pondération est de niveau l (facteur logarithmique)
