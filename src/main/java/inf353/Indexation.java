@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.File;
 
+
 public class Indexation {
 
     /**
@@ -13,6 +14,7 @@ public class Indexation {
     public DictionnaireHash dictioMots;
     public DictionnaireHash dictioDocuments;
     public MatriceHash matriceOccurrences;
+    public Troncature troncature = new Troncature();
 
 
     /**
@@ -54,7 +56,7 @@ public class Indexation {
      * @param mot le mot à ajouter
      */
     public void ajouterMot(String mot) {
-        this.dictioMots.ajouterMot(mot);
+        this.dictioMots.ajouterMot(troncature.stem(mot));
     }
 
     /**
@@ -137,33 +139,18 @@ public class Indexation {
      * Renvoie -1 si le document n'est pas trouvé
      * @param document le document dans lequel faire la recherche ou null ou ""
      */
-    public int maxOccurrence(String document) {
+    public int maxOccurrence(int indiceDoc) {
         int val = -1;
         CelluleMatrice cc = null;
         int index = 0;
-        if (document == null || document == "") {
-            index = this.dictioDocuments.indiceMot(document);
-            if (index != -1) {
-                val = 0;
-                cc = this.matriceOccurrences.T[index];
-                while (cc != null) {
-                    if (cc.elt > val) {
-                        val = cc.elt;
-                    }
-                    cc = cc.suiv;
-                }
-            }
-        } else {
+        if (indiceDoc >= 0 && indiceDoc < this.dictioDocuments.nbMots()) {
             val = 0;
-            while (index != this.dictioDocuments.nbMots()) {
-                cc = this.matriceOccurrences.T[index];
-                while (cc != null) {
-                    if (cc.elt > val) {
-                        val = cc.elt;
-                    }
-                    cc = cc.suiv;
+            cc = this.matriceOccurrences.T[indiceDoc];
+            while (cc != null) {
+                if (cc.elt > val) {
+                    val = cc.elt;
                 }
-                index++;
+                cc = cc.suiv;
             }
         }
         return val;

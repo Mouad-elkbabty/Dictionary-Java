@@ -1,5 +1,6 @@
 package inf353;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.File;
@@ -28,10 +29,29 @@ public class MainRecherche {
             recherches[j] = tampon[j];
             j++;
         }*/
-        String [] recherches = synonimes(args);
+        String recherches = synonimes(args);
 
-        Recherche recherche = new Recherche(recherches, "./src/main/resources/inf353/indexation/");
+
+
+
         recherche.presentation(2500);
+        if (args.length == 0) throw new Error("Veuillez entrer une requete valide");
+        Recherche recherche = new Recherche("./src/main/resources/inf353/indexation/");
+        try {
+            int n = Integer.parseInt(args[0]);
+            if (n < 91 || n > 140) throw new NumberFormatException();
+            recherche.requete(n, 500);
+        } catch (NumberFormatException e) {
+            String res = "";
+            int i = 0;
+            while (i != args.length) {
+                res += args[i] + " ";
+                i++;
+            }
+            File dossier = new File("./src/main/resources/inf353/requetes");
+            int l = dossier.listFiles().length;
+            recherche.requete("requete", res, 500);
+        }
     }
 
 
@@ -102,9 +122,9 @@ public class MainRecherche {
                 j = 0;
             }
             i = 0;
-            String [] res1 = new String[k];
+            String res1 = "";
             while(i<k){
-                res1[i] = res[i];
+                res1 = res1 + " " + res[i];
                 System.out.println(res1[i]);
                 i++;
             }

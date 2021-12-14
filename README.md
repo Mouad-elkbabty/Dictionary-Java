@@ -162,13 +162,57 @@ Ajout des commentaires  détailés pour tous les testes , ainsi que specifier to
 ### Faits marquants
 
 Très bonne communication, la répartition semble bonne.
-<<<<<<< HEAD
 
-#### A FAIRE
-- S'assurer que le programme actuel FONTIONNE a 100%
-- Commencer a mettre en place mes nouvelles methodes de calcul de similarité 
-    - nnn (actuel)
-- Plus de nécésité de stoplist
-- Rajouter des tests
-=======
->>>>>>> dd1d4207027762782b30e9273ffd69cdd628b025
+## Semaine de projet - Lundi
+
+### Répartition
+
+Gaétan s'est occupé des calculs de similarité, notamment les facteurs log.
+Il a aussi ajouté l'attribut occ dans la CelluleDictio et a donc changé les méthodes sauver, charger et ajouterMot. 
+
+Célia a aussi aidé dans les calculs de similarité. Elle a ajouté l'attribut nbDoc dans la CelluleDictio et a aussi changer les méthodes sauver, charger, ajouterMot et incrementer en conséquence.
+
+Fabien a commencé la construction du MainEval et a apporté plusieurs améliorations dans le MainRecherche. Il a aidé dans plusieurs pondérations locales et globales.
+
+Higo et Mouad se sont mis à jour sur la compréhension du projet suite aux gros changements qui ont eu lieu sur le dictionnaire et la matrice. Ils ont aidé le groupe à la compréhension des formules de calcul de similarité et ont lancé les indexations.
+
+Valentin a changé les méthodes de la MatriceHash suite à une spécification oubliée qui permet d'accélérer la recherche de la méthode val. Il a aussi contribué au MainEval, MainRecherche et Recherche précédemment commencé par Fabien.
+
+En général, chaque personne du groupe s'est organisée pour continuer à travailler lorsqu'un calcul était en cours.
+
+### Difficultés
+
+Gaétan et Célia ont eu certains problèmes lors des calculs, notamment sur les points critiques du log qui renvoyaient donc des infinis.
+
+Fabien a oublié d'avancer dans certains de ses schémas de recherche et a donc créé des boucles infinis. 
+
+Valentin a fait de même et a donc perturbé les méthodes de MatriceHash.
+
+Higo et Mouad ont toujours des problèmes à comprendre le projet, mais grâce à l'aide de Fabien et de Gaétan, ils se sentent mieux investis et comprennent mieux les enjeux.
+
+### Faits marquants
+
+Cette journée a été l'une des plus productives que nous ayons eu. Chaque problème a été étudié en petit groupe et personne n'est resté sans rien faire. Nous espérons continuer comme cela le reste de la semaine.
+Grâce à un calcul ltn-ltn, nous sommes arrivés à une précision d'environ 15%.
+
+## Semaine de projet - Mardi
+
+### Répartition
+
+Fabien, Gaétan et Higo se sont occupés de la normalisation cosinus. Ils cherchent à utiliser un calcul de similarité pouvant donner de bons résultats.
+
+Valentin a maintenu le README (que vous voyez actuellement !).
+
+Célia s'est intéressée à la stoplist.
+
+
+Mouad et higo'sont plutôt dirigé vers les troncatures,ils ont alors aussi changer quelques méthodes en LecteurDocumentNaif et indexation  apres chacun a fait des testes sur les differents corpus , aprés ils sont dirigé vers les synonymes et  normalisation.
+
+
+### Difficultés
+
+...
+
+### Faits marquants
+ 
+...
