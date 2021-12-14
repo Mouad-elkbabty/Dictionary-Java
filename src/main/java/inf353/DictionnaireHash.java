@@ -155,16 +155,16 @@ public class DictionnaireHash implements Dictionnaire {
         return n;
     }
     public int nbOccMot(String m){
-    int n = 0;
-    int i = Math.abs(m.hashCode() % N);
-    CelluleDictio cc = T[i];
-    while (cc != null && !cc.elt.equals(m)) {
-        cc = cc.suiv;
-    }
-    if (cc != null) {
-        n = cc.occ;
-    }
-    return n;
+        int n = 0;
+        int i = Math.abs(m.hashCode() % N);
+        CelluleDictio cc = T[i];
+        while (cc != null && !cc.elt.equals(m)) {
+            cc = cc.suiv;
+        }
+        if (cc != null) {
+            n = cc.occ;
+        }
+        return n;
     }
     /**
      * Retourne le mot contenu à l'indice i dans le DictionnaireHash ou null s'il

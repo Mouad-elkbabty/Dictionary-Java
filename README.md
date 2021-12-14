@@ -162,13 +162,3 @@ Ajout des commentaires  détailés pour tous les testes , ainsi que specifier to
 ### Faits marquants
 
 Très bonne communication, la répartition semble bonne.
-<<<<<<< HEAD
-
-#### A FAIRE
-- S'assurer que le programme actuel FONTIONNE a 100%
-- Commencer a mettre en place mes nouvelles methodes de calcul de similarité 
-    - nnn (actuel)
-- Plus de nécésité de stoplist
-- Rajouter des tests
-=======
->>>>>>> dd1d4207027762782b30e9273ffd69cdd628b025
