@@ -18,7 +18,11 @@ public class LecteurDocumentNaifTest {
         assertEquals(null, lecteur.mot);
     }
 
+<<<<<<< HEAD
    // @Test
+=======
+    //@Test
+>>>>>>> f79606d9c6108f877de4c25d3bed0b5490ce4f1b
     public void demarrerAvancerEtElementCourantTest() throws IOException {
         LecteurDocumentNaif lecteur = new LecteurDocumentNaif("./src/test/resources/inf353/test-lecteur1.txt");
         // lorsqu'on démarre, on est sur le premier élément
