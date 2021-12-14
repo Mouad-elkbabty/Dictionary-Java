@@ -21,7 +21,7 @@ public class MainRecherche {
             }
             File dossier = new File("./src/main/resources/inf353/requetes");
             int l = dossier.listFiles().length;
-            recherche.requete("requete" + l, res, 500);
+            recherche.requete("requete", res, 500);
         }
     }
 

@@ -7,6 +7,7 @@ import java.io.IOException;
 
 public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
 
+    Troncature troncature;
     File fichier;
     FileReader fileReader;
     int caractereLu;
@@ -20,6 +21,8 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
      * @throws IOException
      */
     public LecteurDocumentNaif(String nomDuFichier) throws IOException {
+        troncature = new Troncature();
+
         this.fichier = new File(nomDuFichier);
         if (!this.fichier.exists() || !this.fichier.isFile()) {
             throw new FileNotFoundException("Aucun fichier du nom de " + nomDuFichier + " n'a été trouvé.");
@@ -66,7 +69,8 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
      * Renvoie le mot actuellement lu
      */
     public String elementCourant() {
-        return supprimeAccents(this.mot);
+        String mot2 = supprimeAccents(this.mot);
+        return troncature.stem(mot2);
     }
 
     /**
@@ -81,8 +85,8 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
         String r = "";
         int i = 0;
         int j = 0;
-        char[] a = {'Ç','ç','é','è','ê','ë','ù','ü','ô','ö','æ','à','É','È','Ê','Ë','Ù','Ü','Ô','Ö','Æ','À','û','Û','Ä','Â','ä','â'};
-        char[] as = {'c','c','e','e','e','e','u','u','o','o','e','a','e','e','e','e','u','u','o','o','e','a','u','u','a','a','a','a'};
+        char[] a = {'Ç','ç','é','è','ê','ë','ù','ü','ô','ö','æ','à','É','È','Ê','Ë','Ù','Ü','Ô','Ö','Æ','À','û','Û','Ä','Â','ä','â','î','Î','ï','Ï'};
+        char[] as = {'c','c','e','e','e','e','u','u','o','o','e','a','e','e','e','e','u','u','o','o','e','a','u','u','a','a','a','a','i','i','i','i'};
     
     
         while(i < m.length()) {
