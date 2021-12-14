@@ -12,6 +12,7 @@ public class Recherche {
     Indexation indexation;
     Indexation recherche;
     File sortie;
+    File save; //indique le fichier de sauvegarde
 
     /**
      * Crée une Recherche
@@ -23,11 +24,12 @@ public class Recherche {
         if (!dossier.isDirectory()) {
             dossier.mkdir();
         }
-
         // Chargement de l'Indexation
         System.out.println("Chargement de l'indexation en cours...");
         this.indexation = new Indexation(chemin);
         System.out.println("Chargement termine !");
+        //changement Fabien tests
+        save = new File("./src/main/resources/inf353/requetes/requete");
     }
 
     public void requete(String nomFic, String requete, int nbResultats) throws IOException {
@@ -39,9 +41,8 @@ public class Recherche {
         File dossier = new File(this.sortie.getParent());
         if (dossier != null && !dossier.isDirectory()) dossier.mkdir();
         this.sortie.createNewFile();
-        
         // Initialisation du Buffer
-        BufferedWriter buffer = new BufferedWriter(new FileWriter(this.sortie.getPath(), false));
+        BufferedWriter buffer = new BufferedWriter(new FileWriter(this.sortie.getPath(),false));
         // Ecriture de la requete dans un fichier pour utiliser le Lecteur
         buffer.write(requete);
         buffer.flush();
@@ -59,7 +60,7 @@ public class Recherche {
         // Verification du chemin pour voir si tout est en ordre
         String num = "";
         if (numeroRequete < 100) num = "0";
-        String chemin = System.getProperty("user.home") + "/ubuntu/requete/inf353-tests/C" + num + numeroRequete;
+        String chemin = System.getProperty("user.home") + "/requete/inf353-tests/C" + num + numeroRequete;
         this.sortie = new File(chemin);
         if (!this.sortie.exists()) throw new IOException("Le chemin \"" + chemin + "\" n'existe pas.");
         if (this.sortie.isDirectory()) throw new IOException("Le chemin \"" + chemin + "\" est un dossier.");
@@ -78,7 +79,8 @@ public class Recherche {
         buffer.close();
 
         // Utilisation de notre autre methode requete()
-        this.requete(numeroRequete + "", res, nbResultats);
+        //changement Fabien test
+        this.requete(num + numeroRequete, res, nbResultats);
     }
 
     /**
@@ -94,7 +96,8 @@ public class Recherche {
         }
         int longueur = valeurs.length;
         int i = 0;
-        BufferedWriter buffer = new BufferedWriter(new FileWriter(this.sortie, false));
+        //changement Fabien tests
+        BufferedWriter buffer = new BufferedWriter(new FileWriter(this.save, true));
         System.out.println("Ecriture des resultats en cours...");
         while (i < longueur && i != nbResultats) {
             // on cherche la position du max de resultats
@@ -159,7 +162,6 @@ public class Recherche {
             scores[i] *= di*qi;
             i++;
         }
-        
         return scores;
     }
 
@@ -275,17 +277,22 @@ public class Recherche {
     public double normalisationDocumentL2(String document) {
         double res = 0;
         int i = this.indexation.dictioDocuments.indiceMot(document);
-        CelluleMatrice cc = this.indexation.matriceOccurrences.T[i];
-        while(cc != null){
-            res = res + Math.pow(cc.elt,2);
-            cc = cc.suiv;
+        if(i >= 0)
+        {
+            CelluleMatrice cc = this.indexation.matriceOccurrences.T[i];
+            while(cc != null){
+                res = res + Math.pow(cc.elt,2);
+                cc = cc.suiv;
+            }
+            if( res == 0){
+                res = 1;
+            }
         }
-        if( res == 0){
-            res = 1;
+        else{
+            res =1;
         }
         return Math.sqrt(res);
     }
-
 
     public double normalisationCosinus(String document,String  mot) {
         double res = 0;
@@ -295,6 +302,7 @@ public class Recherche {
 
         return res;
     }
+    
     /**
      * Renvoie la valeur de la pondération locale du mot dans la requête
      * Cette pondération est de niveau l (facteur logarithmique)
