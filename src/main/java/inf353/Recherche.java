@@ -24,6 +24,7 @@ public class Recherche {
         if (!dossier.isDirectory()) {
             dossier.mkdir();
         }
+        dossier.delete();
         // Chargement de l'Indexation
         System.out.println("Chargement de l'indexation en cours...");
         this.indexation = new Indexation(chemin);
