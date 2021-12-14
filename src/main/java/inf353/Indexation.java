@@ -14,6 +14,7 @@ public class Indexation {
     public DictionnaireHash dictioDocuments;
     public MatriceHash matriceOccurrences;
 
+
     /**
      * Crée une Indexation vierge
      */

@@ -4,17 +4,13 @@ import java.io.IOException;
 
 public class MainEval {
 
-
+/*
     public static void main(String[] args) throws IOException{
         
 
         int doc = 91;
-<<<<<<< HEAD
-        String chemin = "/home/segurat/ubuntu/requete/inf353-tests/C";
-=======
         String num = "";
-        String chemin = "/home/vialf/ubuntu/requete/inf353-tests/C";
->>>>>>> d568118f08b9cf29ba0d5becbf5d86118020aa63
+        String chemin = "/home/segurat/ubuntu/requete/inf353-tests/C";
         while (doc < 140)
         {
             if(doc < 100)
@@ -67,4 +63,5 @@ public class MainEval {
         Recherche recherche = new Recherche(requete,"./src/main/resources/inf353/indexation/");
         recherche.presentationFichiers(20);
     }
+    */
 }

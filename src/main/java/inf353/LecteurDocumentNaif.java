@@ -12,6 +12,7 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
     int caractereLu;
     String mot;
     static char[] separateurs = { ',', ';', '?', '.', '!', ':', ' ', '\t', '\n', '{', '}', '[', ']','(', ')', '"', '&', '-', '_', '\'', '/', '\r' };
+    Stoplist stoplist;
 
     /**
      * Construit un LecteurDocumentNaif
@@ -20,6 +21,7 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
      * @throws IOException
      */
     public LecteurDocumentNaif(String nomDuFichier) throws IOException {
+        stoplist = new Stoplist();
         this.fichier = new File(nomDuFichier);
         if (!this.fichier.exists() || !this.fichier.isFile()) {
             throw new FileNotFoundException("Aucun fichier du nom de " + nomDuFichier + " n'a été trouvé.");
@@ -42,10 +44,12 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
         while (estSeparateur((char) this.caractereLu)) {
             this.caractereLu = this.fileReader.read();
         }
-        mot = "";
-        while (this.caractereLu != -1 && !estSeparateur((char) this.caractereLu)) {
-            this.mot += (char) this.caractereLu;
-            this.caractereLu = this.fileReader.read();
+      //  while(stoplist.estPresent(this.mot)){
+            mot = "";
+            while (this.caractereLu != -1 && !estSeparateur((char) this.caractereLu)) {
+                this.mot += (char) this.caractereLu;
+                this.caractereLu = this.fileReader.read();
+         //   }
         }
     }
 
