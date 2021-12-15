@@ -1,6 +1,6 @@
 package inf353;
 
-public class CelluleDictio{
+public class CelluleDictio {
     
    /**
      * Attributs de la cellule : le mot, son indice, et son suivant
