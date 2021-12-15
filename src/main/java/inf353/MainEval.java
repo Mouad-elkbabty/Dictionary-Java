@@ -16,7 +16,7 @@ public class MainEval {
             Recherche recherche = new Recherche("./src/main/resources/inf353/indexation/");
             int doc = 91;
             while (doc <= 140) {
-                recherche.requete(doc, 250);
+                recherche.requete(doc, 500);
                 doc++;
             }
             if (args[0].equals("y")) {

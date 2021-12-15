@@ -44,13 +44,22 @@ public class MainRecherche {
                 res += args[i] + " ";
                 i++;
             }
+<<<<<<< HEAD
+            File dossier = new File("./src/main/resources/inf353/requetes");
+            //int l = dossier.listFiles().length;
+=======
             File dossier = new File("./src/main/resources/inf353/requetes/");
+<<<<<<< HEAD
             if (dossier.listFiles() != null){
                 int l = dossier.listFiles().length;
             }
             else {
                 int l = 0;
             }
+=======
+            int l = dossier.listFiles().length;
+>>>>>>> b3bebe05e457d3b63af63b9c2761592e33fd3026
+>>>>>>> 5209b5af8a76df0b9c6b17150b4b8bf48b8e76f4
             recherche.requete("requete", res, 500);
         }
     }
