@@ -29,12 +29,8 @@ public class MainRecherche {
             recherches[j] = tampon[j];
             j++;
         }*/
-        String recherches = synonimes(args);
-
-
-
-
-        recherche.presentation(2500);
+        // String recherches = synonimes(args);
+        // recherche.presentation(2500);
         if (args.length == 0) throw new Error("Veuillez entrer une requete valide");
         Recherche recherche = new Recherche("./src/main/resources/inf353/indexation/");
         try {
@@ -57,7 +53,7 @@ public class MainRecherche {
 
 
 
-    public static String [] synonimes (String[] requete)throws IOException{
+    public static String synonymes (String[] requete)throws IOException{
 
             // Initialisation du fichier et du Buffer
             File fichier = new File("src/main/resources/inf353/indexation/synonimes");
@@ -125,7 +121,7 @@ public class MainRecherche {
             String res1 = "";
             while(i<k){
                 res1 = res1 + " " + res[i];
-                System.out.println(res1[i]);
+                System.out.println(res[i]);
                 i++;
             }
             return res1;
