@@ -133,6 +133,18 @@ public class Indexation {
         return v;
     }
 
+
+    public int val(int indiceMot, int indiceDoc) {
+        int v = 0;
+        if (indiceMot != -1) {
+            if (indiceDoc != -1) {
+                v = this.matriceOccurrences.val(indiceDoc,indiceMot);
+            }
+        }
+        return v;
+    }
+
+
     /**
      * Renvoie l'occurence maximale trouvée parmis les documents
      * Si null ou "" est donné, cherche dans l'entièreté de l'Indexation

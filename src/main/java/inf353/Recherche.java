@@ -244,11 +244,11 @@ public class Recherche {
      * @param document le document à chercher
      */
 
-    public double ponderationLocaleDocumentL(String mot, String document) {
+    public double ponderationLocaleDocumentL(int indiceMot, int indiceDoc, int occ) {
         double res = 0;
-        int val = this.indexation.val(mot, document);
+        int val = this.indexation.val(indiceMot, indiceDoc);
         System.out.println("" + val);
-        double avg = this.indexation.dictioMots.nbOccMot(mot)/this.indexation.dictioDocuments.nbMots();
+        double avg = occ /this.indexation.dictioDocuments.nbMots();
         if(val > 0) {
             res = Math.abs((1 + Math.log(val))/(1+Math.log(avg)));
         }
