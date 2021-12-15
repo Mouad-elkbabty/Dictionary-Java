@@ -14,8 +14,6 @@ public class Indexation {
     public DictionnaireHash dictioMots;
     public DictionnaireHash dictioDocuments;
     public MatriceHash matriceOccurrences;
-    public Troncature troncature = new Troncature();
-
 
     /**
      * Crée une Indexation vierge
