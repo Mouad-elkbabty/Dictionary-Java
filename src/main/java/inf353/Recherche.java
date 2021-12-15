@@ -93,14 +93,17 @@ public class Recherche {
             positions[p] = p;
         }
         int longueur = valeurs.length;
-        int i = 0;
+        int i = longueur;
+        System.out.println("long " + longueur);
+        System.out.println("nbResultat " + nbResultats);
         //changement Fabien tests
         BufferedWriter buffer = new BufferedWriter(new FileWriter(this.sortie, false));
         System.out.println("Ecriture des resultats en cours...");
-        while (i < longueur && i != nbResultats) {
+        while (i != 0 && i != nbResultats) {
             // on cherche la position du max de resultats
             int position = 0;
             int j = 1;
+            
             // parcours de tous les éléments jusqu'à la longueur
             while (j < longueur) {
                 if (valeurs[j] > valeurs[position]) {
@@ -108,15 +111,16 @@ public class Recherche {
                 }
                 j++;
             }
+            System.out.println("position " + position);
             // position contient la position de la plus grande valeur trouvée
-            String resultat = this.sortie.getName() + '\t' + "Q0" + '\t' + indexation.dictioDocuments.motIndice(positions[position]) + '\t' + (i+1) + '\t' + valeurs[position] + '\t' + "lnn-lnn";
+            String resultat = this.sortie.getName() + '\t' + "Q0" + '\t' + indexation.dictioDocuments.motIndice(positions[position]) + '\t' + (i+1) + '\t' + valeurs[position] + '\t' + "x";
             buffer.write(resultat);
             buffer.newLine();
             // on retire 1 à la longueur pour mettre la dernière valeur à sa place
             longueur -= 1;
             valeurs[position] = valeurs[longueur];
             positions[position] = positions[longueur];
-            i++;
+            i--;
         }
         buffer.flush();
         buffer.close();
@@ -151,6 +155,9 @@ public class Recherche {
                 double ponderationLocaleDocument = ponderationLocaleDocumentl(indiceMot, indiceDoc);
                 double ponderationLocaleRequete = ponderationLocaleRequeteFrequentiel(cc.ind);
                 scores[indiceDoc] += ponderationLocaleDocument * ponderationLocaleRequete * ponderationGlobaleDocument * ponderationGlobaleRequete;
+                System.out.println("indice : " + indiceDoc + "; score : " + scores[indiceDoc] );
+                System.out.println(" " + ponderationLocaleDocument + " " + ponderationLocaleRequete + " " + ponderationGlobaleDocument + " " + ponderationGlobaleRequete);
+
                 indiceDoc++;
             }
             cc = cc.suiv;
@@ -185,6 +192,10 @@ public class Recherche {
      */
     public int ponderationLocaleRequeteFrequentiel(int indiceMot) {
         int res = this.recherche.matriceOccurrences.val(0, indiceMot);
+        if(res == 0)
+        {
+            res = 1;
+        }
         return res;
     }
 
@@ -198,21 +209,19 @@ public class Recherche {
      * @param document
      * @param mot
      */
-    public double ponderationLocaleDocumentN(String document,String mot){
+    public double ponderationLocaleDocumentN(int indiceMot,int indiceDoc){
         double res = 0;
-        CelluleMatrice cc = this.indexation.matriceOccurrences.T[this.indexation.dictioDocuments.indiceMot(document)];
-        int ind = this.indexation.dictioMots.indiceMot(mot);
-        if(this.indexation.dictioMots.contient(mot)) //si le mot est dans le document
+        CelluleMatrice cc = this.indexation.matriceOccurrences.T[indiceDoc];
+
+        while(cc!= null && cc.ind > indiceMot )//tant qu'on ne l'a pas trouvé
         {
-            while(cc!= null && cc.ind > ind )//tant qu'on ne l'a pas trouvé
-            {
-                cc = cc.suiv;
-            }
-            if(cc != null && cc.ind == ind) // si on l'a trouvé
-            {
-                res = cc.elt;
-            }
+            cc = cc.suiv;
         }
+        if(cc != null && cc.ind == indiceMot) // si on l'a trouvé
+        {
+            res = cc.elt;
+        }
+    
 
         return res;
     }
@@ -228,6 +237,10 @@ public class Recherche {
         int val = this.indexation.matriceOccurrences.val(indiceDoc, indiceMot);
         if(val != 0) {
             res = 1 + Math.log(val);
+        }
+        else
+        {
+            res = 1;
         }
         return res;
     }
@@ -314,10 +327,10 @@ public class Recherche {
         return Math.sqrt(res);
     }
 
-    public double normalisationCosinus(int indiceMot,int indiceDoc) {
+    public double normalisationCosinus(int indiceMot,int indiceDoc, int occ) {
         double res = 0;
-        double N = this.ponderationLocaleDocumentN(document,mot);
-        double normDoc = normalisationDocumentL2(indiceDocument);
+        double N = this.ponderationLocaleDocumentN(indiceDoc,indiceMot);
+        double normDoc = normalisationDocumentL2(indiceDoc);
 
 
         return res;
