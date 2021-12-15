@@ -218,7 +218,7 @@ Complexité sur les calculs de similarité. Le scoring était long ce qui a cond
 Taux de réussite sur le push précedent de 27,8% sur le corpus complet avec 500 element renvoyés par requete.
 
 
-### Semaine de projet - Mercredi
+## Semaine de projet - Mercredi
 
  ### Répartition :
    
