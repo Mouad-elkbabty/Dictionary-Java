@@ -56,7 +56,7 @@ public class Indexation {
      * @param mot le mot à ajouter
      */
     public void ajouterMot(String mot) {
-        this.dictioMots.ajouterMot(troncature.stem(mot));
+        this.dictioMots.ajouterMot(mot);
     }
 
     /**
