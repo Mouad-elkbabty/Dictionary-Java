@@ -29,7 +29,7 @@ public class MainRecherche {
             recherches[j] = tampon[j];
             j++;
         }*/
-        // String recherches = synonimes(args);
+        String recherches = synonymes(args);
         // recherche.presentation(2500);
         if (args.length == 0) throw new Error("Veuillez entrer une requete valide");
         Recherche recherche = new Recherche("./src/main/resources/inf353/indexation/");
@@ -45,7 +45,12 @@ public class MainRecherche {
                 i++;
             }
             File dossier = new File("./src/main/resources/inf353/requetes/");
-            int l = dossier.listFiles().length;
+            if (dossier.listFiles() != null){
+                int l = dossier.listFiles().length;
+            }
+            else {
+                int l = 0;
+            }
             recherche.requete("requete", res, 500);
         }
     }
@@ -101,20 +106,20 @@ public class MainRecherche {
             i = 0;
             j = 0;
             int k = 0;
-            int pds = 1;
+            int pds = 0;
             String [] res = new String[100];
             while (i < requete.length){
                 while(j < 61646){
                 if (requete[i].equals(mots[j][0])){
                     pds++;
-                    res[k] = ponderationSynonimes(pds) + mots[j][1];
+                    res[k] = mots[j][1];
                     k++;
                     j++;
 
                 }
                 else if (requete[i].equals(mots[j][1])){
                     pds++;
-                    res[k] = ponderationSynonimes(pds) + mots[j][0];
+                    res[k] = mots[j][0];
                     k++;
                     j++;
                 }
@@ -122,12 +127,21 @@ public class MainRecherche {
                     j++;
                 }
                 }
-                res[k] = ponderationSynonimes(pds) + requete[i];
+                pds++;
+                String ponderation = ponderationSynonimes(pds);
+                res[k] = "1.0000" + requete[i];
+                int compte = pds;
                 k++;
+                while (compte > 1){
+                    res[k-compte] = ponderation + res[k-compte];
+                    compte--;
+                }
                 i++;
-                pds = 1;
+                pds = 0;
                 j = 0;
             }
+
+            //écriture du résultat
             i = 0;
             String res1 = "";
             while(i<k){
@@ -150,15 +164,24 @@ public class MainRecherche {
     public static String ponderationSynonimes (int pds){
         String res = "";
         if (pds == 1){
-            res = "1.0000:";
+            res = "1.0000";
         }
         else{
-            double frac = 1/pds;
-            int arrondit = (int) (frac * 10000);
-            frac = arrondit /10000;
-            res = "" + frac + ":";
+            int i = 0;
+            double frac = 1/(double)pds;
+            String res1 = "" + frac;
+            while (i != 6 ){
+                if (i < res1.length()){
+                    res = res + res1.charAt(i);
+                }
+                else{
+                    res = res + "0";
+                }
+                i++;
+            }
+            
         }
-        return res;
+        return res + ":";
     }
 
 }
