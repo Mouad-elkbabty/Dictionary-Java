@@ -12,6 +12,7 @@ public class Recherche {
     Indexation indexation;
     Indexation recherche;
     File sortie;
+    File save; //indique le fichier de sauvegarde
 
     /**
      * Crée une Recherche
@@ -23,11 +24,13 @@ public class Recherche {
         if (!dossier.isDirectory()) {
             dossier.mkdir();
         }
-        dossier.delete();
         // Chargement de l'Indexation
         System.out.println("Chargement de l'indexation en cours...");
         this.indexation = new Indexation(chemin);
         System.out.println("Chargement termine !");
+        //changement Fabien tests
+        save = new File("./src/main/resources/inf353/requetes/requete");
+        save.delete();
     }
 
     public void requete(String nomFic, String requete, int nbResultats) throws IOException {
@@ -40,7 +43,7 @@ public class Recherche {
         if (dossier != null && !dossier.isDirectory()) dossier.mkdir();
         this.sortie.createNewFile();
         // Initialisation du Buffer
-        BufferedWriter buffer = new BufferedWriter(new FileWriter(this.sortie.getPath(), false));
+        BufferedWriter buffer = new BufferedWriter(new FileWriter(this.sortie.getPath(),false));
         // Ecriture de la requete dans un fichier pour utiliser le Lecteur
         buffer.write(requete);
         buffer.flush();
@@ -78,7 +81,7 @@ public class Recherche {
 
         // Utilisation de notre autre methode requete()
         //changement Fabien test
-        this.requete("" + numeroRequete, res, nbResultats);
+        this.requete(num + numeroRequete, res, nbResultats);
     }
 
     /**
@@ -95,7 +98,7 @@ public class Recherche {
         int longueur = valeurs.length;
         int i = 0;
         //changement Fabien tests
-        BufferedWriter buffer = new BufferedWriter(new FileWriter(this.sortie, false));
+        BufferedWriter buffer = new BufferedWriter(new FileWriter(this.save, true));
         System.out.println("Ecriture des resultats en cours...");
         while (i < longueur && i != nbResultats) {
             // on cherche la position du max de resultats
@@ -262,7 +265,7 @@ public class Recherche {
             res = 1 + Math.log((double)(this.indexation.dictioDocuments.nbMots()) / df);
             return res;
         }
-        else{
+        else{  
             return 0.;
         }
     }
