@@ -44,13 +44,19 @@ public class MainRecherche {
                 res += args[i] + " ";
                 i++;
             }
-            File dossier = new File("./src/main/resources/inf353/requetes");
+            File dossier = new File("./src/main/resources/inf353/requetes/");
             int l = dossier.listFiles().length;
             recherche.requete("requete", res, 500);
         }
     }
 
-
+    /**
+     * renvoit la requette ainsi que les synonimes de chaques mots sous la forme d'une chaine de caractères, avec la pondération.
+     * exemple: 0.2500:mot1 0.2500:synonime1 0.2500:synonime2 0.2500:synonime3
+     * 
+     * @param requete la requette marquée en argument de la commande
+     * @throws IOException
+     */
 
 
     public static String synonymes (String[] requete)throws IOException{
@@ -95,16 +101,20 @@ public class MainRecherche {
             i = 0;
             j = 0;
             int k = 0;
+            int pds = 1;
             String [] res = new String[100];
             while (i < requete.length){
                 while(j < 61646){
                 if (requete[i].equals(mots[j][0])){
-                    res[k] = mots[j][1];
+                    pds++;
+                    res[k] = ponderationSynonimes(pds) + mots[j][1];
                     k++;
                     j++;
+
                 }
                 else if (requete[i].equals(mots[j][1])){
-                    res[k] = mots[j][0];
+                    pds++;
+                    res[k] = ponderationSynonimes(pds) + mots[j][0];
                     k++;
                     j++;
                 }
@@ -112,9 +122,10 @@ public class MainRecherche {
                     j++;
                 }
                 }
-                res[k] = requete[i];
+                res[k] = ponderationSynonimes(pds) + requete[i];
                 k++;
                 i++;
+                pds = 1;
                 j = 0;
             }
             i = 0;
@@ -126,6 +137,28 @@ public class MainRecherche {
             }
             return res1;
 
+    }
+
+    /**
+     * renvoit la fraction correspondant à l'entier placé en entré, sous la forme d'une chaine de caractères sur 5 décimales (4 après la virgule) suivit de :
+     * 
+     * 
+     * @param pds le nombre de synonimes du mot
+     * @throws IOException
+     */
+
+    public static String ponderationSynonimes (int pds){
+        String res = "";
+        if (pds == 1){
+            res = "1.0000:";
+        }
+        else{
+            double frac = 1/pds;
+            int arrondit = (int) (frac * 10000);
+            frac = arrondit /10000;
+            res = "" + frac + ":";
+        }
+        return res;
     }
 
 }
