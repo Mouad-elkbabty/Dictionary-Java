@@ -288,10 +288,9 @@ public class Recherche {
      * Renvoie la normalisation du document
      * Cette normalisation est de niveau L1 (pas de normalisation)
      */
-    public double normalisationDocumentL1(String document) {
+    public double normalisationDocumentL1(int indiceDoc) {
         int res = 0;
-        int i = this.indexation.dictioDocuments.indiceMot(document);
-        CelluleMatrice cc = this.indexation.matriceOccurrences.T[i];
+        CelluleMatrice cc = this.indexation.matriceOccurrences.T[indiceDoc];
         while(cc != null){
             res = res + cc.elt;
             cc = cc.suiv;
@@ -302,10 +301,9 @@ public class Recherche {
         return res;
     }
 
-    public double normalisationDocumentL2(String document) {
+    public double normalisationDocumentL2(int indiceDoc) {
         double res = 0;
-        int i = this.indexation.dictioDocuments.indiceMot(document);
-        CelluleMatrice cc = this.indexation.matriceOccurrences.T[i];
+        CelluleMatrice cc = this.indexation.matriceOccurrences.T[indiceDoc];
         while(cc != null){
             res = res + Math.pow(cc.elt,2);
             cc = cc.suiv;
@@ -316,10 +314,10 @@ public class Recherche {
         return Math.sqrt(res);
     }
 
-    public double normalisationCosinus(String document,String  mot) {
+    public double normalisationCosinus(int indiceMot,int indiceDoc) {
         double res = 0;
         double N = this.ponderationLocaleDocumentN(document,mot);
-
+        double normDoc = normalisationDocumentL2(indiceDocument);
 
 
         return res;
