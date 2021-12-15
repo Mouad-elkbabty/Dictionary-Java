@@ -174,7 +174,7 @@ Célia a aussi aidé dans les calculs de similarité. Elle a ajouté l'attribut 
 
 Fabien a commencé la construction du MainEval et a apporté plusieurs améliorations dans le MainRecherche. Il a aidé dans plusieurs pondérations locales et globales.
 
-Higo et Mouad se sont mis à jour sur la compréhension du projet suite aux gros changements qui ont eu lieu sur le dictionnaire et la matrice. Ils ont aidé le groupe à la compréhension des formules de calcul de similarité et ont lancé les indexations.
+Higo et Mouad se sont mis à jour sur la compréhension  suite aux gros changements qui ont eu lieu sur le dictionnaire et la matrice. Ils ont aidé le groupe à la compréhension des formules de calcul de similarité avec le log et ont lancé les indexations sur tous les corpus .
 
 Valentin a changé les méthodes de la MatriceHash suite à une spécification oubliée qui permet d'accélérer la recherche de la méthode val. Il a aussi contribué au MainEval, MainRecherche et Recherche précédemment commencé par Fabien.
 
@@ -188,7 +188,7 @@ Fabien a oublié d'avancer dans certains de ses schémas de recherche et a donc 
 
 Valentin a fait de même et a donc perturbé les méthodes de MatriceHash.
 
-Higo et Mouad ont toujours des problèmes à comprendre le projet, mais grâce à l'aide de Fabien et de Gaétan, ils se sentent mieux investis et comprennent mieux les enjeux.
+Higo et Mouad ont  des problèmes à comprendre la normalisation , mais grâce à l'aide de Fabien et de Gaétan, ils se sentent mieux investis et comprennent mieux les enjeux.
 
 ### Faits marquants
 
@@ -221,4 +221,5 @@ Taux de réussite sur le push précedent de 27,8% sur le corpus complet avec 500
 ## Semaine de projet - Mercredi
 
  ### Répartition :
+
    
