@@ -104,6 +104,70 @@ public class Synonymes {
     }
 
     /**
+     * 
+     */
+    public Indexation indexerAvecSynonymes(String chemin, int tailleMots, int tailleDocuments, int tailleMatrice) throws IOException {
+        Indexation indexation = new Indexation(tailleMots, tailleDocuments, tailleMatrice);
+        String phrase = "";
+        LecteurDocumentNaif lecteur = new LecteurDocumentNaif(chemin);
+        lecteur.demarrer();
+        while (!lecteur.finDeSequence()) {
+            phrase += lecteur.elementCourant() + " ";
+            lecteur.avancer();
+        }
+        int i = 0;
+        while (i < phrase.length()) {
+            String nouvellePhrase = phrase.substring(i, phrase.length());
+            String res = this.plusLongPrefixeDe(nouvellePhrase);
+            if (res.equals("")) {
+                String mot = "";
+                char c;
+                while (i != phrase.length() && (c = phrase.charAt(i)) != ' ') {
+                    mot += c;
+                    i++;
+                }
+                indexation.ajouterMot(mot);
+            } else {
+                CelluleSynonyme cc = this.synonymesDe(res);
+                while (cc != null) {
+                    String mot = "";
+                    int j = 0;
+                    char c;
+                    while (j != cc.synonyme.length()) {
+                        c = cc.synonyme.charAt(j);
+                        if (c == ',' || c == '-' || c == ' ') {
+                            if (!mot.equals("")) indexation.ajouterMot(mot);
+                            mot = "";
+                        } else {
+                            mot += c;
+                        }
+                        j++;
+                    }
+                    if (!mot.equals("")) indexation.ajouterMot(mot);
+                    cc = cc.suiv;
+                }
+                String mot = "";
+                int k = 0;
+                char c;
+                while (k != res.length()) {
+                    c = res.charAt(k);
+                    if (c == ',' || c == '-' || c == ' ') {
+                        if (!mot.equals("")) indexation.ajouterMot(mot);
+                        mot = "";
+                    } else {
+                        mot += c;
+                    }
+                    k++;
+                }
+                if (!mot.equals("")) indexation.ajouterMot(mot);
+                i += res.length();
+            }
+            i++;
+        }
+        return indexation;
+    }
+
+    /**
      *
      */
     public void charger(String chemin) throws IOException {
@@ -133,7 +197,7 @@ public class Synonymes {
                 else synonyme += c;
                 i++;
             }
-            this.ajouter(expression, synonyme);
+            this.ajouter(LecteurDocumentNaif.supprimeAccents(expression), LecteurDocumentNaif.supprimeAccents(synonyme));
             ligne = buffer.readLine();
         }
     }

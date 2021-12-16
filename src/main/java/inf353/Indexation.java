@@ -14,6 +14,7 @@ public class Indexation {
     public DictionnaireHash dictioMots;
     public DictionnaireHash dictioDocuments;
     public MatriceHash matriceOccurrences;
+    public Troncature tronc;
 
     /**
      * Crée une Indexation vierge
@@ -29,6 +30,7 @@ public class Indexation {
      * @param tailleOccurrences la taille de la matrice d'occurrences
      */
     public Indexation(int tailleMots, int tailleDocuments, int tailleOccurrences) {
+        this.tronc = new Troncature();
         this.dictioMots = new DictionnaireHash(tailleMots);
         this.dictioDocuments = new DictionnaireHash(tailleDocuments);
         this.matriceOccurrences = new MatriceHash(tailleOccurrences);
@@ -54,7 +56,7 @@ public class Indexation {
      * @param mot le mot à ajouter
      */
     public void ajouterMot(String mot) {
-        this.dictioMots.ajouterMot(mot);
+        this.dictioMots.ajouterMot(tronc.stem(mot));
     }
 
     /**
@@ -70,8 +72,9 @@ public class Indexation {
         LecteurDocumentNaif lecteur = new LecteurDocumentNaif(document);
         lecteur.demarrer();
         while (!lecteur.finDeSequence()) {
-            this.ajouterMot(lecteur.elementCourant());
-            this.incremente(lecteur.elementCourant(), fichier.getName());
+            String mot = lecteur.elementCourant();
+            this.ajouterMot(mot);
+            this.incremente(tronc.stem(mot), fichier.getName());
             lecteur.avancer();
         }
     }

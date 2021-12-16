@@ -12,7 +12,6 @@ public class Recherche {
     Indexation indexation;
     Indexation recherche;
     File sortie;
-    File save; //indique le fichier de sauvegarde
 
     /**
      * Crée une Recherche
@@ -28,9 +27,6 @@ public class Recherche {
         System.out.println("Chargement de l'indexation en cours...");
         this.indexation = new Indexation(chemin);
         System.out.println("Chargement termine !");
-        //changement Fabien tests
-        save = new File("./src/main/resources/inf353/requetes/requete");
-        save.delete();
     }
 
     public void requete(String nomFic, String requete, int nbResultats) throws IOException {
@@ -43,12 +39,15 @@ public class Recherche {
         if (dossier != null && !dossier.isDirectory()) dossier.mkdir();
         this.sortie.createNewFile();
         // Initialisation du Buffer
-        BufferedWriter buffer = new BufferedWriter(new FileWriter(this.sortie.getPath(),false));
+        BufferedWriter buffer = new BufferedWriter(new FileWriter(this.sortie.getPath(), false));
         // Ecriture de la requete dans un fichier pour utiliser le Lecteur
         buffer.write(requete);
         buffer.flush();
         buffer.close();
-        // Attribution de la nouvelle recherche
+        // Recherches avec synonymes
+        // Synonymes synonymes = new Synonymes("./src/main/resources/inf353/Synonymes.txt");
+        // this.recherche = synonymes.indexerAvecSynonymes(this.sortie.getPath(), 1, 1, 1);
+        // Recherches sans synonymes
         this.recherche = new Indexation(1, 1, 1);
         this.recherche.ajouterDocument(this.sortie.getPath());
         // Presentation du resultat
@@ -57,7 +56,6 @@ public class Recherche {
 
     public void requete(int numeroRequete, int nbResultats) throws IOException {
         // Verification de l'entier donne
-        System.out.println("nbResultat est de "+ nbResultats);
         if (numeroRequete < 91 || numeroRequete > 140) throw new Error("Veuillez entrer un nombre entre 91 et 140 (inclus)");
         // Verification du chemin pour voir si tout est en ordre
         String num = "";
@@ -81,8 +79,7 @@ public class Recherche {
         buffer.close();
 
         // Utilisation de notre autre methode requete()
-        //changement Fabien test
-        this.requete(num + numeroRequete, res, nbResultats);
+        this.requete(numeroRequete + "", res, nbResultats);
     }
 
     /**
@@ -98,12 +95,10 @@ public class Recherche {
         }
         int longueur = valeurs.length;
         int i = longueur;
-        System.out.println("long " + longueur);
-        System.out.println("nbResultat " + nbResultats);
         //changement Fabien tests
-        BufferedWriter buffer = new BufferedWriter(new FileWriter(this.save, true));
+        BufferedWriter buffer = new BufferedWriter(new FileWriter(this.sortie, false));
         System.out.println("Ecriture des resultats en cours...");
-        while (i != 0 && i != nbResultats) {
+        while (i != 0 && nbResultats != 0) {
             // on cherche la position du max de resultats
             int position = 0;
             int j = 1;
@@ -115,9 +110,8 @@ public class Recherche {
                 }
                 j++;
             }
-            System.out.println("position " + position);
             // position contient la position de la plus grande valeur trouvée
-            String resultat = this.sortie.getName() + '\t' + "Q0" + '\t' + indexation.dictioDocuments.motIndice(positions[position]) + '\t' + (i+1) + '\t' + valeurs[position] + '\t' + "x";
+            String resultat = this.sortie.getName() + '\t' + "Q0" + '\t' + indexation.dictioDocuments.motIndice(positions[position]) + '\t' + (-1*(i-valeurs.length-1)) + '\t' + valeurs[position] + '\t' + "x";
             buffer.write(resultat);
             buffer.newLine();
             // on retire 1 à la longueur pour mettre la dernière valeur à sa place
@@ -125,6 +119,7 @@ public class Recherche {
             valeurs[position] = valeurs[longueur];
             positions[position] = positions[longueur];
             i--;
+            nbResultats--;
         }
         buffer.flush();
         buffer.close();
@@ -153,22 +148,18 @@ public class Recherche {
             int indiceDoc = 0;
             int indiceMot = this.indexation.dictioMots.indiceMot(cc.elt);
             int df = this.indexation.dictioMots.dfMot(cc.elt);
-            double ponderationGlobaleDocument = 1;
-            double ponderationGlobaleRequete = 1;
+            double ponderationGlobaleDocument = this.ponderationGlobaleIdf(df);
+            double ponderationGlobaleRequete = this.ponderationGlobaleIdf(df);
             while (indiceDoc != scores.length) {
-                double ponderationLocaleDocument = ponderationLocaleDocumentN(indiceMot, indiceDoc);
+                double ponderationLocaleDocument = ponderationLocaleDocumentl(indiceMot, indiceDoc);
                 double ponderationLocaleRequete = ponderationLocaleRequeteFrequentiel(cc.ind);
                 scores[indiceDoc] += ponderationLocaleDocument * ponderationLocaleRequete * ponderationGlobaleDocument * ponderationGlobaleRequete;
-                System.out.println("indice : " + indiceDoc + "; score : " + scores[indiceDoc] );
-                System.out.println(" " + ponderationLocaleDocument + " " + ponderationLocaleRequete + " " + ponderationGlobaleDocument + " " + ponderationGlobaleRequete);
-
                 indiceDoc++;
             }
             cc = cc.suiv;
         }
         return scores;
     }
-
     /**
      * Calcule la pondération locale du document
      * Cette pondération est de niveau a
@@ -196,10 +187,6 @@ public class Recherche {
      */
     public int ponderationLocaleRequeteFrequentiel(int indiceMot) {
         int res = this.recherche.matriceOccurrences.val(0, indiceMot);
-        if(res == 0)
-        {
-            res = 1;
-        }
         return res;
     }
 
@@ -213,19 +200,21 @@ public class Recherche {
      * @param document
      * @param mot
      */
-    public double ponderationLocaleDocumentN(int indiceMot,int indiceDoc){
+    public double ponderationLocaleDocumentN(String document,String mot){
         double res = 0;
-        CelluleMatrice cc = this.indexation.matriceOccurrences.T[indiceDoc];
-
-        while(cc!= null && cc.ind > indiceMot )//tant qu'on ne l'a pas trouvé
+        CelluleMatrice cc = this.indexation.matriceOccurrences.T[this.indexation.dictioDocuments.indiceMot(document)];
+        int ind = this.indexation.dictioMots.indiceMot(mot);
+        if(this.indexation.dictioMots.contient(mot)) //si le mot est dans le document
         {
-            cc = cc.suiv;
+            while(cc!= null && cc.ind > ind )//tant qu'on ne l'a pas trouvé
+            {
+                cc = cc.suiv;
+            }
+            if(cc != null && cc.ind == ind) // si on l'a trouvé
+            {
+                res = cc.elt;
+            }
         }
-        if(cc != null && cc.ind == indiceMot) // si on l'a trouvé
-        {
-            res = cc.elt;
-        }
-    
 
         return res;
     }
@@ -242,10 +231,6 @@ public class Recherche {
         if(val != 0) {
             res = 1 + Math.log(val);
         }
-        else
-        {
-            res = 1;
-        }
         return res;
     }
 
@@ -257,11 +242,11 @@ public class Recherche {
      * @param document le document à chercher
      */
 
-    public double ponderationLocaleDocumentL(int indiceMot, int indiceDoc, int occ) {
+    public double ponderationLocaleDocumentL(String mot, String document) {
         double res = 0;
-        int val = this.indexation.val(indiceMot, indiceDoc);
+        int val = this.indexation.val(mot, document);
         System.out.println("" + val);
-        double avg = occ /this.indexation.dictioDocuments.nbMots();
+        double avg = this.indexation.dictioMots.nbOccMot(mot)/this.indexation.dictioDocuments.nbMots();
         if(val > 0) {
             res = Math.abs((1 + Math.log(val))/(1+Math.log(avg)));
         }
@@ -279,7 +264,7 @@ public class Recherche {
             res = 1 + Math.log((double)(this.indexation.dictioDocuments.nbMots()) / df);
             return res;
         }
-        else{  
+        else{
             return 0.;
         }
     }
@@ -305,9 +290,10 @@ public class Recherche {
      * Renvoie la normalisation du document
      * Cette normalisation est de niveau L1 (pas de normalisation)
      */
-    public double normalisationDocumentL1(int indiceDoc) {
+    public double normalisationDocumentL1(String document) {
         int res = 0;
-        CelluleMatrice cc = this.indexation.matriceOccurrences.T[indiceDoc];
+        int i = this.indexation.dictioDocuments.indiceMot(document);
+        CelluleMatrice cc = this.indexation.matriceOccurrences.T[i];
         while(cc != null){
             res = res + cc.elt;
             cc = cc.suiv;
@@ -318,9 +304,10 @@ public class Recherche {
         return res;
     }
 
-    public double normalisationDocumentL2(int indiceDoc) {
+    public double normalisationDocumentL2(String document) {
         double res = 0;
-        CelluleMatrice cc = this.indexation.matriceOccurrences.T[indiceDoc];
+        int i = this.indexation.dictioDocuments.indiceMot(document);
+        CelluleMatrice cc = this.indexation.matriceOccurrences.T[i];
         while(cc != null){
             res = res + Math.pow(cc.elt,2);
             cc = cc.suiv;
@@ -331,6 +318,14 @@ public class Recherche {
         return Math.sqrt(res);
     }
 
+    public double normalisationCosinus(String document,String  mot) {
+        double res = 0;
+        double N = this.ponderationLocaleDocumentN(document,mot);
+
+
+
+        return res;
+    }
     /**
      * Renvoie la valeur de la pondération locale du mot dans la requête
      * Cette pondération est de niveau l (facteur logarithmique)
@@ -361,6 +356,7 @@ public class Recherche {
         return 1;
     }
 
+
     public void presentationFichiers(int nbResultats) throws IOException {
         System.out.println("Calcul du score en cours...");
         double[] valeurs = score(); 
@@ -370,9 +366,9 @@ public class Recherche {
             positions[p] = p;
         }
         int longueur = valeurs.length;
-        int i = 0;
+        int i = longueur;
         BufferedWriter buffer = new BufferedWriter(new FileWriter(this.sortie, false));
-        while (i != longueur && i != nbResultats) {
+        while (i != 0 && i != nbResultats) {
             // on cherche la position du max de resultats
             int position = 0;
             int j = 1;
@@ -391,7 +387,7 @@ public class Recherche {
             longueur -= 1;
             valeurs[position] = valeurs[longueur];
             positions[position] = positions[longueur];
-            i++;
+            i--;
         }
         System.out.println("Votre requête a été postée dans le fichier " + sortie.getPath());
         buffer.flush();

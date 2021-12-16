@@ -7,13 +7,11 @@ import java.io.IOException;
 
 public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
 
-    Troncature troncature;
     File fichier;
     FileReader fileReader;
     int caractereLu;
     String mot;
     static char[] separateurs = { ',', ';', '?', '.', '!', ':', ' ', '\t', '\n', '{', '}', '[', ']','(', ')', '"', '&', '-', '_', '\'', '/', '\r' };
-    Stoplist stoplist;
 
     /**
      * Construit un LecteurDocumentNaif
@@ -22,8 +20,6 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
      * @throws IOException
      */
     public LecteurDocumentNaif(String nomDuFichier) throws IOException {
-        troncature = new Troncature();
-
         this.fichier = new File(nomDuFichier);
         if (!this.fichier.exists() || !this.fichier.isFile()) {
             throw new FileNotFoundException("Aucun fichier du nom de " + nomDuFichier + " n'a été trouvé.");
@@ -72,8 +68,7 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
      * Renvoie le mot actuellement lu
      */
     public String elementCourant() {
-        String mot2 = troncature.stem(this.mot);
-        return supprimeAccents(mot2);
+        return supprimeAccents(mot);
     }
 
     /**
@@ -84,7 +79,7 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
     }
 
 
-    public String supprimeAccents(String m){
+    public static String supprimeAccents(String m){
         String r = "";
         int i = 0;
         int j = 0;
