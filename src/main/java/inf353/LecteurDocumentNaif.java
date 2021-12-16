@@ -13,7 +13,6 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
     int caractereLu;
     String mot;
     static char[] separateurs = { ',', ';', '?', '.', '!', ':', ' ', '\t', '\n', '{', '}', '[', ']','(', ')', '"', '&', '-', '_', '\'', '/', '\r' };
-    Stoplist stoplist;
 
     /**
      * Construit un LecteurDocumentNaif
