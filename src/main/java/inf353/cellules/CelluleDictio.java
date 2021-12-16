@@ -3,46 +3,39 @@ package inf353;
 public class CelluleDictio {
     
    /**
-     * Attributs de la cellule : le mot, son indice, et son suivant
+     * Attributs de la cellule : elt: le mot,
+            ind: son indice dans le dictionnaire,
+            occ: nombre d'occurrence total dans le corpus
+            df: tf, nombre de document ou le mot est présent
+            suiv: cellule suivante.
      */
     public String elt;
     public int ind;
     public int occ;
-    public int nbDoc;
+    public int df;
     public CelluleDictio suiv;
 
     /**
-     * Constructeur vide (élément null, indice 0 et suivant null)
+     * Constructeur vide (élément null, indice 0, occ null, nbDoc null et suivant null)
      */
-    public CelluleDictio() { this.occ = 0;}
+    public CelluleDictio(){}
 
     /**
      * Constructeur à partir d'un élément (indice 0 et suivant null)
      */
     public CelluleDictio(String val) {
-        this(val, 0, null);
-        this.occ = 0;
-        this.nbDoc = 0;
-    }
+        this(val, 0,0,0, null);
 
-    /**
-     * Constructeur à partir d'un suivant (élément null et indice 0)
-     */
-    public CelluleDictio(CelluleDictio suiv) {
-        this(null, 0, suiv);
-        this.occ = 0;
-        this.nbDoc = 0;
     }
-
     /**
      * Constructeur à partir d'un élément, d'une valeur et d'un suivant
      */
-    public CelluleDictio(String val, int n, CelluleDictio suiv) {
+    public CelluleDictio(String val, int ind, int occ, int df, CelluleDictio suiv) {
         this.elt = val;
-        this.ind = n;
+        this.ind = ind;
+        this.occ = occ;
+        this.df = df;
         this.suiv = suiv;
-        this.occ = 0;
-        this.nbDoc = 0;
     }
 
 }

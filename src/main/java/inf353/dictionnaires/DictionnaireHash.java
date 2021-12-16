@@ -45,7 +45,6 @@ public class DictionnaireHash implements Dictionnaire {
         this();
         this.charger(chemin);
     }
-
     /**
      * Vide le dictionnaire
      */
@@ -64,8 +63,7 @@ public class DictionnaireHash implements Dictionnaire {
     public void ajouterMot(String m) {
         if (!contient(m)) {
             int n = Math.abs(m.hashCode() % N);
-            T[n] = new CelluleDictio(m, this.nb, T[n]);
-            T[n].occ = 1;
+            T[n] = new CelluleDictio(m, this.nb, 1, 0, T[n]);
             this.nb += 1;
         } else {
             int n = Math.abs(m.hashCode() % N);
@@ -88,13 +86,11 @@ public class DictionnaireHash implements Dictionnaire {
      * @param occ l'occurence du mot à ajouter
      * @param doc l'occurence des documents contenant ce mot
      */
-    public void ajouterMot(String m, int occ, int doc)
+    public void ajouterMot(String m, int occ, int df)
     {
         if (!contient(m)) {
             int n = Math.abs(m.hashCode() % N);
-            T[n] = new CelluleDictio(m, nb, T[n]);
-            T[n].occ  = occ;
-            T[n].nbDoc = doc;
+            T[n] = new CelluleDictio(m, nb, occ, df, T[n]);
             this.nb += 1;
         }
     }
@@ -103,14 +99,14 @@ public class DictionnaireHash implements Dictionnaire {
      * incrémente le nombre de documents contenant le mot en paramètre
      * @param m Le mot à incrémenter
      */
-    public void incrementeNbDoc(String m){
+    public void incrementeDf(String m){
         if(contient(m)){
             int n = Math.abs(m.hashCode() % N);
             CelluleDictio cc = T[n];
             while(!cc.elt.equals(m)){
                 cc = cc.suiv;
             }
-            cc.nbDoc++;
+            cc.df++;
         }
     }
 
@@ -140,7 +136,7 @@ public class DictionnaireHash implements Dictionnaire {
      * 
      * @param m Le mot à tester
      */
-    public int nbDocMot(String m) {
+    public int dfMot(String m) {
         int n = 0;
         int i = Math.abs(m.hashCode() % N);
         CelluleDictio cc = T[i];
@@ -148,7 +144,7 @@ public class DictionnaireHash implements Dictionnaire {
             cc = cc.suiv;
         }
         if (cc != null) {
-            n = cc.nbDoc;
+            n = cc.df;
         }
         return n;
     }
@@ -265,14 +261,14 @@ public class DictionnaireHash implements Dictionnaire {
         // Chargement du tableau pour garder l'index des mots
         String[] mots = new String[this.nbMots()];
         int[] occ = new int[this.nbMots()];
-        int[] nbDoc = new int[this.nbMots()];
+        int[] df = new int[this.nbMots()];
         int i = 0;
         while (i < this.N) {
             CelluleDictio cc = this.T[i];
             while (cc != null) {
                 mots[cc.ind] = cc.elt;
                 occ[cc.ind] = cc.occ;
-                nbDoc[cc.ind] = cc.nbDoc;
+                df[cc.ind] = cc.df;
                 cc = cc.suiv;
             }
             i++;
@@ -301,7 +297,7 @@ public class DictionnaireHash implements Dictionnaire {
         //Ecriture de la ligne contennant le nombre de document contenants les mots
         ligne = "";
         for (int j = 0; j < this.nbMots(); j++) {
-            ligne += nbDoc[j] + ",";
+            ligne += df[j] + ",";
         }
         buffer.write(ligne);
 
@@ -371,13 +367,13 @@ public class DictionnaireHash implements Dictionnaire {
         i = 0;
         j = 0;
         motCourant = "";
-        String[] nbDocString = new String[this.N];
-        while ( i <  ligne.length() && j < nbDocString.length){
+        String[] dfString = new String[this.N];
+        while ( i <  ligne.length() && j < dfString.length){
             if (ligne.charAt(i) != ','){
                 motCourant = motCourant + ligne.charAt(i);
             }   
             else{
-                nbDocString[j] = motCourant;
+                dfString[j] = motCourant;
                 motCourant = "";
                 j++;
             }
@@ -389,7 +385,7 @@ public class DictionnaireHash implements Dictionnaire {
         }
 
         for(int m = 0; m < mots.length && mots[m] != null; m++) {
-            this.ajouterMot(mots[m], Integer.parseInt(occString[m]),Integer.parseInt(nbDocString[m]));
+            this.ajouterMot(mots[m], Integer.parseInt(occString[m]),Integer.parseInt(dfString[m]));
         }
         buffer.close();
     }

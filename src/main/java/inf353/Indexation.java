@@ -106,7 +106,7 @@ public class Indexation {
             if (d != -1) {
                 this.matriceOccurrences.incremente(d, m);
                 if(this.matriceOccurrences.val(d, m) == 1){
-                    this.dictioMots.incrementeNbDoc(mot);
+                    this.dictioMots.incrementeDf(mot);
                 }
             }
         }

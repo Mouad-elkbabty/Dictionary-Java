@@ -152,7 +152,7 @@ public class Recherche {
             System.out.println("Calcul du score avec le mot " + cc.elt);
             int indiceDoc = 0;
             int indiceMot = this.indexation.dictioMots.indiceMot(cc.elt);
-            int df = this.indexation.dictioMots.nbDocMot(cc.elt);
+            int df = this.indexation.dictioMots.dfMot(cc.elt);
             double ponderationGlobaleDocument = 1;
             double ponderationGlobaleRequete = 1;
             while (indiceDoc != scores.length) {
@@ -274,7 +274,7 @@ public class Recherche {
      */   
     public double ponderationGlobaleDocumentT(String mot) {
         double res = 0;
-        double df = this.indexation.dictioMots.nbDocMot(mot);
+        double df = this.indexation.dictioMots.dfMot(mot);
         if(df != 0){
             res = 1 + Math.log((double)(this.indexation.dictioDocuments.nbMots()) / df);
             return res;
@@ -291,7 +291,7 @@ public class Recherche {
     */
     public double ponderationGlobaleDocumentP(String mot) {
         double res = 0;
-        int df = this.indexation.dictioMots.nbDocMot(mot);
+        int df = this.indexation.dictioMots.dfMot(mot);
         if(df != 0){
             res = 1 + Math.log(this.indexation.dictioDocuments.nbMots() - df / df);
             return res;
@@ -331,17 +331,6 @@ public class Recherche {
         return Math.sqrt(res);
     }
 
-<<<<<<< HEAD
-=======
-    public double normalisationCosinus(int indiceMot,int indiceDoc, int occ) {
-        double res = 0;
-        double N = this.ponderationLocaleDocumentN(indiceDoc,indiceMot);
-        double normDoc = normalisationDocumentL2(indiceDoc);
-
-
-        return res;
-    }
->>>>>>> 445e76a664f02f9a472518e3fe7793100642dc69
     /**
      * Renvoie la valeur de la pondération locale du mot dans la requête
      * Cette pondération est de niveau l (facteur logarithmique)

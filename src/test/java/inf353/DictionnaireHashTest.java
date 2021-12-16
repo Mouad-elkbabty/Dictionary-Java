@@ -11,7 +11,7 @@ public class DictionnaireHashTest {
     // impossible d'utiliser ajouterMot sans vérifier indiceMot
     public void indiceMotTest() {
         DictionnaireHash dictio = new DictionnaireHash();
-        dictio.T["test".hashCode()%dictio.N] = new CelluleDictio("test", 0, null);
+        dictio.T["test".hashCode()%dictio.N] = new CelluleDictio("test", 0,0,0, null);
         dictio.nb += 1;
         // après ajout du mot,
         assertEquals(0, dictio.indiceMot("test"));
@@ -23,7 +23,7 @@ public class DictionnaireHashTest {
     @Test
     public void contientTest() {
         DictionnaireHash dictio = new DictionnaireHash();
-        dictio.T["test".hashCode()%dictio.N] = new CelluleDictio("test", 0, null);
+        dictio.T["test".hashCode()%dictio.N] = new CelluleDictio("test",0,0,0, null);
         dictio.nb += 1;
         // le dictionnaire contient bien le mot test et inversement pour pas test
         assertTrue(dictio.contient("test")); 
