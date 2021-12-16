@@ -2,22 +2,20 @@ package inf353;
 
 public class CelluleSynonyme {
 
-    String elt;
+    String expression;
+    String synonyme;
     CelluleSynonyme suiv;
 
     public CelluleSynonyme() {}
 
-    public CelluleSynonyme(String elt) {
-        this(elt, null);
+    public CelluleSynonyme(String elt, String syno) {
+        this(elt, syno, null);
     }
 
-    public CelluleSynonyme(CelluleSynonyme suiv) {
-        this(null, suiv);
-    }
-
-    public CelluleSynonyme(String elt, CelluleSynonyme suiv) {
-        this.elt = elt;
-        this.suiv = suiv;
+    public CelluleSynonyme(String elt, String syno, CelluleSynonyme succ) {
+        this.expression = elt;
+        this.synonyme = syno;
+        this.suiv = succ;
     }
 
 }

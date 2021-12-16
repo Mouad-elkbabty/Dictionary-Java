@@ -10,27 +10,6 @@ import java.io.BufferedReader;
 public class MainRecherche {
 
     public static void main (String[] args) throws IOException {
-      /*  Stoplist stoplist = new Stoplist();
-        String [] tampon = new String [args.length];
-        
-
-        int i = 0;
-        int j = 0;
-        while (i < args.length){
-            if (!stoplist.estPresent(args[i])){
-                tampon[j] = args [i];
-                j++;
-            }
-            i++;
-        }
-        recherches = new String [j];
-        j = 0;
-        while(j < recherches.length){
-            recherches[j] = tampon[j];
-            j++;
-        }*/
-        String recherches = synonymes(args);
-        // recherche.presentation(2500);
         if (args.length == 0) throw new Error("Veuillez entrer une requete valide");
         Recherche recherche = new Recherche("./src/main/resources/inf353/indexation/");
         try {
@@ -45,11 +24,9 @@ public class MainRecherche {
                 i++;
             }
             File dossier = new File("./src/main/resources/inf353/requetes/");
+            int l = 0;
             if (dossier.listFiles() != null){
-                int l = dossier.listFiles().length;
-            }
-            else {
-                int l = 0;
+                l = dossier.listFiles().length;
             }
             recherche.requete("requete" + l, res, 500);
         }

@@ -33,27 +33,6 @@ public interface Dictionnaire {
      */
     public int indiceMot(String m);
 
-
-     /**
-     * incrémente le nombre de documents contenant le mot en paramètre
-     * @param m Le mot à incrémenter
-     */
-    public void incrementeNbDoc(String m);
-
-    /**
-     * renvoie l'entier associé au nombre de documents contenant m;
-     * @param m
-     * @return
-     */
-    public int nbDocMot(String m);
-
- /**
-     * renvoie l'entier associé au nombre total occurence du mot dans le corpus
-     * @param m
-     * @return
-     */
-    public int nbOccMot(String m);
-
     /**
      * renvoie le mot associé à l'entier i;
      * @param i l'indice du mot à renvoyer

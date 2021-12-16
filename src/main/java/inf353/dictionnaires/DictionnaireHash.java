@@ -140,7 +140,6 @@ public class DictionnaireHash implements Dictionnaire {
      * 
      * @param m Le mot à tester
      */
-    @Override
     public int nbDocMot(String m) {
         int n = 0;
         int i = Math.abs(m.hashCode() % N);
