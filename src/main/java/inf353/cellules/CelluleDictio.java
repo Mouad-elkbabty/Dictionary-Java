@@ -1,11 +1,9 @@
 package inf353;
 
-public class CelluleDictio{
+public class CelluleDictio {
     
    /**
-     * Attributs de la cellule : le mot, l'indice (dans le dictio), 
-     * occ: le nombre total d'occurrence dans le corpus.
-     *nbDoc: le nombre de doc du corpus dont le mot est présent
+     * Attributs de la cellule : le mot, son indice, et son suivant
      */
     public String elt;
     public int ind;

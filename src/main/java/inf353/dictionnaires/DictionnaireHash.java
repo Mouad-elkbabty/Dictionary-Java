@@ -287,9 +287,6 @@ public class DictionnaireHash implements Dictionnaire {
             ligne += mots[j] + ",";
         }
         if (ligne != "")
-        {
-            ligne = ligne.substring(0, ligne.length() - 1);
-        }
         buffer.write(ligne);
         buffer.newLine();
 
@@ -299,9 +296,6 @@ public class DictionnaireHash implements Dictionnaire {
             ligne += occ[j] + ",";
         }
         if (ligne != "")
-        {
-            ligne = ligne.substring(0, ligne.length() - 1);
-        }
         buffer.write(ligne);
         buffer.newLine();
 
@@ -310,8 +304,6 @@ public class DictionnaireHash implements Dictionnaire {
         for (int j = 0; j < this.nbMots(); j++) {
             ligne += nbDoc[j] + ",";
         }
-        if (ligne != "")
-            ligne = ligne.substring(0, ligne.length() - 1);
         buffer.write(ligne);
 
 

@@ -222,4 +222,20 @@ Taux de réussite sur le push précedent de 27,8% sur le corpus complet avec 500
 
  ### Répartition :
 
+Mouad et Higo sont lancés sur les differents testes de tous les classes , precisemment Troncature , recherche .
+Fabien a changé des methodes de ponderation pour quel prend des indices et pas des mots .
+Fabien gaetan et valentin ont regarde les differentes ponderations et normalisation , ainsi que les testes .  
+Célia est lancé  sur les synonymes et la stoplistes .
+ Bilan : troncature ca marche , l'indexation ca marche.
+ 
+ ### Difficulté :
+
+  Tous le monde a lancé l'indexationn pour un petit corpus ,  pourtant on a trouvé quelque probleme  :
+ Mouad et higo ont trouvé un probléme dans le stemmer , on faisait la troncature 2 fois , donc comme par exemple , politique  sa troncature est  polit , et la troncature de polit est pol  0 , donc il donnerait que la troncature de politique et pol et donc le score est 0 . le problème etait reglé .
+ Fabien a changé des methodes de ponderation pour quel prend des indices et pas des mots .
+ Fabien  , geatan et valentin ont observé un probléme dans l'indexation , ca ne donne pas la meme MatriceDocument toujours , alors ils sont mis a la reglé
+    
+
+ ### Faits marquants
+   Reglage de l'indexation et la troncature , notre classes marchent bien pour les corpus .
    

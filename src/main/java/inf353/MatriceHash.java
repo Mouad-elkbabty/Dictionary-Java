@@ -124,8 +124,6 @@ public class MatriceHash implements MatriceIndex {
                     ligne += cc.ind + ":" + cc.elt + ",";
                     cc = cc.suiv;
                 }
-                if (ligne != "")
-                    ligne = ligne.substring(0, ligne.length() - 1);
                 buffer.write(ligne);
                 buffer.newLine();
                 ligne = "";

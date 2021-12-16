@@ -72,9 +72,8 @@ public class LecteurDocumentNaif implements AccesSequentielModele1<String> {
      * Renvoie le mot actuellement lu
      */
     public String elementCourant() {
-         String mot2 = supprimeAccents(this.mot);
-         return mot2;
-    
+        String mot2 = troncature.stem(this.mot);
+        return supprimeAccents(mot2);
     }
 
     /**

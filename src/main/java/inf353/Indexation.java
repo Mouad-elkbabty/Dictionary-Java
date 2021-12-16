@@ -14,8 +14,6 @@ public class Indexation {
     public DictionnaireHash dictioMots;
     public DictionnaireHash dictioDocuments;
     public MatriceHash matriceOccurrences;
-    public Troncature troncature = new Troncature();
-
 
     /**
      * Crée une Indexation vierge
@@ -56,7 +54,7 @@ public class Indexation {
      * @param mot le mot à ajouter
      */
     public void ajouterMot(String mot) {
-        this.dictioMots.ajouterMot(troncature.stem(mot));
+        this.dictioMots.ajouterMot(mot);
     }
 
     /**
@@ -132,6 +130,18 @@ public class Indexation {
         }
         return v;
     }
+
+
+    public int val(int indiceMot, int indiceDoc) {
+        int v = 0;
+        if (indiceMot != -1) {
+            if (indiceDoc != -1) {
+                v = this.matriceOccurrences.val(indiceDoc,indiceMot);
+            }
+        }
+        return v;
+    }
+
 
     /**
      * Renvoie l'occurence maximale trouvée parmis les documents
