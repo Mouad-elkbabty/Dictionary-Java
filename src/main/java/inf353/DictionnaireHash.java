@@ -64,12 +64,12 @@ public class DictionnaireHash implements Dictionnaire {
     public void ajouterMot(String m) {
         if (!contient(m)) {
             int n = Math.abs(m.hashCode() % N);
-            T[n] = new CelluleDictio(m, nb, T[n]);
+            T[n] = new CelluleDictio(m, this.nb, T[n]);
             T[n].occ = 1;
             this.nb += 1;
         } else {
             int n = Math.abs(m.hashCode() % N);
-            CelluleDictio cc =T[n];
+            CelluleDictio cc =  this.T[n];
             while(cc != null && !cc.elt.equals(m))
             {
                 cc =cc.suiv;
@@ -80,7 +80,6 @@ public class DictionnaireHash implements Dictionnaire {
             }
         }
     }
-
 
     /**
      * Ajoute un mot au dictionnaire si il n'y est pas déjà présent
@@ -334,7 +333,7 @@ public class DictionnaireHash implements Dictionnaire {
             throw new FileNotFoundException("Aucun fichier du nom de " + chemin + " n'a été trouvé.");
         BufferedReader buffer = new BufferedReader(new FileReader(fichier));
 
-        // Vide du Dictionnaire209,60
+        // Vide du Dictionnaire
         this.vider();
 
         // Remplissage du Dictionnaire
@@ -400,7 +399,6 @@ public class DictionnaireHash implements Dictionnaire {
 
         for(int m = 0; m < mots.length && mots[m] != null; m++) {
             this.ajouterMot(mots[m], Integer.parseInt(occString[m]),Integer.parseInt(nbDocString[m]));
-
         }
         buffer.close();
     }

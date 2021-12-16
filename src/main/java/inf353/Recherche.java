@@ -54,6 +54,7 @@ public class Recherche {
 
     public void requete(int numeroRequete, int nbResultats) throws IOException {
         // Verification de l'entier donne
+        System.out.println("nbResultat est de "+ nbResultats);
         if (numeroRequete < 91 || numeroRequete > 140) throw new Error("Veuillez entrer un nombre entre 91 et 140 (inclus)");
         // Verification du chemin pour voir si tout est en ordre
         String num = "";
@@ -145,10 +146,10 @@ public class Recherche {
             int indiceDoc = 0;
             int indiceMot = this.indexation.dictioMots.indiceMot(cc.elt);
             int df = this.indexation.dictioMots.nbDocMot(cc.elt);
-            double ponderationGlobaleDocument = ponderationGlobaleIdf(df);
-            double ponderationGlobaleRequete = ponderationGlobaleIdf(df);
+            double ponderationGlobaleDocument = 1;
+            double ponderationGlobaleRequete = 1;
             while (indiceDoc != scores.length) {
-                double ponderationLocaleDocument = ponderationLocaleDocumentl(indiceMot, indiceDoc);
+                double ponderationLocaleDocument = ponderationLocaleDocumentN(indiceMot, indiceDoc);
                 double ponderationLocaleRequete = ponderationLocaleRequeteFrequentiel(cc.ind);
                 scores[indiceDoc] += ponderationLocaleDocument * ponderationLocaleRequete * ponderationGlobaleDocument * ponderationGlobaleRequete;
                 indiceDoc++;
@@ -198,22 +199,15 @@ public class Recherche {
      * @param document
      * @param mot
      */
-    public double ponderationLocaleDocumentN(String document,String mot){
+    public double ponderationLocaleDocumentN(int indiceMot, int indiceDoc){
         double res = 0;
-        CelluleMatrice cc = this.indexation.matriceOccurrences.T[this.indexation.dictioDocuments.indiceMot(document)];
-        int ind = this.indexation.dictioMots.indiceMot(mot);
-        if(this.indexation.dictioMots.contient(mot)) //si le mot est dans le document
-        {
-            while(cc!= null && cc.ind > ind )//tant qu'on ne l'a pas trouvé
-            {
-                cc = cc.suiv;
-            }
-            if(cc != null && cc.ind == ind) // si on l'a trouvé
-            {
-                res = cc.elt;
-            }
+        CelluleMatrice cc = this.indexation.matriceOccurrences.T[indiceDoc];
+        while (cc != null && cc.ind > indiceMot) {
+            cc = cc.suiv;
         }
-
+        if (cc != null && cc.ind == indiceMot) {
+            res = cc.elt;
+        }
         return res;
     }
 
@@ -316,14 +310,6 @@ public class Recherche {
         return Math.sqrt(res);
     }
 
-    public double normalisationCosinus(String document,String  mot) {
-        double res = 0;
-        double N = this.ponderationLocaleDocumentN(document,mot);
-
-
-
-        return res;
-    }
     /**
      * Renvoie la valeur de la pondération locale du mot dans la requête
      * Cette pondération est de niveau l (facteur logarithmique)

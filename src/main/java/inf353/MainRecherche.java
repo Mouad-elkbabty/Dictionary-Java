@@ -44,8 +44,8 @@ public class MainRecherche {
                 res += args[i] + " ";
                 i++;
             }
-            File dossier = new File("./src/main/resources/inf353/requetes");
-            int l = dossier.listFiles().length;
+            File dossier = new File("./src/main/resources/inf353/requetes/");
+            //int l = dossier.listFiles().length;
             recherche.requete("requete", res, 500);
         }
     }
