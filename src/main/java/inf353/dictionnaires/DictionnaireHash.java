@@ -45,6 +45,8 @@ public class DictionnaireHash implements Dictionnaire {
         this();
         this.charger(chemin);
     }
+
+
     /**
      * Vide le dictionnaire
      */
@@ -56,6 +58,7 @@ public class DictionnaireHash implements Dictionnaire {
 
     /**
      * Ajoute un mot au dictionnaire si il n'y est pas déjà présent
+     * sinon incremente l'attribut occ de la cellule
      * 
      * @param m Le mot à ajouter
      */
@@ -68,12 +71,10 @@ public class DictionnaireHash implements Dictionnaire {
         } else {
             int n = Math.abs(m.hashCode() % N);
             CelluleDictio cc =  this.T[n];
-            while(cc != null && !cc.elt.equals(m))
-            {
+            while(cc != null && !cc.elt.equals(m)){
                 cc =cc.suiv;
             }
-            if(cc != null)
-            {
+            if(cc != null){
                 cc.occ ++;
             }
         }
@@ -132,7 +133,7 @@ public class DictionnaireHash implements Dictionnaire {
 
 
         /**
-     * Retourne le nombre de document contennant le mot m ou 0 s'il n'est pas trouvé
+     * Retourne le nombre de document contennant le mot m (df). Renvoie 0 s'il n'est pas trouvé
      * 
      * @param m Le mot à tester
      */
@@ -148,6 +149,12 @@ public class DictionnaireHash implements Dictionnaire {
         }
         return n;
     }
+        /**
+     * Retourne le nombre d'occurrence total du mot m dans le corpus (occ). Renvoie 0 s'il n'est pas trouvé
+     * 
+     * @param m Le mot à tester
+     */
+
     public int nbOccMot(String m){
         int n = 0;
         int i = Math.abs(m.hashCode() % N);
@@ -161,7 +168,7 @@ public class DictionnaireHash implements Dictionnaire {
         return n;
     }
     /**
-     * Retourne le mot contenu à l'indice i dans le DictionnaireHash ou null s'il
+     * Retourne le mot contenu à l'indice i dans le DictionnaireHash. Renvoie null s'il
      * n'existe pas
      * 
      * @param i L'indice à tester
@@ -246,7 +253,10 @@ public class DictionnaireHash implements Dictionnaire {
 
     /**
      * Enregistre le dictionnaire dans le chemin demandé
-     * 
+     * la première ligne est la liste des elt (mots ou documents)
+     * la deuxième ligne est le nombre total d'occurrence dans le corpus (occ)
+     * la troisième ligne est le nombre de doc ou elt apparait dans le corpus (df)
+     *
      * @param chemin le chemin vers le fichier où sera stocké le DictionnaireHash
      */
     public void sauver(String chemin) throws IOException {
@@ -309,7 +319,10 @@ public class DictionnaireHash implements Dictionnaire {
 
 
     /**
-     * Charge le DictionnaireHash stocké dans le chemin demandé
+     * Charge le DictionnaireHash stocké dans le chemin demandé avec les attributs suivant
+     * charge la première ligne qui est la liste des elt (mots ou documents).
+     * charge deuxième ligne qui est le nombre total d'occurrence dans le corpus (occ).
+     * charge troisième ligne qui est le nombre de doc ou elt apparait dans le corpus (df).
      * 
      * @param chemin le chemin où le fichier est stocké
      */

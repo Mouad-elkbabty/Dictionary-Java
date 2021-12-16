@@ -9,7 +9,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class MatriceHash implements MatriceIndex {
-
+/* Attributs:
+* N: la taille du tableau T
+* T: Tableau de séquence chainé 
+ */
     public int N;
     public CelluleMatrice[] T;
 

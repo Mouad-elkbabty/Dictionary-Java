@@ -15,13 +15,6 @@ public class CelluleMatrice {
     public CelluleMatrice() {}
 
     /**
-     * Constructeur à partir d'un élément (indice 0 et suivant null)
-     */
-    public CelluleMatrice(int val) {
-        this(val, 0, null);
-    }
-
-    /**
      * Constructeur à partir d'un suivant (élément 0 et indice 0)
      */
     public CelluleMatrice(CelluleMatrice suiv) {

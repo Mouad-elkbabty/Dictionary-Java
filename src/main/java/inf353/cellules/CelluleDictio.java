@@ -21,14 +21,14 @@ public class CelluleDictio {
     public CelluleDictio(){}
 
     /**
-     * Constructeur à partir d'un élément (indice 0 et suivant null)
+     * Constructeur à partir d'un élément (indice 0, occ 0, df 0 et de suivant null)
      */
     public CelluleDictio(String val) {
         this(val, 0,0,0, null);
 
     }
     /**
-     * Constructeur à partir d'un élément, d'une valeur et d'un suivant
+     * Constructeur à partir d'un élément val, d'un indicde ind, d'une occurrence occ, d'un df, et d'une Cellule Suivante
      */
     public CelluleDictio(String val, int ind, int occ, int df, CelluleDictio suiv) {
         this.elt = val;
