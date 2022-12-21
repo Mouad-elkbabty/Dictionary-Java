@@ -1,0 +1,2 @@
+ecris,phrase,puis,wow
+test-lecteur1.txt
